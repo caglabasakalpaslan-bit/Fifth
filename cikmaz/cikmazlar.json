@@ -6,128 +6,289 @@
   "iskelet": "somut isim içermeyen hali",
   "soru": "iki yön arasında karar verdiren ayırt edici soru",
   "cikis": "sorunun cevabı biliniyorsa çıkmazın karara dönüştüğü koşul; boşsa henüz çözülmemiş",
-  "durum": "acik = çıkışı adlandırılmamış, cozulmus = çıkışı var"
+  "durum": "acik = çıkışı adlandırılmamış, cozulmus = çıkışı var",
+  "yollar": "bilinen çıkış yolları. kaynak='kutuphane' derlenmiştir, kaynak='donus' gerçek kullanıcı dönüşünden gelir. 'yetmez' alanı zorunludur: ne zaman işe yaramadığını söylemeyen yol, tavsiye olur ve değersizleşir."
  },
  "kayitlar": [
-{"id":"C001","ad":"Karar edememe",
- "klasik":"Korkak bezirgân ne kâr eder ne ziyan",
- "modern":["FOBO","seçenekleri açık tutma","karar felci"],
- "yonA":{"hareket":"seç","maliyet":"seçilmeyenler kapanır"},
- "yonB":{"hareket":"seçme","maliyet":"hiçbiri gerçekleşmez, süre boşa akar"},
- "iskelet":"Seçmemenin kendisi bir seçimdir; korunma tam olduğunda kazanç da sıfırlanır.",
- "soru":"Hiçbirini seçmezsen bir yıl sonra nerede olursun?",
- "cikis":"Seçeneğin geri alınabilirliği yüksekse seç; düşükse bekleme maliyetini ölç.",
- "durum":"cozulmus"},
-
-{"id":"C002","ad":"Kaçırma korkusu",
- "klasik":"Sona kalan dona kalır",
- "modern":["FOMO"],
- "yonA":{"hareket":"her şeye gir","maliyet":"hiçbirinde derinleşemezsin"},
- "yonB":{"hareket":"seçici ol","maliyet":"kaçırdığın şeyin ne olduğunu asla bilemezsin"},
- "iskelet":"Kaçırılanın değeri ölçülemez olduğu için, kaçırma korkusu hiçbir veriyle yatışmaz.",
- "soru":"Kaçırdığını sonradan öğrenebilecek misin, yoksa hiç bilemeyecek misin?",
- "cikis":"Sonucu görülebilen şeylerde bekle; görülemeyenlerde kural koy, karar verme.",
- "durum":"cozulmus",
- "celisir":["C001"]},
-
-{"id":"C003","ad":"Söylemek ya da susmak",
- "klasik":null,
- "modern":["ya konuşsam olmuyor, sussam gönlüm razı değil"],
- "yonA":{"hareket":"söyle","maliyet":"ilişki zarar görür, sonucu geri alamazsın"},
- "yonB":{"hareket":"sus","maliyet":"içeride birikir, sen değişirsin"},
- "iskelet":"Bir bilginin taşınması da taşınmaması da taşıyanı değiştirir; nötr seçenek yoktur.",
- "soru":"Söylemezsen bu, bir ay sonra hâlâ aynı yerde mi duruyor olacak?",
- "cikis":"Zamanla küçülüyorsa sus; büyüyorsa söylemek zaten kaçınılmazdır, sadece geç olur.",
- "durum":"cozulmus"},
-
-{"id":"C004","ad":"Gitmek ya da kalmak",
- "klasik":"Sürüden ayrılanı kurt kapar",
- "modern":["işten ayrılmak","şehir değiştirmek","ilişkiyi bitirmek"],
- "yonA":{"hareket":"git","maliyet":"biriktirdiğin bağ ve konum sıfırlanır"},
- "yonB":{"hareket":"kal","maliyet":"değişmeyen şeye katlanma süresi uzar"},
- "iskelet":"Ayrılmanın maliyeti tek seferde, kalmanın maliyeti taksitle ödenir; bu yüzden kalmak hep ucuz görünür.",
- "soru":"Buradaki sorun senin gelişinden önce de var mıydı?",
- "cikis":"Sorun senden önce varsa yapısaldır, kalmak onu çözmez. Seninle başladıysa gitmek de taşınır.",
- "durum":"cozulmus"},
-
-{"id":"C005","ad":"Her ihtimalde kaybetme",
- "klasik":"Bahtsızın bağına yağmur, ya taş yağar ya dolu",
- "modern":["ne yapsam olmuyor"],
- "yonA":{"hareket":"dene","maliyet":"başarısız olur"},
- "yonB":{"hareket":"deneme","maliyet":"yine kaybedersin"},
- "iskelet":"Sonuç eylemden bağımsız hale geldiğinde, kişi eylemle sonuç arasındaki bağı kurmayı bırakır.",
- "soru":"Son üç denemende sonuç gerçekten aynı mıydı, yoksa aynı mı hissettirdi?",
- "cikis":"",
- "durum":"acik"},
-
-{"id":"C006","ad":"Ölçüsüzlüğün iki ucu",
- "klasik":"Fazla aş, ya karın ağrıtır ya baş",
- "modern":["az uyku çok uyku","az iş çok iş"],
- "yonA":{"hareket":"artır","maliyet":"aşırı yük bozar"},
- "yonB":{"hareket":"azalt","maliyet":"yetersizlik bozar"},
- "iskelet":"Bazı büyüklüklerin hem alt hem üst eşiği vardır; iyi olan yön değil aralıktır.",
- "soru":"Bunun bir 'doğru miktarı' var mı, yoksa hep daha azı mı iyi?",
- "cikis":"Aralık varsa yön arama, sınır belirle.",
- "durum":"cozulmus"},
-
-{"id":"C007","ad":"Sonucu belli olmayan risk",
- "klasik":"Her deliğe elini sokma, ya yılan çıkar ya çıyan",
- "modern":["bilinmeyene girmek"],
- "yonA":{"hareket":"gir","maliyet":"ne çıkacağını bilmiyorsun"},
- "yonB":{"hareket":"girme","maliyet":"ne olduğunu hiç öğrenemezsin"},
- "iskelet":"Bilgi ancak riske girilerek elde edilebiliyorsa, bilmemek de bir maliyettir.",
- "soru":"Yanılırsan geri dönebilir misin?",
- "cikis":"Geri dönülebiliyorsa gir; dönülemiyorsa küçük bir kısmını dene.",
- "durum":"cozulmus"},
-
-{"id":"C008","ad":"Yakınlık kıskançlığı",
- "klasik":"Kardeş kardeşin ne öldüğünü ister, ne onduğunu",
- "modern":["arkadaşımın başarısına sevinemiyorum"],
- "yonA":{"hareket":"sevin","maliyet":"kendi geriliğini kabul etmiş olursun"},
- "yonB":{"hareket":"sevinme","maliyet":"kendini kötü biri gibi hissedersin"},
- "iskelet":"Aynı ölçekte kıyaslanan iki kişide, ötekinin yükselmesi kendi konumunun düşmesi olarak okunur.",
- "soru":"Onun kazandığı şey, senin kaybettiğin bir şey mi?",
- "cikis":"Kaynak paylaşılmıyorsa kıyas yanlıştır; paylaşılıyorsa duygu doğrudur ve mesele duygu değil kaynaktır.",
- "durum":"cozulmus"},
-
-{"id":"C009","ad":"Aceleyle bekleme arasında",
- "klasik":"Acele işe şeytan karışır / Sona kalan dona kalır",
- "modern":["şimdi mi sonra mı"],
- "yonA":{"hareket":"hızlan","maliyet":"hata üretirsin"},
- "yonB":{"hareket":"bekle","maliyet":"fırsatı kaçırırsın"},
- "iskelet":"Hız ile nitelik aynı kaynaktan beslendiği için biri artarken diğeri azalır.",
- "soru":"Beklersen iş bozulur mu, yoksa iş elinden mi gider?",
- "cikis":"Bozuluyorsa yavaşla, gidiyorsa hızlan. İkisi birden ise kapsamı küçült.",
- "durum":"cozulmus"},
-
-{"id":"C010","ad":"Görünmez emeğin bedeli",
- "klasik":"Terzi kendi söküğünü dikemez",
- "modern":["herkese yetişiyorum kendime yetişemiyorum"],
- "yonA":{"hareket":"başkalarına ver","maliyet":"kendine kalmaz"},
- "yonB":{"hareket":"kendine ayır","maliyet":"bencil görünürsün ve bağ zayıflar"},
- "iskelet":"Aynı kapasite hem dışarıya hem içeriye harcanamaz; bölüşüm kaçınılmazdır.",
- "soru":"Sen olmasan bu iş gerçekten durur mu?",
- "cikis":"",
- "durum":"acik"},
-
-{"id":"C011","ad":"Ortak olduğun gücün payı",
- "klasik":"Kurtla ortak olan tilkinin hissesi ya tırnaktır ya bağırsak",
- "modern":["büyük oyuncuyla çalışmak"],
- "yonA":{"hareket":"ortak ol","maliyet":"payı o belirler"},
- "yonB":{"hareket":"olma","maliyet":"ölçeğe hiç erişemezsin"},
- "iskelet":"Güç dengesizse paylaşımın kuralını güçlü olan yazar; ortaklık eşitlik anlamına gelmez.",
- "soru":"Bu ortaklıktan çıkarsan elinde ne kalır?",
- "cikis":"Çıkınca elinde bir şey kalıyorsa ortak ol; kalmıyorsa ortaklık değil bağımlılıktır.",
- "durum":"cozulmus"},
-
-{"id":"C012","ad":"Zamanlaması olmayan borç",
- "klasik":"Dilenciye borçlu olma, ya düğünde ister ya bayramda",
- "modern":["yanlış kişiye bağımlı olmak"],
- "yonA":{"hareket":"al","maliyet":"geri isteme anını sen seçemezsin"},
- "yonB":{"hareket":"alma","maliyet":"şu anki ihtiyacın karşılanmaz"},
- "iskelet":"Bir yükümlülüğün maliyeti miktarında değil, ne zaman tahsil edileceğini kimin belirlediğindedir.",
- "soru":"Bunu geri isteme anını kim seçiyor?",
- "cikis":"Anı sen seçebiliyorsan al; karşı taraf seçiyorsa maliyeti hesaplayamazsın.",
- "durum":"cozulmus"}
+  {
+   "id": "C001",
+   "ad": "Karar edememe",
+   "klasik": "Korkak bezirgân ne kâr eder ne ziyan",
+   "modern": [
+    "FOBO",
+    "seçenekleri açık tutma",
+    "karar felci"
+   ],
+   "yonA": {
+    "hareket": "seç",
+    "maliyet": "seçilmeyenler kapanır"
+   },
+   "yonB": {
+    "hareket": "seçme",
+    "maliyet": "hiçbiri gerçekleşmez, süre boşa akar"
+   },
+   "iskelet": "Seçmemenin kendisi bir seçimdir; korunma tam olduğunda kazanç da sıfırlanır.",
+   "soru": "Hiçbirini seçmezsen bir yıl sonra nerede olursun?",
+   "cikis": "Seçeneğin geri alınabilirliği yüksekse seç; düşükse bekleme maliyetini ölç.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C002",
+   "ad": "Kaçırma korkusu",
+   "klasik": "Sona kalan dona kalır",
+   "modern": [
+    "FOMO"
+   ],
+   "yonA": {
+    "hareket": "her şeye gir",
+    "maliyet": "hiçbirinde derinleşemezsin"
+   },
+   "yonB": {
+    "hareket": "seçici ol",
+    "maliyet": "kaçırdığın şeyin ne olduğunu asla bilemezsin"
+   },
+   "iskelet": "Kaçırılanın değeri ölçülemez olduğu için, kaçırma korkusu hiçbir veriyle yatışmaz.",
+   "soru": "Kaçırdığını sonradan öğrenebilecek misin, yoksa hiç bilemeyecek misin?",
+   "cikis": "Sonucu görülebilen şeylerde bekle; görülemeyenlerde kural koy, karar verme.",
+   "durum": "cozulmus",
+   "celisir": [
+    "C001"
+   ]
+  },
+  {
+   "id": "C003",
+   "ad": "Söylemek ya da susmak",
+   "klasik": null,
+   "modern": [
+    "ya konuşsam olmuyor, sussam gönlüm razı değil"
+   ],
+   "yonA": {
+    "hareket": "söyle",
+    "maliyet": "ilişki zarar görür, sonucu geri alamazsın"
+   },
+   "yonB": {
+    "hareket": "sus",
+    "maliyet": "içeride birikir, sen değişirsin"
+   },
+   "iskelet": "Bir bilginin taşınması da taşınmaması da taşıyanı değiştirir; nötr seçenek yoktur.",
+   "soru": "Söylemezsen bu, bir ay sonra hâlâ aynı yerde mi duruyor olacak?",
+   "cikis": "Zamanla küçülüyorsa sus; büyüyorsa söylemek zaten kaçınılmazdır, sadece geç olur.",
+   "durum": "cozulmus",
+   "yollar": [
+    {
+     "ad": "Doğrudan söyle",
+     "kaynak": "kutuphane",
+     "ne": "Muhatabına, aracısız, tek seferde söylersin.",
+     "yarar": "İlişkide daha önce zor bir konuşma yapılmış ve ilişki sağ çıkmışsa.",
+     "yetmez": "Güç dengesi eşit değilse. Üstün konumdaki kişiye söylemenin bedelini söyleyen öder."
+    },
+    {
+     "ad": "Zemin yokla",
+     "kaynak": "kutuphane",
+     "ne": "Bütününü değil küçük bir kısmını söyler, tepkiyi ölçersin.",
+     "yarar": "İlişkinin bunu taşıyıp taşımayacağını bilmiyorsan.",
+     "yetmez": "Mesele bölünemiyorsa. Yarısını söylemek bazen yalanın kendisidir."
+    },
+    {
+     "ad": "Üçüncü kişiye anlat",
+     "kaynak": "kutuphane",
+     "ne": "Muhatabına değil, güvendiğin başka birine anlatırsın.",
+     "yarar": "İhtiyacın anlaşılmaksa. Söylenmiş olmak çoğu zaman yükü indirir.",
+     "yetmez": "Karşı tarafın davranışının değişmesi gerekiyorsa. Hiçbir şey değişmez, sen sadece rahatlarsın."
+    },
+    {
+     "ad": "Bilerek sus",
+     "kaynak": "kutuphane",
+     "ne": "Susmayı ertelenmiş bir hal olmaktan çıkarıp bir karara dönüştürürsün.",
+     "yarar": "İlişki geçiciyse ya da maliyeti sınırlıysa. Her şey söylenmek zorunda değil.",
+     "yetmez": "Aynı şey tekrar ediyorsa. Tekrarlanan sessizlik birikir ve seni değiştirir."
+    }
+   ],
+   "besinci": "Bunların hiçbiri değil — kendi yolumu yazacağım",
+   "donus_sorusu": "Ne yaptın, ne oldu?"
+  },
+  {
+   "id": "C004",
+   "ad": "Gitmek ya da kalmak",
+   "klasik": "Sürüden ayrılanı kurt kapar",
+   "modern": [
+    "işten ayrılmak",
+    "şehir değiştirmek",
+    "ilişkiyi bitirmek"
+   ],
+   "yonA": {
+    "hareket": "git",
+    "maliyet": "biriktirdiğin bağ ve konum sıfırlanır"
+   },
+   "yonB": {
+    "hareket": "kal",
+    "maliyet": "değişmeyen şeye katlanma süresi uzar"
+   },
+   "iskelet": "Ayrılmanın maliyeti tek seferde, kalmanın maliyeti taksitle ödenir; bu yüzden kalmak hep ucuz görünür.",
+   "soru": "Buradaki sorun senin gelişinden önce de var mıydı?",
+   "cikis": "Sorun senden önce varsa yapısaldır, kalmak onu çözmez. Seninle başladıysa gitmek de taşınır.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C005",
+   "ad": "Her ihtimalde kaybetme",
+   "klasik": "Bahtsızın bağına yağmur, ya taş yağar ya dolu",
+   "modern": [
+    "ne yapsam olmuyor"
+   ],
+   "yonA": {
+    "hareket": "dene",
+    "maliyet": "başarısız olur"
+   },
+   "yonB": {
+    "hareket": "deneme",
+    "maliyet": "yine kaybedersin"
+   },
+   "iskelet": "Sonuç eylemden bağımsız hale geldiğinde, kişi eylemle sonuç arasındaki bağı kurmayı bırakır.",
+   "soru": "Son üç denemende sonuç gerçekten aynı mıydı, yoksa aynı mı hissettirdi?",
+   "cikis": "",
+   "durum": "acik"
+  },
+  {
+   "id": "C006",
+   "ad": "Ölçüsüzlüğün iki ucu",
+   "klasik": "Fazla aş, ya karın ağrıtır ya baş",
+   "modern": [
+    "az uyku çok uyku",
+    "az iş çok iş"
+   ],
+   "yonA": {
+    "hareket": "artır",
+    "maliyet": "aşırı yük bozar"
+   },
+   "yonB": {
+    "hareket": "azalt",
+    "maliyet": "yetersizlik bozar"
+   },
+   "iskelet": "Bazı büyüklüklerin hem alt hem üst eşiği vardır; iyi olan yön değil aralıktır.",
+   "soru": "Bunun bir 'doğru miktarı' var mı, yoksa hep daha azı mı iyi?",
+   "cikis": "Aralık varsa yön arama, sınır belirle.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C007",
+   "ad": "Sonucu belli olmayan risk",
+   "klasik": "Her deliğe elini sokma, ya yılan çıkar ya çıyan",
+   "modern": [
+    "bilinmeyene girmek"
+   ],
+   "yonA": {
+    "hareket": "gir",
+    "maliyet": "ne çıkacağını bilmiyorsun"
+   },
+   "yonB": {
+    "hareket": "girme",
+    "maliyet": "ne olduğunu hiç öğrenemezsin"
+   },
+   "iskelet": "Bilgi ancak riske girilerek elde edilebiliyorsa, bilmemek de bir maliyettir.",
+   "soru": "Yanılırsan geri dönebilir misin?",
+   "cikis": "Geri dönülebiliyorsa gir; dönülemiyorsa küçük bir kısmını dene.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C008",
+   "ad": "Yakınlık kıskançlığı",
+   "klasik": "Kardeş kardeşin ne öldüğünü ister, ne onduğunu",
+   "modern": [
+    "arkadaşımın başarısına sevinemiyorum"
+   ],
+   "yonA": {
+    "hareket": "sevin",
+    "maliyet": "kendi geriliğini kabul etmiş olursun"
+   },
+   "yonB": {
+    "hareket": "sevinme",
+    "maliyet": "kendini kötü biri gibi hissedersin"
+   },
+   "iskelet": "Aynı ölçekte kıyaslanan iki kişide, ötekinin yükselmesi kendi konumunun düşmesi olarak okunur.",
+   "soru": "Onun kazandığı şey, senin kaybettiğin bir şey mi?",
+   "cikis": "Kaynak paylaşılmıyorsa kıyas yanlıştır; paylaşılıyorsa duygu doğrudur ve mesele duygu değil kaynaktır.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C009",
+   "ad": "Aceleyle bekleme arasında",
+   "klasik": "Acele işe şeytan karışır / Sona kalan dona kalır",
+   "modern": [
+    "şimdi mi sonra mı"
+   ],
+   "yonA": {
+    "hareket": "hızlan",
+    "maliyet": "hata üretirsin"
+   },
+   "yonB": {
+    "hareket": "bekle",
+    "maliyet": "fırsatı kaçırırsın"
+   },
+   "iskelet": "Hız ile nitelik aynı kaynaktan beslendiği için biri artarken diğeri azalır.",
+   "soru": "Beklersen iş bozulur mu, yoksa iş elinden mi gider?",
+   "cikis": "Bozuluyorsa yavaşla, gidiyorsa hızlan. İkisi birden ise kapsamı küçült.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C010",
+   "ad": "Görünmez emeğin bedeli",
+   "klasik": "Terzi kendi söküğünü dikemez",
+   "modern": [
+    "herkese yetişiyorum kendime yetişemiyorum"
+   ],
+   "yonA": {
+    "hareket": "başkalarına ver",
+    "maliyet": "kendine kalmaz"
+   },
+   "yonB": {
+    "hareket": "kendine ayır",
+    "maliyet": "bencil görünürsün ve bağ zayıflar"
+   },
+   "iskelet": "Aynı kapasite hem dışarıya hem içeriye harcanamaz; bölüşüm kaçınılmazdır.",
+   "soru": "Sen olmasan bu iş gerçekten durur mu?",
+   "cikis": "",
+   "durum": "acik"
+  },
+  {
+   "id": "C011",
+   "ad": "Ortak olduğun gücün payı",
+   "klasik": "Kurtla ortak olan tilkinin hissesi ya tırnaktır ya bağırsak",
+   "modern": [
+    "büyük oyuncuyla çalışmak"
+   ],
+   "yonA": {
+    "hareket": "ortak ol",
+    "maliyet": "payı o belirler"
+   },
+   "yonB": {
+    "hareket": "olma",
+    "maliyet": "ölçeğe hiç erişemezsin"
+   },
+   "iskelet": "Güç dengesizse paylaşımın kuralını güçlü olan yazar; ortaklık eşitlik anlamına gelmez.",
+   "soru": "Bu ortaklıktan çıkarsan elinde ne kalır?",
+   "cikis": "Çıkınca elinde bir şey kalıyorsa ortak ol; kalmıyorsa ortaklık değil bağımlılıktır.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C012",
+   "ad": "Zamanlaması olmayan borç",
+   "klasik": "Dilenciye borçlu olma, ya düğünde ister ya bayramda",
+   "modern": [
+    "yanlış kişiye bağımlı olmak"
+   ],
+   "yonA": {
+    "hareket": "al",
+    "maliyet": "geri isteme anını sen seçemezsin"
+   },
+   "yonB": {
+    "hareket": "alma",
+    "maliyet": "şu anki ihtiyacın karşılanmaz"
+   },
+   "iskelet": "Bir yükümlülüğün maliyeti miktarında değil, ne zaman tahsil edileceğini kimin belirlediğindedir.",
+   "soru": "Bunu geri isteme anını kim seçiyor?",
+   "cikis": "Anı sen seçebiliyorsan al; karşı taraf seçiyorsa maliyeti hesaplayamazsın.",
+   "durum": "cozulmus"
+  }
  ]
 }

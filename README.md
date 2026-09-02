@@ -101,3 +101,18 @@ değil, iki bağımsız okumanın uyuşmasına güvenilir.
 
 Tarama kesilirse kaldığı yerden devam eder. Küçük partilerle başla (`--adet 50`),
 çıktıyı gözle, sonra büyüt.
+
+## Akış: kapıdan çıkışa
+
+1. **Giriş** — adlandırılmış çıkmaz kapısı ya da serbest anlatı
+2. **Onay** — "şuna benziyor mu?" Kişi hayır diyebilmeli.
+3. **Ayrım** — beşinci soru, hangi tarafta olduğunu belirler
+4. **Yollar** — 3-4 bilinen çıkış; her biri *ne zaman yetmediğini* de söyler
+5. **Beşinci seçenek** — "benimki bunların hiçbiri değil", kişi kendi yolunu yazar
+6. **Dönüş** — sonra: "ne yaptın, ne oldu?"
+
+Adım 6 ürünün kendisidir. Dönüş olmadan `yollar` hiç dolmaz.
+
+`kaynak: kutuphane` olan yollar derlenmiştir; arayüzde "bilinen yollar" diye
+gösterilir. `kaynak: donus` olanlar gerçek kullanıcı dönüşünden gelir ve
+"3 kişi bunu denedi" diye gösterilebilir. Uydurma yüzde kullanılmaz.
