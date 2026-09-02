@@ -1,0 +1,224 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atasözü atlası</title>
+<style>
+:root{
+  --ink:#1b1714; --ink2:#241f1a; --ink3:#2e2822; --line:#3d352c;
+  --paper:#e8dfd2; --dim:#a2968a; --faint:#6f655b;
+  --MEKAN:#3f6ea8; --ILISKI:#a8677f; --ZIHIN:#7aa583; --IS:#c69a4e;
+  --DUYGU:#b3798a; --PARA:#5e9bb5; --BEDEN:#d97b45; --ANLAM:#4a7d5c;
+}
+*{box-sizing:border-box} html,body{margin:0}
+body{background:var(--ink);color:var(--paper);
+  font:15px/1.55 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:1240px;margin:0 auto;padding:34px 22px 70px}
+h1{font:400 30px/1.15 Georgia,serif;margin:0 0 10px}
+header p{margin:0;color:var(--dim);font-size:14px;max-width:62ch}
+.bar{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 8px;align-items:center}
+.bar .lbl{font-size:11.5px;color:var(--faint);margin-right:4px}
+button.f{background:none;border:1px solid var(--line);color:var(--dim);
+  border-radius:999px;padding:5px 13px;font:inherit;font-size:12.5px;cursor:pointer}
+button.f:hover{color:var(--paper)}
+button.f[aria-pressed="true"]{color:var(--ink);font-weight:600}
+button.f:focus-visible{outline:2px solid var(--paper);outline-offset:2px}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:1px}
+.tgl{margin-left:auto;font-size:12.5px;color:var(--dim);cursor:pointer;user-select:none}
+.tgl input{accent-color:#c69a4e;margin-right:6px}
+.stage{display:grid;grid-template-columns:1fr 340px;gap:26px;align-items:start;margin-top:14px}
+.plotbox{background:var(--ink2);border:1px solid var(--line);border-radius:3px;padding:12px 12px 4px}
+svg{display:block;width:100%;height:auto}
+.gridline{stroke:var(--line)} .axline{stroke:#4f4538;stroke-dasharray:3 4}
+.axlabel{fill:var(--faint);font-size:10.5px} .axtitle{fill:var(--dim);font-size:11.5px}
+.link{stroke:#8a7a5e;stroke-width:1;opacity:.42}
+.link.hot{stroke:#e8dfd2;stroke-width:1.6;opacity:1}
+.node{cursor:pointer} .node circle.core{transition:r .14s}
+.node:hover circle.core{r:8} .node.dim{opacity:.12}
+aside{position:sticky;top:24px}
+.card{background:var(--ink2);border:1px solid var(--line);border-radius:3px;padding:20px}
+.surface{font:400 21px/1.32 Georgia,serif;margin:0 0 16px}
+.kv{border-top:1px solid var(--line);padding:11px 0 0;margin:11px 0 0}
+.kv:first-of-type{border-top:none;margin-top:0}
+.k{font-size:11px;color:var(--faint);margin-bottom:4px}
+.v{font-size:13.5px} .isk{font:400 15px/1.5 Georgia,serif;color:#f0e7da}
+.tags{display:flex;gap:5px;flex-wrap:wrap}
+.tag{font-size:11px;padding:2px 9px;border-radius:999px;color:var(--ink);font-weight:600}
+.mtag{font-size:11px;padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:var(--dim)}
+.meter{height:4px;background:var(--ink3);border-radius:2px;position:relative;margin-top:7px}
+.meter i{position:absolute;top:-3px;width:2px;height:10px;background:var(--paper)}
+.nums{display:flex;justify-content:space-between;font-size:10.5px;color:var(--faint);margin-top:5px}
+.opp{background:var(--ink3);border-left:2px solid #c69a4e;padding:11px 13px;margin-top:9px;border-radius:0 2px 2px 0}
+.opp p{margin:0 0 6px;font:400 14px/1.4 Georgia,serif}
+.opp small{color:var(--faint);font-size:11.5px;display:block}
+.opp a{color:var(--dim);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.q{color:#e0cf9e;font-size:12.5px;margin-top:8px;line-height:1.5}
+.q b{font-weight:600;font-size:13px}
+.empty{color:var(--faint);font-size:13.5px}
+footer{margin-top:34px;border-top:1px solid var(--line);padding-top:16px;
+  color:var(--faint);font-size:12.5px;max-width:70ch}
+@media(max-width:900px){.stage{grid-template-columns:1fr}aside{position:static}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <h1>Atasözü atlası</h1>
+  <p>__N__ atasözü üç koordinata oturtuldu. Yatay eksen sözün çağırdığı hareketi,
+     dikey eksen yaşamadan anlaşılabilirliğini gösterir. Renk, imgenin geldiği
+     kutup. Çizgiler birbirini yalanlayan çiftleri bağlar — her çizgi bir
+     ayırt edici sorunun yeridir.</p>
+</header>
+
+<div class="bar" id="poles"><span class="lbl">kutup</span></div>
+<div class="bar" id="mechs"><span class="lbl">mekanizma</span>
+  <label class="tgl"><input type="checkbox" id="showLinks" checked>çelişki çiftleri</label>
+</div>
+
+<div class="stage">
+  <div class="plotbox"><svg id="plot" viewBox="0 0 660 480" role="img"
+    aria-label="Atasözlerinin koordinat dağılımı"></svg></div>
+  <aside><div class="card" id="detail"></div></aside>
+</div>
+
+<footer>__FOOT__</footer>
+</div>
+
+<script>
+const DB = __DATA__;
+const D = DB.kayitlar;
+const POLES = DB.kutuplar;
+const PAIR = {};
+(DB.ciftler||[]).forEach(p=>{PAIR[[p.a,p.b].sort().join('|')]=p;});
+const css = v => getComputedStyle(document.documentElement).getPropertyValue('--'+v).trim();
+const NS='http://www.w3.org/2000/svg';
+const el=(n,a={})=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+
+const L=66,R=24,T=22,B=56,W=660,H=480;
+const px=v=>L+((v+1)/2)*(W-L-R);
+const py=v=>(H-B)-v*(H-B-T);
+const jit=i=>((i*47)%13-6)*1.7;
+const pos=i=>({x:px(D[i].p)+jit(i),y:py(D[i].z)});
+
+let aPole=null, aMech=null, sel=null, links=true;
+const svg=document.getElementById('plot');
+const idx={}; D.forEach((d,i)=>idx[d.id]=i);
+
+function visible(i){
+  const d=D[i];
+  return (!aPole||d.k.includes(aPole)) && (!aMech||d.m===aMech);
+}
+
+function draw(){
+  svg.innerHTML='';
+  for(let i=0;i<=4;i++){
+    const y=T+i*((H-B-T)/4);
+    svg.appendChild(el('line',{x1:L,x2:W-R,y1:y,y2:y,class:'gridline'}));
+    const t=el('text',{x:L-10,y:y+4,class:'axlabel','text-anchor':'end'});
+    t.textContent=(1-i*.25).toFixed(2).replace('.',','); svg.appendChild(t);
+  }
+  svg.appendChild(el('line',{x1:px(0),x2:px(0),y1:T,y2:H-B,class:'axline'}));
+  const lab=(x,y,txt,a='middle')=>{const t=el('text',{x,y,class:'axtitle','text-anchor':a});
+    t.textContent=txt;svg.appendChild(t);};
+  lab(L,H-B+22,'kıs · çekil · bekle','start');
+  lab(W-R,H-B+22,'aç · gir · başla','end');
+  lab(px(0),H-B+22,'yön belirtmez');
+  lab(L,H-B+42,'yatay: sözün çağırdığı hareket','start');
+  const v=el('text',{class:'axtitle','text-anchor':'middle',
+    transform:`translate(20,${(T+H-B)/2}) rotate(-90)`});
+  v.textContent='dikey: yaşamadan anlaşılabilirlik'; svg.appendChild(v);
+  const v2=el('text',{x:L-10,y:T-7,class:'axlabel','text-anchor':'end'});
+  v2.textContent='ancak yaşayan bilir'; svg.appendChild(v2);
+
+  const lg=el('g',{id:'links'}); svg.appendChild(lg);
+  if(links) D.forEach((d,i)=>(d.c||[]).forEach(cid=>{
+    const j=idx[cid]; if(j<i)return;
+    const a=pos(i), b=pos(j);
+    const ln=el('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,class:'link'});
+    ln.dataset.pair=i+'-'+j; lg.appendChild(ln);
+  }));
+
+  D.forEach((d,i)=>{
+    const {x,y}=pos(i);
+    const g=el('g',{class:'node',tabindex:0,role:'button'});
+    g.setAttribute('aria-label',d.s);
+    g.appendChild(el('circle',{cx:x,cy:y,r:11,fill:'none',stroke:css(d.k[0]),
+      'stroke-width':1.5,opacity:0,class:'ring'}));
+    g.appendChild(el('circle',{cx:x,cy:y,r:5.5,fill:css(d.k[0]),class:'core'}));
+    if(d.k[1]) g.appendChild(el('path',{d:`M ${x} ${y-5.5} A 5.5 5.5 0 0 1 ${x} ${y+5.5} Z`,
+      fill:css(d.k[1])}));
+    const pick=()=>{sel=i;render();};
+    g.addEventListener('click',pick);
+    g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick();}});
+    svg.appendChild(g);
+  });
+}
+
+function detail(){
+  const box=document.getElementById('detail');
+  if(sel===null){box.innerHTML='<p class="empty">Haritadan bir nokta seç. '+
+    'Sözün iskeleti, kutupları, koordinatları ve varsa onu yalanlayan '+
+    'atasözü burada açılır.</p>';return;}
+  const d=D[sel];
+  let opp='';
+  (d.c||[]).forEach(cid=>{
+    const o=D[idx[cid]];
+    opp+=`<div class="opp"><p>${o.s}</p>
+      <small>yön ${o.p>0?'+':''}${String(o.p).replace('.',',')} · ${o.m} ·
+      <a data-go="${idx[cid]}">haritada göster</a></small>
+      ${(()=>{const p=PAIR[[d.id,o.id].sort().join('|')];
+        return p?`<div class="q"><b>${p.soru}</b><br><span style="color:var(--faint)">${p.kosul}</span></div>`:'';})()}
+      </div>`;
+  });
+  box.innerHTML=`
+    <p class="surface">${d.s}</p>
+    <div class="kv"><div class="k">İskelet</div><div class="v isk">${d.i}</div></div>
+    <div class="kv"><div class="k">Ne yapar</div><div class="v">${d.f}</div></div>
+    <div class="kv"><div class="k">Kutup ve mekanizma</div><div class="v tags">${
+      d.k.map(p=>`<span class="tag" style="background:${css(p)}">${p}</span>`).join('')
+    }<span class="mtag">${d.m}</span></div></div>
+    <div class="kv"><div class="k">Yön</div>
+      <div class="meter"><i style="left:calc(${(d.p+1)/2*100}% - 1px)"></i></div>
+      <div class="nums"><span>kıs</span><span>${d.p>0?'+':''}${String(d.p).replace('.',',')}</span><span>aç</span></div></div>
+    <div class="kv"><div class="k">Deneyim gerekliliği</div>
+      <div class="meter"><i style="left:calc(${d.z*100}% - 1px)"></i></div>
+      <div class="nums"><span>söylenince anlaşılır</span><span>${String(d.z).replace('.',',')}</span><span>yaşanır</span></div></div>
+    ${opp?`<div class="kv"><div class="k">Bunu yalanlayan söz ve aradaki karar</div>${opp}</div>`:''}`;
+  box.querySelectorAll('[data-go]').forEach(a=>
+    a.onclick=()=>{sel=+a.dataset.go;render();});
+}
+
+function render(){
+  document.querySelectorAll('.node').forEach((n,i)=>{
+    n.classList.toggle('dim',!visible(i));
+    n.querySelector('.ring').style.opacity=i===sel?1:0;
+  });
+  document.querySelectorAll('.link').forEach(l=>{
+    const [i,j]=l.dataset.pair.split('-').map(Number);
+    l.classList.toggle('hot',sel===i||sel===j);
+    l.style.display=(visible(i)&&visible(j))?'':'none';
+  });
+  detail();
+}
+
+function chip(host,label,color,on,click){
+  const b=document.createElement('button');
+  b.className='f'; b.setAttribute('aria-pressed',on);
+  b.innerHTML=color?`<span class="dot" style="background:${color}"></span>${label}`:label;
+  if(on&&color){b.style.background=color;b.style.borderColor=color;}
+  else if(on){b.style.background='#c69a4e';b.style.borderColor='#c69a4e';}
+  b.onclick=click; host.appendChild(b); return b;
+}
+
+function chips(){
+  const ph=document.getElementById('poles'), mh=document.getElementById('mechs');
+  ph.querySelectorAll('button').forEach(b=>b.remove());
+  mh.querySelectorAll('button').forEach(b=>b.remove());
+  POLES.forEach(p=>chip(ph,p,css(p),aPole===p,()=>{aPole=aPole===p?null:p;chips();render();}));
+  const used=[...new Set(D.map(d=>d.m))].sort();
+  used.forEach(m=>chip(mh,m,null,aMech===m,()=>{aMech=aMech===m?null:m;chips();render();}));
+  mh.appendChild(mh.querySelector('.tgl'));
+}
+
+document.getElementById('showLinks').onchange=e=>{links=e.target.checked;draw();render();};
+chips(); draw(); render();
+</script>

@@ -1,0 +1,1467 @@
+{
+ "surum": "0.1",
+ "not": "Elle kodlanmış kalibrasyon seti. Tarama bunu few-shot ve doğruluk ölçütü olarak kullanır.",
+ "kutuplar": [
+  "MEKAN",
+  "ILISKI",
+  "ZIHIN",
+  "IS",
+  "DUYGU",
+  "PARA",
+  "BEDEN",
+  "ANLAM"
+ ],
+ "mekanizmalar": [
+  "birikim",
+  "geri-bildirim",
+  "kaynak-siniri",
+  "hiz-kalite",
+  "bilgi-asimetrisi",
+  "deneyim-kapisi",
+  "asiri-tepki",
+  "yayilma",
+  "birlesim",
+  "geri-donulmezlik",
+  "zamanlama",
+  "kor-nokta",
+  "oran-etkisi",
+  "gorunum-farki",
+  "bagimlilik",
+  "sahiplik-boslugu",
+  "karar-tikanmasi"
+ ],
+ "kayitlar": [
+  {
+   "id": "A001",
+   "s": "Ateş düştüğü yeri yakar",
+   "k": [
+    "DUYGU",
+    "BEDEN"
+   ],
+   "p": 0,
+   "z": 0.95,
+   "m": "deneyim-kapisi",
+   "i": "Etkinin bilgisi yalnızca ona temas edende oluşur; dışarıdan bakan bilemez.",
+   "f": "Empati sınırı çizer, kolay avuntuyu reddeder."
+  },
+  {
+   "id": "A002",
+   "s": "Bir musibet bin nasihatten yeğdir",
+   "k": [
+    "ZIHIN",
+    "DUYGU"
+   ],
+   "p": 0,
+   "z": 1.0,
+   "m": "deneyim-kapisi",
+   "i": "Yaşanmış tek olay, aktarılmış çok bilgiden fazlasını öğretir.",
+   "f": "Öğüdün sınırını ilan eder."
+  },
+  {
+   "id": "A003",
+   "s": "Damdan düşen damdan düşenin halini bilir",
+   "k": [
+    "DUYGU",
+    "ILISKI"
+   ],
+   "p": 0,
+   "z": 1.0,
+   "m": "deneyim-kapisi",
+   "i": "Aynı durumu yaşamış olmak, anlamanın ön koşuludur.",
+   "f": "Kimin anlayabileceğini işaretler."
+  },
+  {
+   "id": "A004",
+   "s": "Bekâra karı boşamak kolay",
+   "k": [
+    "ILISKI",
+    "ZIHIN"
+   ],
+   "p": 0,
+   "z": 0.95,
+   "m": "deneyim-kapisi",
+   "i": "Sonucun maliyetini taşımayan, kararı hafif görür.",
+   "f": "Dışarıdan akıl verene sınır çizer."
+  },
+  {
+   "id": "A005",
+   "s": "Ağrısız baş yastık istemez",
+   "k": [
+    "BEDEN"
+   ],
+   "p": 0,
+   "z": 0.7,
+   "m": "deneyim-kapisi",
+   "i": "Sorunu olmayan, çözüm arayışını anlamsız bulur.",
+   "f": "İlgisizliği açıklar."
+  },
+  {
+   "id": "A006",
+   "s": "Sütten ağzı yanan yoğurdu üfleyerek yer",
+   "k": [
+    "ZIHIN",
+    "DUYGU"
+   ],
+   "p": -0.6,
+   "z": 0.8,
+   "m": "asiri-tepki",
+   "i": "Bir kez zarar gören, benzeyen her şeye aşırı genelleyerek korunur.",
+   "f": "Korunmanın maliyetini görünür kılar.",
+   "c": [
+    "A007",
+    "A098"
+   ]
+  },
+  {
+   "id": "A007",
+   "s": "Sakınan göze çöp batar",
+   "k": [
+    "ZIHIN"
+   ],
+   "p": 0.4,
+   "z": 0.8,
+   "m": "asiri-tepki",
+   "i": "Aşırı korunma, korunulan zararı çekmenin kendisine dönüşür.",
+   "f": "Tedbirin tersine döndüğü yeri gösterir.",
+   "c": [
+    "A006"
+   ]
+  },
+  {
+   "id": "A008",
+   "s": "Keskin sirke küpüne zarar verir",
+   "k": [
+    "DUYGU",
+    "ILISKI"
+   ],
+   "p": -0.6,
+   "z": 0.7,
+   "m": "asiri-tepki",
+   "i": "Aşırı şiddetli tepki, önce tepkiyi üretenin kendisini yıpratır.",
+   "f": "Öfkeyi geri çeker."
+  },
+  {
+   "id": "A009",
+   "s": "Ne yavuz ol asıl, ne yavaş ol basıl",
+   "k": [
+    "ILISKI"
+   ],
+   "p": 0,
+   "z": 0.8,
+   "m": "asiri-tepki",
+   "i": "İki uçtaki davranış da farklı yollardan aynı zararı üretir.",
+   "f": "Orta bandı işaretler."
+  },
+  {
+   "id": "A010",
+   "s": "Öfkeyle kalkan zararla oturur",
+   "k": [
+    "DUYGU"
+   ],
+   "p": -0.7,
+   "z": 0.7,
+   "m": "asiri-tepki",
+   "i": "Duygusal yükün altında alınan karar, yük geçtiğinde maliyet olarak görünür.",
+   "f": "Beklemeye çağırır."
+  },
+  {
+   "id": "A011",
+   "s": "Damlaya damlaya göl olur",
+   "k": [
+    "PARA",
+    "IS"
+   ],
+   "p": 0.7,
+   "z": 0.3,
+   "m": "birikim",
+   "i": "Küçük ama kesintisiz birikim, büyük eşiği zamanla geçer.",
+   "f": "Sabra çağırır."
+  },
+  {
+   "id": "A012",
+   "s": "Sabırla koruk helva olur",
+   "k": [
+    "ANLAM"
+   ],
+   "p": -0.4,
+   "z": 0.6,
+   "m": "birikim",
+   "i": "Olgunlaşma süreyi gerektirir, müdahaleyi değil.",
+   "f": "Beklemeyi meşrulaştırır."
+  },
+  {
+   "id": "A013",
+   "s": "Sabreden derviş muradına ermiş",
+   "k": [
+    "DUYGU",
+    "ANLAM"
+   ],
+   "p": -0.4,
+   "z": 0.7,
+   "m": "birikim",
+   "i": "Sonuç, dayanma süresinin sonunda gelir.",
+   "f": "Dayanmaya çağırır."
+  },
+  {
+   "id": "A014",
+   "s": "Yavaş giden yol alır",
+   "k": [
+    "IS"
+   ],
+   "p": -0.4,
+   "z": 0.4,
+   "m": "birikim",
+   "i": "Sürdürülebilir hız, kesintili yüksek hızdan fazla mesafe üretir.",
+   "f": "Tempo düşürür."
+  },
+  {
+   "id": "A015",
+   "s": "Ayağını yorganına göre uzat",
+   "k": [
+    "PARA"
+   ],
+   "p": -0.8,
+   "z": 0.4,
+   "m": "kaynak-siniri",
+   "i": "Eylemin kapsamı, elde olan kaynağın sınırını aşmamalı.",
+   "f": "Sınır koyar.",
+   "c": [
+    "A095"
+   ]
+  },
+  {
+   "id": "A016",
+   "s": "İki karpuz bir koltuğa sığmaz",
+   "k": [
+    "IS",
+    "ZIHIN"
+   ],
+   "p": -0.7,
+   "z": 0.5,
+   "m": "kaynak-siniri",
+   "i": "Eşzamanlı taşınan yük sayısı arttıkça hiçbiri taşınamaz olur.",
+   "f": "Seçmeye zorlar.",
+   "c": [
+    "A090"
+   ]
+  },
+  {
+   "id": "A017",
+   "s": "Boş çuval ayakta durmaz",
+   "k": [
+    "BEDEN",
+    "PARA"
+   ],
+   "p": 0,
+   "z": 0.5,
+   "m": "kaynak-siniri",
+   "i": "İçi doldurulmayan yapı, kendi biçimini koruyamaz.",
+   "f": "Temeli hatırlatır."
+  },
+  {
+   "id": "A018",
+   "s": "Aç ayı oynamaz",
+   "k": [
+    "BEDEN"
+   ],
+   "p": 0,
+   "z": 0.6,
+   "m": "kaynak-siniri",
+   "i": "Temel ihtiyaç karşılanmadan üst düzey performans beklenemez.",
+   "f": "Beklentiyi düşürür."
+  },
+  {
+   "id": "A019",
+   "s": "Acele işe şeytan karışır",
+   "k": [
+    "IS"
+   ],
+   "p": -0.7,
+   "z": 0.5,
+   "m": "hiz-kalite",
+   "i": "Hız arttıkça hata olasılığı, kazanılan zamandan fazla maliyet üretir.",
+   "f": "Yavaşlatır.",
+   "c": [
+    "A021"
+   ]
+  },
+  {
+   "id": "A020",
+   "s": "Acele giden ecele gider",
+   "k": [
+    "BEDEN",
+    "IS"
+   ],
+   "p": -0.8,
+   "z": 0.6,
+   "m": "hiz-kalite",
+   "i": "Hızın maliyeti bazen geri alınamaz olur.",
+   "f": "Sert biçimde yavaşlatır.",
+   "c": [
+    "A021"
+   ]
+  },
+  {
+   "id": "A021",
+   "s": "Sona kalan dona kalır",
+   "k": [
+    "IS",
+    "ZIHIN"
+   ],
+   "p": 0.7,
+   "z": 0.5,
+   "m": "zamanlama",
+   "i": "Sınırlı kaynağın dağıtımında geciken, payını tamamen kaybeder.",
+   "f": "Hızlandırır.",
+   "c": [
+    "A019",
+    "A020",
+    "A023"
+   ]
+  },
+  {
+   "id": "A022",
+   "s": "Bugünün işini yarına bırakma",
+   "k": [
+    "IS"
+   ],
+   "p": 0.8,
+   "z": 0.3,
+   "m": "zamanlama",
+   "i": "Ertelenen iş, ertelendiği süre boyunca maliyet biriktirir.",
+   "f": "Harekete geçirir.",
+   "c": [
+    "A023"
+   ]
+  },
+  {
+   "id": "A023",
+   "s": "Geç olsun güç olmasın",
+   "k": [
+    "IS",
+    "ANLAM"
+   ],
+   "p": -0.5,
+   "z": 0.5,
+   "m": "hiz-kalite",
+   "i": "Sürenin uzaması, sonucun bozulmasından daha kabul edilebilirdir.",
+   "f": "Aceleyi meşru biçimde reddeder.",
+   "c": [
+    "A021",
+    "A022"
+   ]
+  },
+  {
+   "id": "A024",
+   "s": "Kervan yolda düzülür",
+   "k": [
+    "IS"
+   ],
+   "p": 0.8,
+   "z": 0.5,
+   "m": "zamanlama",
+   "i": "Eksiksiz hazırlık beklenmez; düzen hareketin içinde oluşur.",
+   "f": "Başlamaya çağırır.",
+   "c": [
+    "A025"
+   ]
+  },
+  {
+   "id": "A025",
+   "s": "Denize girmeden paçaları sıvama",
+   "k": [
+    "ZIHIN",
+    "IS"
+   ],
+   "p": -0.5,
+   "z": 0.6,
+   "m": "zamanlama",
+   "i": "Koşullar oluşmadan yapılan hazırlık, boşa harcanmış eylemdir.",
+   "f": "Erken hamleyi durdurur.",
+   "c": [
+    "A024"
+   ]
+  },
+  {
+   "id": "A026",
+   "s": "Ağaç yaşken eğilir",
+   "k": [
+    "ZIHIN",
+    "ILISKI"
+   ],
+   "p": 0.6,
+   "z": 0.6,
+   "m": "zamanlama",
+   "i": "Biçimlendirme yalnızca yapı henüz esnekken mümkündür.",
+   "f": "Erken davranmaya çağırır."
+  },
+  {
+   "id": "A027",
+   "s": "Vakitsiz öten horozun başını keserler",
+   "k": [
+    "IS",
+    "ILISKI"
+   ],
+   "p": -0.6,
+   "z": 0.8,
+   "m": "zamanlama",
+   "i": "Doğru şey yanlış anda söylenirse, içeriği değil zamanlaması cezalandırılır.",
+   "f": "Zamanlamayı uyarır."
+  },
+  {
+   "id": "A028",
+   "s": "Atı alan Üsküdar'ı geçti",
+   "k": [
+    "IS",
+    "ZIHIN"
+   ],
+   "p": 0,
+   "z": 0.8,
+   "m": "geri-donulmezlik",
+   "i": "Müdahale penceresi kapandıktan sonra hazırlık anlamsızdır.",
+   "f": "Geç kalmışlığı adlandırır."
+  },
+  {
+   "id": "A029",
+   "s": "Son pişmanlık fayda etmez",
+   "k": [
+    "ANLAM",
+    "ZIHIN"
+   ],
+   "p": 0,
+   "z": 0.85,
+   "m": "geri-donulmezlik",
+   "i": "Bazı kararlar geri alınamaz; bilgi ancak geri dönüşsüzlükten sonra gelir.",
+   "f": "Uyarır."
+  },
+  {
+   "id": "A030",
+   "s": "Zararın neresinden dönülse kârdır",
+   "k": [
+    "ZIHIN",
+    "PARA"
+   ],
+   "p": -0.6,
+   "z": 0.8,
+   "m": "geri-donulmezlik",
+   "i": "Batmış maliyet, devam kararının gerekçesi olamaz.",
+   "f": "Vazgeçmeyi meşrulaştırır."
+  },
+  {
+   "id": "A031",
+   "s": "Bir elin nesi var, iki elin sesi var",
+   "k": [
+    "ILISKI",
+    "IS"
+   ],
+   "p": 0.9,
+   "z": 0.2,
+   "m": "birlesim",
+   "i": "Birleşen çabanın çıktısı, parçaların toplamından fazladır.",
+   "f": "Birleşmeye çağırır.",
+   "c": [
+    "A034"
+   ]
+  },
+  {
+   "id": "A032",
+   "s": "Nerede birlik, orada dirlik",
+   "k": [
+    "ILISKI"
+   ],
+   "p": 0.8,
+   "z": 0.2,
+   "m": "birlesim",
+   "i": "Uyumlu bütünlük, refahın ön koşuludur.",
+   "f": "Birleşmeye çağırır.",
+   "c": [
+    "A034"
+   ]
+  },
+  {
+   "id": "A033",
+   "s": "Akıl akıldan üstündür",
+   "k": [
+    "ZIHIN",
+    "ILISKI"
+   ],
+   "p": 0.7,
+   "z": 0.3,
+   "m": "birlesim",
+   "i": "Bakış açısı eklendikçe çözüm uzayı genişler.",
+   "f": "Danışmaya çağırır.",
+   "c": [
+    "A034"
+   ]
+  },
+  {
+   "id": "A034",
+   "s": "Horoz çok olan yerde sabah geç olur",
+   "k": [
+    "IS",
+    "ILISKI"
+   ],
+   "p": -0.6,
+   "z": 0.6,
+   "m": "karar-tikanmasi",
+   "i": "Karar hakkı çoğaldıkça, kararın kendisi gecikir.",
+   "f": "Kalabalığı azaltmaya çağırır.",
+   "c": [
+    "A031",
+    "A032",
+    "A033",
+    "A036"
+   ]
+  },
+  {
+   "id": "A035",
+   "s": "Sen ağa ben ağa, bu ineği kim sağa",
+   "k": [
+    "IS",
+    "ILISKI"
+   ],
+   "p": -0.4,
+   "z": 0.6,
+   "m": "sahiplik-boslugu",
+   "i": "Herkes üst rolü üstlendiğinde, işi yapacak kimse kalmaz.",
+   "f": "Sahiplik boşluğunu adlandırır."
+  },
+  {
+   "id": "A036",
+   "s": "Bin bilsen de bir bilene danış",
+   "k": [
+    "ZIHIN",
+    "ILISKI"
+   ],
+   "p": 0.7,
+   "z": 0.6,
+   "m": "kor-nokta",
+   "i": "Kendi bilgisi ne kadar çok olursa olsun, özne kendi kör noktasını göremez.",
+   "f": "Danışmaya çağırır.",
+   "c": [
+    "A034"
+   ]
+  },
+  {
+   "id": "A037",
+   "s": "Danışan dağı aşmış, danışmayan düz yolda şaşmış",
+   "k": [
+    "ZIHIN",
+    "ILISKI"
+   ],
+   "p": 0.8,
+   "z": 0.4,
+   "m": "kor-nokta",
+   "i": "Dışarıdan gelen bakış, zorluğun büyüklüğünden bağımsız olarak yol açar.",
+   "f": "Danışmaya çağırır."
+  },
+  {
+   "id": "A038",
+   "s": "Terzi kendi söküğünü dikemez",
+   "k": [
+    "IS",
+    "ZIHIN"
+   ],
+   "p": 0,
+   "z": 0.8,
+   "m": "kor-nokta",
+   "i": "Beceri kendine yönlendirilemez; özne kendi kör noktasıdır.",
+   "f": "Dışarıdan bakışı meşrulaştırır."
+  },
+  {
+   "id": "A039",
+   "s": "Kuzguna yavrusu şahin görünür",
+   "k": [
+    "ILISKI",
+    "DUYGU"
+   ],
+   "p": 0,
+   "z": 0.6,
+   "m": "kor-nokta",
+   "i": "Yakınlık, değerlendirmeyi sistematik olarak yukarı kaydırır.",
+   "f": "Yanlılığı açığa çıkarır."
+  },
+  {
+   "id": "A040",
+   "s": "Aç tavuk kendini buğday ambarında sanır",
+   "k": [
+    "DUYGU",
+    "ZIHIN"
+   ],
+   "p": 0,
+   "z": 0.8,
+   "m": "kor-nokta",
+   "i": "Yoksunluk, algıyı arzu yönünde çarpıtır.",
+   "f": "Hayali uyarır."
+  },
+  {
+   "id": "A041",
+   "s": "Balık baştan kokar",
+   "k": [
+    "IS",
+    "ILISKI"
+   ],
+   "p": -0.4,
+   "z": 0.5,
+   "m": "yayilma",
+   "i": "Bozulma yapının tepesinden başlar ve aşağı doğru yayılır.",
+   "f": "Sorumluluğu yukarı taşır."
+  },
+  {
+   "id": "A042",
+   "s": "Baş nereye giderse ayak da oraya gider",
+   "k": [
+    "IS",
+    "ILISKI"
+   ],
+   "p": 0,
+   "z": 0.5,
+   "m": "yayilma",
+   "i": "Alt birimlerin yönü, üst birimin yönü tarafından belirlenir.",
+   "f": "Yönü yukarıda arar."
+  },
+  {
+   "id": "A043",
+   "s": "Bir baş soğan bir kazanı kokutur",
+   "k": [
+    "ILISKI"
+   ],
+   "p": -0.5,
+   "z": 0.5,
+   "m": "yayilma",
+   "i": "Tek bozuk unsur, bütünün niteliğini belirleyecek kadar baskın olabilir.",
+   "f": "Ayıklamaya çağırır."
+  },
+  {
+   "id": "A044",
+   "s": "Üzüm üzüme baka baka kararır",
+   "k": [
+    "ILISKI"
+   ],
+   "p": -0.4,
+   "z": 0.6,
+   "m": "yayilma",
+   "i": "Yakınlık, benzeşmeyi zamanla ve farkına varılmadan üretir.",
+   "f": "Çevreyi uyarır."
+  },
+  {
+   "id": "A045",
+   "s": "Kır atın yanında duran ya huyundan ya suyundan kapar",
+   "k": [
+    "ILISKI",
+    "MEKAN"
+   ],
+   "p": -0.3,
+   "z": 0.6,
+   "m": "yayilma",
+   "i": "Temas, seçilmemiş özellikleri de aktarır.",
+   "f": "Yakınlığı uyarır."
+  },
+  {
+   "id": "A046",
+   "s": "Sürüden ayrılanı kurt kapar",
+   "k": [
+    "ILISKI"
+   ],
+   "p": -0.7,
+   "z": 0.7,
+   "m": "bagimlilik",
+   "i": "Grubun koruması, ancak grup içinde kalındığı sürece geçerlidir.",
+   "f": "Kalmaya çağırır."
+  },
+  {
+   "id": "A047",
+   "s": "Yuvarlanan taş yosun tutmaz",
+   "k": [
+    "MEKAN",
+    "ILISKI"
+   ],
+   "p": -0.3,
+   "z": 0.6,
+   "m": "birikim",
+   "i": "Sürekli yer değiştiren, birikim ve bağ oluşturamaz.",
+   "f": "Yerleşmeye çağırır."
+  },
+  {
+   "id": "A048",
+   "s": "Taşıma su ile değirmen dönmez",
+   "k": [
+    "IS"
+   ],
+   "p": -0.5,
+   "z": 0.4,
+   "m": "bagimlilik",
+   "i": "Dışarıdan elle beslenen sistem, kendi kaynağı olmadan sürdürülemez.",
+   "f": "Geçici çözümü teşhis eder."
+  },
+  {
+   "id": "A049",
+   "s": "Komşu komşunun külüne muhtaçtır",
+   "k": [
+    "ILISKI",
+    "MEKAN"
+   ],
+   "p": 0.7,
+   "z": 0.5,
+   "m": "bagimlilik",
+   "i": "Hiçbir birim, yakınındakinden tamamen bağımsız değildir.",
+   "f": "Bağı hatırlatır."
+  },
+  {
+   "id": "A050",
+   "s": "Bakarsan bağ olur, bakmazsan dağ olur",
+   "k": [
+    "IS",
+    "MEKAN"
+   ],
+   "p": 0.7,
+   "z": 0.4,
+   "m": "bagimlilik",
+   "i": "Sürekli bakım kesilirse yapı kendiliğinden bozulmaya döner.",
+   "f": "Bakıma çağırır."
+  },
+  {
+   "id": "A051",
+   "s": "Ev alma komşu al",
+   "k": [
+    "MEKAN",
+    "ILISKI"
+   ],
+   "p": 0.6,
+   "z": 0.6,
+   "m": "bagimlilik",
+   "i": "Çevresel bağlam, sahip olunan nesneden daha belirleyicidir.",
+   "f": "Önceliği tersine çevirir."
+  },
+  {
+   "id": "A052",
+   "s": "Ne ekersen onu biçersin",
+   "k": [
+    "ANLAM"
+   ],
+   "p": 0,
+   "z": 0.5,
+   "m": "geri-bildirim",
+   "i": "Sonuç, geçmiş eylemin gecikmiş karşılığıdır.",
+   "f": "Sorumluluk yükler."
+  },
+  {
+   "id": "A053",
+   "s": "Rüzgâr eken fırtına biçer",
+   "k": [
+    "ANLAM"
+   ],
+   "p": -0.6,
+   "z": 0.7,
+   "m": "geri-bildirim",
+   "i": "Küçük bozucu eylem, orantısız büyüklükte geri dönüş üretir.",
+   "f": "Caydırır."
+  },
+  {
+   "id": "A054",
+   "s": "Ateş olmayan yerden duman çıkmaz",
+   "k": [
+    "ZIHIN",
+    "ILISKI"
+   ],
+   "p": 0,
+   "z": 0.5,
+   "m": "geri-bildirim",
+   "i": "Görünen belirti, görünmeyen bir nedenin zorunlu işaretidir.",
+   "f": "Nedene işaret eder."
+  },
+  {
+   "id": "A055",
+   "s": "Ucuz etin yahnisi tatsız olur",
+   "k": [
+    "PARA",
+    "IS"
+   ],
+   "p": -0.4,
+   "z": 0.7,
+   "m": "geri-bildirim",
+   "i": "Başta kısılan maliyet, sonra nitelik kaybı olarak geri gelir.",
+   "f": "Ucuzu uyarır."
+  },
+  {
+   "id": "A056",
+   "s": "Su testisi su yolunda kırılır",
+   "k": [
+    "ANLAM",
+    "IS"
+   ],
+   "p": 0,
+   "z": 0.85,
+   "m": "geri-bildirim",
+   "i": "Risk, istisnai olanda değil en çok tekrarlanan olağan eylemin içindedir.",
+   "f": "Kaçınılmazlığı adlandırır."
+  },
+  {
+   "id": "A057",
+   "s": "Ayağa değmedik taş, başa gelmedik iş olmaz",
+   "k": [
+    "ANLAM"
+   ],
+   "p": 0,
+   "z": 0.7,
+   "m": "geri-bildirim",
+   "i": "Yeterince uzun sürede her olası olay gerçekleşir.",
+   "f": "Kaçınılmazlığı yumuşatır."
+  },
+  {
+   "id": "A058",
+   "s": "Her koyun kendi bacağından asılır",
+   "k": [
+    "ILISKI",
+    "ANLAM"
+   ],
+   "p": -0.5,
+   "z": 0.7,
+   "m": "sahiplik-boslugu",
+   "i": "Sorumluluk devredilemez; sonuç eylemi yapana bağlanır.",
+   "f": "Sınır çizer."
+  },
+  {
+   "id": "A059",
+   "s": "El elin eşeğini türkü çağırarak arar",
+   "k": [
+    "IS",
+    "ILISKI"
+   ],
+   "p": -0.5,
+   "z": 0.7,
+   "m": "sahiplik-boslugu",
+   "i": "Sonucu taşımayan, aramaya aynı özeni göstermez.",
+   "f": "Sahiplik eksikliğini adlandırır."
+  },
+  {
+   "id": "A060",
+   "s": "Yorgan gitti, kavga bitti",
+   "k": [
+    "ILISKI",
+    "ANLAM"
+   ],
+   "p": -0.5,
+   "z": 0.7,
+   "m": "karar-tikanmasi",
+   "i": "Çatışmanın nesnesi ortadan kalkınca çatışma da biter; sorun taraflarda değildi.",
+   "f": "Kök nedene işaret eder."
+  },
+  {
+   "id": "A061",
+   "s": "Deveye boynun eğri demişler, nerem doğru ki demiş",
+   "k": [
+    "ZIHIN",
+    "ANLAM"
+   ],
+   "p": 0,
+   "z": 0.8,
+   "m": "karar-tikanmasi",
+   "i": "Tek kusuru düzeltmek, bütünü bozuk olan yapıda anlamsızdır.",
+   "f": "Kısmi çözümü reddeder."
+  },
+  {
+   "id": "A062",
+   "s": "Dam üstünde saksağan, vur beline kazmayı",
+   "k": [
+    "ZIHIN"
+   ],
+   "p": 0,
+   "z": 0.4,
+   "m": "karar-tikanmasi",
+   "i": "Aralarında nedensel bağ olmayan iki şey yan yana konursa anlam üretilmez.",
+   "f": "Alakasızlığı işaretler."
+  },
+  {
+   "id": "A063",
+   "s": "Sakla samanı, gelir zamanı",
+   "k": [
+    "PARA",
+    "ZIHIN"
+   ],
+   "p": 0.5,
+   "z": 0.4,
+   "m": "birikim",
+   "i": "Şu an değersiz görünen kaynak, gelecekteki bilinmeyen ihtiyaç için tutulmalı.",
+   "f": "Biriktirmeye çağırır.",
+   "c": [
+    "A067"
+   ]
+  },
+  {
+   "id": "A064",
+   "s": "Ak akçe kara gün içindir",
+   "k": [
+    "PARA"
+   ],
+   "p": 0.4,
+   "z": 0.5,
+   "m": "birikim",
+   "i": "Bugünkü fazlalık, gelecekteki eksikliğin karşılığıdır.",
+   "f": "Biriktirmeye çağırır."
+  },
+  {
+   "id": "A065",
+   "s": "İşten artmaz, dişten artar",
+   "k": [
+    "PARA"
+   ],
+   "p": -0.6,
+   "z": 0.6,
+   "m": "kaynak-siniri",
+   "i": "Birikim, girdiyi artırarak değil çıktıyı kısarak oluşur.",
+   "f": "Tasarrufa yönlendirir."
+  },
+  {
+   "id": "A066",
+   "s": "Fazla mal göz çıkarmaz",
+   "k": [
+    "PARA"
+   ],
+   "p": 0.5,
+   "z": 0.3,
+   "m": "birikim",
+   "i": "Fazlalığın kendisi bir maliyet üretmez.",
+   "f": "Toplamayı meşrulaştırır.",
+   "c": [
+    "A067"
+   ]
+  },
+  {
+   "id": "A067",
+   "s": "Azıcık aşım, ağrısız başım",
+   "k": [
+    "PARA",
+    "ANLAM"
+   ],
+   "p": -0.7,
+   "z": 0.7,
+   "m": "oran-etkisi",
+   "i": "Sahip olunan miktar arttıkça onu koruma yükü de artar.",
+   "f": "Azla yetinmeyi meşrulaştırır.",
+   "c": [
+    "A063",
+    "A066"
+   ]
+  },
+  {
+   "id": "A068",
+   "s": "Kanaat tükenmez hazinedir",
+   "k": [
+    "PARA",
+    "ANLAM"
+   ],
+   "p": -0.5,
+   "z": 0.7,
+   "m": "oran-etkisi",
+   "i": "Yeterlilik duygusu, mutlak miktardan değil beklentinin ayarından gelir.",
+   "f": "Ölçüyü içeri alır."
+  },
+  {
+   "id": "A069",
+   "s": "Az veren candan, çok veren maldan",
+   "k": [
+    "PARA",
+    "ILISKI"
+   ],
+   "p": 0,
+   "z": 0.7,
+   "m": "oran-etkisi",
+   "i": "Verilenin değeri mutlak miktarda değil, verenin elindekine oranındadır.",
+   "f": "Ölçüyü değiştirir."
+  },
+  {
+   "id": "A070",
+   "s": "Komşunun tavuğu komşuya kaz görünür",
+   "k": [
+    "ILISKI",
+    "DUYGU"
+   ],
+   "p": 0,
+   "z": 0.5,
+   "m": "gorunum-farki",
+   "i": "Dışarıdan görülen, sahip olunandan sistematik olarak büyük görünür.",
+   "f": "Kıyaslamayı boşa çıkarır."
+  },
+  {
+   "id": "A071",
+   "s": "Ayinesi iştir kişinin, lafa bakılmaz",
+   "k": [
+    "IS",
+    "ANLAM"
+   ],
+   "p": 0,
+   "z": 0.6,
+   "m": "gorunum-farki",
+   "i": "Beyan ile davranış çeliştiğinde ölçüt davranıştır.",
+   "f": "Kanıt ölçütü koyar."
+  },
+  {
+   "id": "A072",
+   "s": "Görünen köy kılavuz istemez",
+   "k": [
+    "ZIHIN"
+   ],
+   "p": 0,
+   "z": 0.1,
+   "m": "gorunum-farki",
+   "i": "Yeterince açık olan durum, ek yorum gerektirmez.",
+   "f": "Fazla açıklamayı keser."
+  },
+  {
+   "id": "A073",
+   "s": "Bir ağaçta gül de biter, diken de",
+   "k": [
+    "ILISKI",
+    "ZIHIN"
+   ],
+   "p": 0,
+   "z": 0.5,
+   "m": "gorunum-farki",
+   "i": "Aynı kaynak birbirine zıt çıktılar üretebilir; tek örnekle yargı kurulamaz.",
+   "f": "Genellemeyi durdurur."
+  },
+  {
+   "id": "A074",
+   "s": "Tencere yuvarlandı, kapağını buldu",
+   "k": [
+    "ILISKI"
+   ],
+   "p": 0,
+   "z": 0.4,
+   "m": "gorunum-farki",
+   "i": "Benzer nitelikler birbirini seçerek eşleşir.",
+   "f": "Eşleşmeyi açıklar."
+  },
+  {
+   "id": "A075",
+   "s": "Deli deliden hoşlanır, imam ölüden",
+   "k": [
+    "ILISKI"
+   ],
+   "p": 0,
+   "z": 0.5,
+   "m": "gorunum-farki",
+   "i": "Her rol, kendi işleyişini besleyen karşılığı arar.",
+   "f": "Çıkarı görünür kılar."
+  },
+  {
+   "id": "A076",
+   "s": "Denize düşen yılana sarılır",
+   "k": [
+    "DUYGU",
+    "BEDEN"
+   ],
+   "p": 0,
+   "z": 0.9,
+   "m": "bilgi-asimetrisi",
+   "i": "Kayıp eşiği geçilince, normalde reddedilen seçenek kabul edilir olur.",
+   "f": "Çaresizliği mazur görür."
+  },
+  {
+   "id": "A077",
+   "s": "Dost kara günde belli olur",
+   "k": [
+    "ILISKI"
+   ],
+   "p": 0,
+   "z": 0.8,
+   "m": "bilgi-asimetrisi",
+   "i": "Bağın gerçek gücü, ancak maliyet doğduğunda ölçülebilir.",
+   "f": "Sınav anını işaretler."
+  },
+  {
+   "id": "A078",
+   "s": "Doğru söyleyeni dokuz köyden kovarlar",
+   "k": [
+    "ILISKI",
+    "ANLAM"
+   ],
+   "p": -0.4,
+   "z": 0.85,
+   "m": "bilgi-asimetrisi",
+   "i": "Doğru bilgi, grubun konforunu bozduğunda taşıyıcısıyla birlikte dışlanır.",
+   "f": "Bedeli önceden söyler."
+  },
+  {
+   "id": "A079",
+   "s": "Bana dokunmayan yılan bin yıl yaşasın",
+   "k": [
+    "ILISKI",
+    "ANLAM"
+   ],
+   "p": -0.6,
+   "z": 0.6,
+   "m": "bilgi-asimetrisi",
+   "i": "Maliyeti üstlenmeyen, sorunu sorun olarak görmez.",
+   "f": "Kayıtsızlığı adlandırır."
+  },
+  {
+   "id": "A080",
+   "s": "Yalancının mumu yatsıya kadar yanar",
+   "k": [
+    "ILISKI",
+    "ANLAM"
+   ],
+   "p": -0.6,
+   "z": 0.4,
+   "m": "bilgi-asimetrisi",
+   "i": "Gerçeğe dayanmayan yapı, ancak sınanmadığı süre boyunca ayakta kalır.",
+   "f": "Caydırır."
+  },
+  {
+   "id": "A081",
+   "s": "Ummadığın taş baş yarar",
+   "k": [
+    "ZIHIN"
+   ],
+   "p": -0.3,
+   "z": 0.75,
+   "m": "kor-nokta",
+   "i": "Zarar, izlenen kaynaktan değil ihmal edilenden gelir.",
+   "f": "Dikkati dağıtılmış yere çeker."
+  },
+  {
+   "id": "A082",
+   "s": "Çok konuşan çok yanılır",
+   "k": [
+    "ILISKI",
+    "ZIHIN"
+   ],
+   "p": -0.7,
+   "z": 0.4,
+   "m": "hiz-kalite",
+   "i": "Üretilen hacim arttıkça hata sayısı da orantılı artar.",
+   "f": "Susmaya çağırır."
+  },
+  {
+   "id": "A083",
+   "s": "Zorla güzellik olmaz",
+   "k": [
+    "ILISKI"
+   ],
+   "p": -0.7,
+   "z": 0.6,
+   "m": "bagimlilik",
+   "i": "Gönüllülük gerektiren sonuç, baskıyla üretilemez.",
+   "f": "Zorlamayı durdurur."
+  },
+  {
+   "id": "A084",
+   "s": "Tatlı dil yılanı deliğinden çıkarır",
+   "k": [
+    "ILISKI"
+   ],
+   "p": 0.7,
+   "z": 0.5,
+   "m": "birlesim",
+   "i": "Direnç, kuvvetle değil yaklaşım biçimi değiştirilerek çözülür.",
+   "f": "Yöntemi değiştirir."
+  },
+  {
+   "id": "A085",
+   "s": "Gülü seven dikenine katlanır",
+   "k": [
+    "DUYGU",
+    "ILISKI"
+   ],
+   "p": 0.5,
+   "z": 0.6,
+   "m": "oran-etkisi",
+   "i": "Değer verilen şeyin maliyeti ondan ayrılamaz.",
+   "f": "Katlanmayı meşrulaştırır."
+  },
+  {
+   "id": "A086",
+   "s": "İşleyen demir ışıldar",
+   "k": [
+    "IS",
+    "BEDEN"
+   ],
+   "p": 0.8,
+   "z": 0.3,
+   "m": "birikim",
+   "i": "Sürekli kullanım, aşınma değil iyileşme üretir.",
+   "f": "Harekete çağırır."
+  },
+  {
+   "id": "A087",
+   "s": "Nerede hareket, orada bereket",
+   "k": [
+    "IS"
+   ],
+   "p": 0.8,
+   "z": 0.3,
+   "m": "birikim",
+   "i": "Çıktı, hareketin bir yan ürünü olarak doğar.",
+   "f": "Harekete çağırır."
+  },
+  {
+   "id": "A088",
+   "s": "Yatan aslandan gezen tilki yeğdir",
+   "k": [
+    "IS"
+   ],
+   "p": 0.7,
+   "z": 0.5,
+   "m": "birikim",
+   "i": "Kullanılmayan üstün kapasite, kullanılan sıradan kapasiteden az üretir.",
+   "f": "Harekete çağırır."
+  },
+  {
+   "id": "A089",
+   "s": "Emek olmadan yemek olmaz",
+   "k": [
+    "IS"
+   ],
+   "p": 0.7,
+   "z": 0.4,
+   "m": "geri-bildirim",
+   "i": "Çıktı, girdi olmadan oluşmaz.",
+   "f": "Bedeli hatırlatır."
+  },
+  {
+   "id": "A090",
+   "s": "Bir taşla iki kuş vurulur",
+   "k": [
+    "IS"
+   ],
+   "p": 0.6,
+   "z": 0.3,
+   "m": "birlesim",
+   "i": "Tek eylem birden çok sonucu aynı anda karşılayabilir.",
+   "f": "Verimliliğe çağırır.",
+   "c": [
+    "A016"
+   ]
+  },
+  {
+   "id": "A091",
+   "s": "Bal tutan parmağını yalar",
+   "k": [
+    "IS",
+    "PARA"
+   ],
+   "p": 0,
+   "z": 0.6,
+   "m": "geri-bildirim",
+   "i": "Kaynağa temas eden, payını kaçınılmaz olarak alır.",
+   "f": "Doğal sonucu adlandırır."
+  },
+  {
+   "id": "A092",
+   "s": "Su akar, yolunu bulur",
+   "k": [
+    "ANLAM",
+    "MEKAN"
+   ],
+   "p": 0.4,
+   "z": 0.6,
+   "m": "bagimlilik",
+   "i": "Yönlendirilmeyen süreç, kendi düşük dirençli yolunu kendisi seçer.",
+   "f": "Bırakmayı meşrulaştırır."
+  },
+  {
+   "id": "A093",
+   "s": "Aza kanaat etmeyen çoğu bulamaz",
+   "k": [
+    "PARA",
+    "ZIHIN"
+   ],
+   "p": -0.6,
+   "z": 0.6,
+   "m": "oran-etkisi",
+   "i": "Küçük kazancı reddetme alışkanlığı, büyük kazanca giden yolu da kapatır.",
+   "f": "Küçüğü kabule çağırır."
+  },
+  {
+   "id": "A094",
+   "s": "Bir fincan kahvenin kırk yıl hatırı var",
+   "k": [
+    "ILISKI",
+    "ANLAM"
+   ],
+   "p": 0.5,
+   "z": 0.5,
+   "m": "oran-etkisi",
+   "i": "Küçük bir iyiliğin bağ değeri, maddi değerinden bağımsız ve kalıcıdır.",
+   "f": "Bağı hatırlatır."
+  },
+  {
+   "id": "A095",
+   "s": "Borç yiğidin kamçısıdır",
+   "k": [
+    "PARA",
+    "DUYGU"
+   ],
+   "p": 0.3,
+   "z": 0.7,
+   "m": "geri-bildirim",
+   "i": "Dışarıdan gelen zorunluluk, içeriden gelmeyen hareketi üretebilir.",
+   "f": "Baskıyı meşrulaştırır.",
+   "c": [
+    "A015"
+   ]
+  },
+  {
+   "id": "A096",
+   "s": "Ayağını sıcak tut, başını serin",
+   "k": [
+    "BEDEN",
+    "ZIHIN"
+   ],
+   "p": 0,
+   "z": 0.5,
+   "m": "kaynak-siniri",
+   "i": "Farklı katmanlar zıt yönde ayarlanmalıdır; tek ayar bütüne uymaz.",
+   "f": "Ayrımı hatırlatır."
+  },
+  {
+   "id": "A097",
+   "s": "Adamın iyisi işbaşında belli olur",
+   "k": [
+    "IS",
+    "ANLAM"
+   ],
+   "p": 0,
+   "z": 0.6,
+   "m": "gorunum-farki",
+   "i": "Nitelik, beyan anında değil uygulama anında ölçülür.",
+   "f": "Ölçüm anını belirler."
+  },
+  {
+   "id": "A098",
+   "s": "Sürçen at bir daha sürçmez",
+   "k": [
+    "ZIHIN",
+    "IS"
+   ],
+   "p": 0.4,
+   "z": 0.7,
+   "m": "geri-bildirim",
+   "i": "Hata, tekrar edilmediğinde öğrenmenin kendisine dönüşür.",
+   "f": "Hatayı meşrulaştırır.",
+   "c": [
+    "A006"
+   ]
+  },
+  {
+   "id": "A099",
+   "s": "Öksüz çocuk göbeğini kendi keser",
+   "k": [
+    "DUYGU",
+    "BEDEN"
+   ],
+   "p": 0.5,
+   "z": 0.9,
+   "m": "bagimlilik",
+   "i": "Destek yoksa yeti, zorunluluk altında kendiliğinden gelişir.",
+   "f": "Yalnızlığı güce çevirir."
+  },
+  {
+   "id": "A100",
+   "s": "Minareyi çalan kılıfını hazırlar",
+   "k": [
+    "ZIHIN",
+    "IS"
+   ],
+   "p": 0,
+   "z": 0.6,
+   "m": "zamanlama",
+   "i": "Eylemin büyüklüğü, örtüsünün büyüklüğünü önceden belirler.",
+   "f": "Hazırlığın ölçeğini işaretler."
+  }
+ ],
+ "ciftler": [
+  {
+   "a": "A019",
+   "b": "A021",
+   "kosul": "Kaynak sınırlı ve dağıtılıyorsa hız kazandırır; iş seni bekliyorsa hız hata üretir.",
+   "soru": "Beklersen iş bozulur mu, yoksa iş elinden mi gider?"
+  },
+  {
+   "a": "A020",
+   "b": "A021",
+   "kosul": "Hatanın maliyeti geri alınabilirse hız uygundur; alınamazsa değildir.",
+   "soru": "Yanlış yaparsan geri dönebilir misin?"
+  },
+  {
+   "a": "A021",
+   "b": "A023",
+   "kosul": "Fırsat penceresi kapanıyorsa erken bitirmek, kalıcı bir çıktı üretiliyorsa doğru bitirmek önceliklidir.",
+   "soru": "Bu işin bir son tarihi mi var, yoksa bir kullanıcısı mı?"
+  },
+  {
+   "a": "A022",
+   "b": "A023",
+   "kosul": "Erteleme maliyet biriktiriyorsa bugün yapılır; acele nitelik düşürüyorsa ertelenir.",
+   "soru": "Beklerken bu iş büyüyor mu, aynı mı kalıyor?"
+  },
+  {
+   "a": "A024",
+   "b": "A025",
+   "kosul": "Belirsizlik yalnızca hareketle azalıyorsa başlanır; hazırlıkla azalıyorsa beklenir.",
+   "soru": "Bilmediğin şeyi masa başında öğrenebilir misin, yoksa ancak yaparak mı?"
+  },
+  {
+   "a": "A031",
+   "b": "A034",
+   "kosul": "Eksik olan emekse kişi eklemek çözer; eksik olan karar mercii ise kişi eklemek geciktirir.",
+   "soru": "İş mi yetişmiyor, karar mı çıkmıyor?"
+  },
+  {
+   "a": "A032",
+   "b": "A034",
+   "kosul": "Ortak yön varsa birlik güç üretir; yön çatışıyorsa birlik tıkanma üretir.",
+   "soru": "Herkes aynı sonucu mu istiyor, yoksa aynı sonucu farklı mı tanımlıyor?"
+  },
+  {
+   "a": "A033",
+   "b": "A034",
+   "kosul": "Görüş toplamak ile karar hakkı vermek aynı şey değildir.",
+   "soru": "Bu kişilerden fikir mi alıyorsun, onay mı bekliyorsun?"
+  },
+  {
+   "a": "A034",
+   "b": "A036",
+   "kosul": "Danışılan sayısı arttıkça bilgi artar; karar hakkı dağıldıkça süre artar.",
+   "soru": "Kaç kişinin evet demesi gerekiyor?"
+  },
+  {
+   "a": "A006",
+   "b": "A007",
+   "kosul": "Zararın tekrar olasılığı yüksekse temkin doğrudur; düşükse temkinin kendisi zarar üretir.",
+   "soru": "Aynı şey tekrar olursa seni ilk seferki kadar etkiler mi?"
+  },
+  {
+   "a": "A006",
+   "b": "A098",
+   "kosul": "Hatanın nedeni anlaşılmışsa deneyim öğretir; anlaşılmamışsa yalnızca korku bırakır.",
+   "soru": "Neyin yanlış gittiğini adlandırabiliyor musun, yoksa sadece kötü hissettiğini mi biliyorsun?"
+  },
+  {
+   "a": "A063",
+   "b": "A067",
+   "kosul": "Saklamanın maliyeti düşükse tutulur; yer, dikkat ya da bakım istiyorsa bırakılır.",
+   "soru": "Bunu tutmak sana neye mal oluyor?"
+  },
+  {
+   "a": "A066",
+   "b": "A067",
+   "kosul": "Fazlalık pasifse zararsızdır; bakım gerektiriyorsa yüktür.",
+   "soru": "Sahip olduğun şey seni bekliyor mu, yoksa senden bir şey mi istiyor?"
+  },
+  {
+   "a": "A016",
+   "b": "A090",
+   "kosul": "İki sonuç aynı eylemden doğuyorsa birleştirilir; ayrı dikkat istiyorsa ayrılır.",
+   "soru": "Bu ikisi aynı hamleyle mi oluyor, yoksa sırayla mı?"
+  },
+  {
+   "a": "A015",
+   "b": "A095",
+   "kosul": "Geri ödeme kapasitesi öngörülebilirse baskı hareket üretir; öngörülemezse çöküş üretir.",
+   "soru": "Bu yükü kaldıramazsan ne olur?"
+  }
+ ]
+}
