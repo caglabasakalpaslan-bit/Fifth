@@ -17,4 +17,8 @@ html = (html.replace("__DATA__", json.dumps(d, ensure_ascii=False))
             .replace("__N__", str(n)).replace("__FOOT__", foot))
 (kok/"cikti").mkdir(exist_ok=True)
 open(kok/"cikti/harita.html", "w", encoding="utf-8").write(html)
+m = open(kok/"arac/motor_sablonu.html", encoding="utf-8").read()
+open(kok/"cikti/motor.html", "w", encoding="utf-8").write(
+    m.replace("__DATA__", json.dumps(d, ensure_ascii=False)))
+print("cikti/motor.html yazıldı")
 print(f"cikti/harita.html yazıldı — {n} kayıt, {cift} çelişki çifti")

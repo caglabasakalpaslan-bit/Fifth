@@ -1,0 +1,255 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fifth — ayırt edici soru motoru</title>
+<style>
+:root{
+  --ink:#1b1714;--ink2:#241f1a;--ink3:#2e2822;--line:#3d352c;
+  --paper:#e8dfd2;--dim:#a2968a;--faint:#6f655b;--gold:#c69a4e;
+  --MEKAN:#3f6ea8;--ILISKI:#a8677f;--ZIHIN:#7aa583;--IS:#c69a4e;
+  --DUYGU:#b3798a;--PARA:#5e9bb5;--BEDEN:#d97b45;--ANLAM:#4a7d5c;
+}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--ink);color:var(--paper);
+ font:15px/1.6 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:740px;margin:0 auto;padding:40px 22px 80px}
+h1{font:400 28px/1.2 Georgia,serif;margin:0 0 8px}
+.sub{color:var(--dim);font-size:14px;margin:0 0 28px;max-width:58ch}
+textarea{width:100%;min-height:88px;background:var(--ink2);border:1px solid var(--line);
+ border-radius:3px;color:var(--paper);padding:14px;font:inherit;resize:vertical}
+textarea:focus{outline:none;border-color:var(--gold)}
+.ex{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 14px}
+.ex button{background:none;border:1px solid var(--line);color:var(--dim);border-radius:999px;
+ padding:5px 12px;font:inherit;font-size:12.5px;cursor:pointer;text-align:left}
+.ex button:hover{color:var(--paper);border-color:var(--faint)}
+.go{background:var(--gold);border:none;color:var(--ink);font:inherit;font-weight:600;
+ padding:10px 22px;border-radius:3px;cursor:pointer}
+.go:disabled{opacity:.4;cursor:default}
+button:focus-visible,textarea:focus-visible{outline:2px solid var(--paper);outline-offset:2px}
+section{margin-top:30px;border-top:1px solid var(--line);padding-top:24px}
+.k{font-size:11px;color:var(--faint);margin-bottom:7px}
+.heard{font:400 19px/1.45 Georgia,serif;margin:0 0 6px}
+.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.tag{font-size:11px;padding:2px 9px;border-radius:999px;color:var(--ink);font-weight:600}
+.mtag{font-size:11px;padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:var(--dim)}
+.q{background:var(--ink2);border-left:2px solid var(--gold);padding:18px 20px;border-radius:0 3px 3px 0}
+.q h2{font:400 20px/1.4 Georgia,serif;margin:0 0 4px;color:#f3e9d8}
+.q p{margin:0;color:var(--dim);font-size:13px}
+.pick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.pick button{background:var(--ink3);border:1px solid var(--line);color:var(--paper);
+ border-radius:3px;padding:13px 15px;font:inherit;font-size:14px;cursor:pointer;text-align:left;line-height:1.4}
+.pick button:hover{border-color:var(--gold)}
+.res{background:var(--ink2);border:1px solid var(--line);border-radius:3px;padding:20px}
+.prov{font:400 22px/1.35 Georgia,serif;margin:0 0 12px}
+.isk{font:400 15px/1.55 Georgia,serif;color:#f0e7da;margin:0}
+.mini{margin-top:14px;background:var(--ink2);border:1px solid var(--line);border-radius:3px;padding:10px}
+details{margin-top:18px}
+summary{color:var(--faint);font-size:12.5px;cursor:pointer}
+summary:hover{color:var(--dim)}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:12.5px}
+td{padding:4px 8px 4px 0;color:var(--dim);vertical-align:top}
+td.n{color:var(--faint);white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}
+.warn{color:var(--faint);font-size:12.5px;margin-top:14px;line-height:1.5}
+.again{background:none;border:1px solid var(--line);color:var(--dim);border-radius:3px;
+ padding:8px 16px;font:inherit;font-size:13px;cursor:pointer;margin-top:18px}
+@media(max-width:560px){.pick{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<h1>Ayırt edici soru motoru</h1>
+<p class="sub">Bir sıkışmayı anlat. Motor onu atasözü haritasına yerleştirir, sonra
+kendi bilmediği yeri bulur ve tek bir soru sorar. Soru ezberden gelmez —
+birbirini yalanlayan iki atasözünün ikisi de sana uyduğunda ortaya çıkar.</p>
+
+<textarea id="in" placeholder="Örneğin: toplantılardan iş yapmaya vakit kalmıyor"></textarea>
+<div class="ex" id="ex"></div>
+<button class="go" id="go">Söyle</button>
+
+<div id="out"></div>
+</div>
+
+<script>
+const DB=__DATA__, D=DB.kayitlar, C=DB.ciftler;
+const idx={}; D.forEach((r,i)=>idx[r.id]=i);
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue('--'+v).trim();
+
+/* --- Sözlük. Türkçe eklemeli olduğu için kök eşleşmesi yapıyoruz. --- */
+const KUTUP={
+ IS:['iş','proje','görev','toplant','teslim','sprint','task','rapor','deadline','mesai','çalış'],
+ ILISKI:['ekip','takım','patron','müdür','yönetici','arkadaş','insan','kişi','onlar','aile','eş','müşteri','herkes','kimse'],
+ ZIHIN:['düşün','anla','karar','kafa','bil','fikir','odak','dikkat','planla','net'],
+ DUYGU:['hisset','yorgun','bık','kız','öfke','üzül','kaygı','korku','sıkıl','stres','bunal','tükeniyor'],
+ PARA:['para','maaş','bütçe','maliyet','ücret','zam','kaynak','harca'],
+ BEDEN:['uyku','uyu','hasta','enerji','beden','ağrı','yemek','dinlen'],
+ MEKAN:['ofis','ev','uzak','şehir','ortam','masa','yer','uzakta'],
+ ANLAM:['neden','niye','anlam','değer','amaç','ne için','boşuna','saçma']
+};
+const MEK={
+ 'karar-tikanmasi':['karar','onay','imza','onayını bekl','kimse karar','yönetici','patron',
+   'müdür','çıkmıyor','sürünc','fikir veriyor','herkes konuş'],
+ 'kaynak-siniri':['yetiş','vakit kalm','vakit bulam','zaman yok','aynı anda','kapasit',
+   'sığm','çok iş','fazla iş','boğul','yetişemiyorum'],
+ 'sahiplik-boslugu':['kim yapacak','sahip','sorumlu','üstlen','benim işim','kimse yapm','sahiplen'],
+ 'hiz-kalite':['acele','hızlı','apar topar','baştan savma','hata','yetiştir','son dakika'],
+ 'zamanlama':['geç kal','çok erken','sıra','fırsat','kaçır','zamanlama','ne zaman',
+   'net olsun','her şey hazır','hazır olmadan','emin olmadan','başlayamıyorum'],
+ 'kor-nokta':['göremi','fark etme','kendi','anlamı','kör','dışarıdan'],
+ 'yayilma':['yayıl','bulaş','moral','herkese','tüm ekip','havası'],
+ 'bagimlilik':['bağlı','muhtaç','bekliyorum','olmadan','tek kişi','ona kalmış'],
+ 'geri-bildirim':['sonuç','geri dön','karşılık','ödedi','bedel','yansı'],
+ 'birikim':['birik','yavaş','sabır','zamanla','yavaşça','uzun sür'],
+ 'asiri-tepki':['aşırı','çok dikkatli','korkuyorum','abart','tedbir','üç kez',
+   'tekrar tekrar','kontrol ediyorum','batırdım','yine olur','bir daha olmasın','takıntı'],
+ 'bilgi-asimetrisi':['bilmiyor','söylemiyor','gizli','anlatmı','haberi yok','saklı'],
+ 'deneyim-kapisi':['anlamıyorlar','yaşamadı','anlatamıyorum','bilmiyorlar','tarif edemi'],
+ 'gorunum-farki':['görünüyor','sanıyor','aslında','gibi duruyor','öyle sanıl'],
+ 'oran-etkisi':['az','çok','kıyas','başkası','oran','yeterli mi'],
+ 'birlesim':['birlikte','yardım','destek','beraber','ortak'],
+ 'geri-donulmezlik':['geri dönem','oldu bitti','çok geç','iş işten','olan oldu']
+};
+const norm=t=>t.toLowerCase()
+  .replace(/i̇/g,'i').replace(/I/g,'ı');
+const hit=(t,list)=>list.reduce((n,w)=>n+(t.includes(w)?1:0),0);
+
+function yerlestir(text){
+  const t=norm(text);
+  const kp=Object.entries(KUTUP).map(([k,ws])=>[k,hit(t,ws)])
+    .filter(([,n])=>n>0).sort((a,b)=>b[1]-a[1]);
+  const mp=Object.entries(MEK).map(([m,ws])=>[m,hit(t,ws)])
+    .filter(([,n])=>n>0).sort((a,b)=>b[1]-a[1]);
+  const k=kp.slice(0,2).map(x=>x[0]);
+  return {k:k.length?k:['ZIHIN'], m:mp.length?mp[0][0]:null,
+          mAll:mp.map(x=>x[0]), t};
+}
+
+/* Bir atasözünün girdiye uyumu: kutup + mekanizma + iskelet/işlev kelime örtüşmesi */
+function skor(r,g){
+  let s=0;
+  r.k.forEach((p,i)=>{ if(g.k.includes(p)) s += (i===0?2:1.2); });
+  if(r.m===g.m) s+=3;
+  else if(g.mAll.includes(r.m)) s+=1.6;
+  const kelimeler=g.t.split(/[^a-zçğıöşü]+/).filter(w=>w.length>4);
+  const metin=norm(r.i+' '+r.f);
+  kelimeler.forEach(w=>{ if(metin.includes(w.slice(0,5))) s+=0.7; });
+  return s;
+}
+
+/* Belirsizlik: çelişen iki sözün ikisi de uyuyorsa sistem burada bilmiyor demektir */
+function belirsizlik(g){
+  return C.map(p=>{
+    const a=D[idx[p.a]], b=D[idx[p.b]];
+    const sa=skor(a,g), sb=skor(b,g);
+    return {p,a,b,sa,sb, deger:Math.min(sa,sb)+0.25*Math.min(sa,sb)/(Math.abs(sa-sb)+1)};
+  }).sort((x,y)=>y.deger-x.deger);
+}
+
+/* --- arayüz --- */
+const ORNEK=[
+ 'Toplantılardan iş yapmaya vakit kalmıyor',
+ 'Bir şeye başlamadan önce her şeyin net olmasını bekliyorum, sonra da geç kalıyorum',
+ 'Herkes fikir veriyor ama karar bir türlü çıkmıyor',
+ 'Geçen sefer batırdım, şimdi her adımı üç kez kontrol ediyorum'];
+const exBox=document.getElementById('ex');
+ORNEK.forEach(s=>{const b=document.createElement('button');b.textContent=s;
+  b.onclick=()=>{document.getElementById('in').value=s;calistir();};exBox.appendChild(b);});
+
+const INSAN={
+ 'karar-tikanmasi':'Karar bir yerde bekliyor gibi görünüyor.',
+ 'kaynak-siniri':'Aynı anda taşınan yük, taşıyabileceğinden fazla olabilir.',
+ 'sahiplik-boslugu':'İşin kime ait olduğu net olmayabilir.',
+ 'hiz-kalite':'Hız ile nitelik arasında bir gerilim var gibi.',
+ 'zamanlama':'Mesele işin kendisi değil, ne zaman yapıldığı olabilir.',
+ 'kor-nokta':'Kendi durumuna dışarıdan bakmak zor olabilir.',
+ 'yayilma':'Bir yerde başlayan şey başka yerlere geçiyor olabilir.',
+ 'bagimlilik':'Bir şey başka bir şeye fazla bağlı duruyor.',
+ 'geri-bildirim':'Şimdi olan şey, daha önce olan bir şeyin karşılığı olabilir.',
+ 'birikim':'Tek seferde değil, zamanla oluşan bir şeyden bahsediyorsun gibi.',
+ 'asiri-tepki':'Korunma çabasının kendisi bir yük üretiyor olabilir.',
+ 'bilgi-asimetrisi':'Herkesin aynı şeyi bilmediği bir durum var gibi.',
+ 'deneyim-kapisi':'Yaşamayanın anlamadığı bir şeyden bahsediyorsun.',
+ 'gorunum-farki':'Görünen ile olan arasında bir fark var gibi.',
+ 'oran-etkisi':'Mesele mutlak miktar değil, neye göre ölçtüğün olabilir.',
+ 'birlesim':'Tek başına olmayan bir şeyden bahsediyorsun.',
+ 'geri-donulmezlik':'Geri alınamayan bir şeyin ardından konuşuyorsun gibi.'};
+
+let G=null, ADAY=null;
+document.getElementById('go').onclick=calistir;
+document.getElementById('in').addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&(e.metaKey||e.ctrlKey))calistir();});
+
+function calistir(){
+  const text=document.getElementById('in').value.trim();
+  if(!text)return;
+  G=yerlestir(text);
+  ADAY=belirsizlik(G);
+  const top=ADAY[0];
+  const out=document.getElementById('out');
+
+  const duydum = G.m ? INSAN[G.m]
+    : 'Bunu haritada güvenle bir yere koyamadım — sözlükte karşılığı çıkmadı.';
+
+  out.innerHTML=`
+  <section>
+    <div class="k">Duyduğum</div>
+    <p class="heard">${duydum}</p>
+    <div class="tags">${G.k.map(p=>`<span class="tag" style="background:${css(p)}">${p}</span>`).join('')}
+      ${G.m?`<span class="mtag">${G.m}</span>`:''}</div>
+  </section>
+
+  <section>
+    <div class="k">Beşinci soru</div>
+    <div class="q">
+      <h2>${top.p.soru}</h2>
+      <p>${top.p.kosul}</p>
+      <div class="pick">
+        <button data-w="a">${top.a.s}<br><span style="color:var(--faint);font-size:12px">bu bana daha yakın</span></button>
+        <button data-w="b">${top.b.s}<br><span style="color:var(--faint);font-size:12px">bu bana daha yakın</span></button>
+      </div>
+    </div>
+    <details>
+      <summary>Bu soru neden soruldu?</summary>
+      <p class="warn">Motor tüm sözlere uyum puanı verdi, sonra birbirini yalanlayan
+      çiftlere baktı. Aşağıdaki çiftte iki taraf da sana uyuyor; yani burada
+      sistemin bir tercihi yok. Sorulacak en bilgilendirici soru bu.</p>
+      <table>${ADAY.slice(0,4).map(c=>
+        `<tr><td>${c.a.s} <span style="color:var(--faint)">↔</span> ${c.b.s}</td>
+         <td class="n">${c.sa.toFixed(1)} / ${c.sb.toFixed(1)}</td></tr>`).join('')}</table>
+    </details>
+  </section>`;
+
+  out.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>cevap(top,b.dataset.w));
+  out.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function cevap(top,w){
+  const kazanan = w==='a'?top.a:top.b, oteki = w==='a'?top.b:top.a;
+  const kelime=(document.getElementById('in').value.match(/[a-zA-ZçğıöşüÇĞİÖŞÜ]{5,}/g)||['iş'])
+    .sort((a,b)=>b.length-a.length)[0].toLowerCase();
+
+  document.getElementById('out').insertAdjacentHTML('beforeend',`
+  <section>
+    <div class="k">Buradasın</div>
+    <div class="res">
+      <p class="prov">${kazanan.s}</p>
+      <p class="isk">${kazanan.i}</p>
+    </div>
+    <div class="mini">
+      <div class="k">Karşı kutup yanlış değil, başka koşulda doğru</div>
+      <p style="margin:0;font:400 15px/1.45 Georgia,serif">${oteki.s}</p>
+      <p style="margin:6px 0 0;color:var(--faint);font-size:12.5px">${oteki.i}
+      Sende bu koşul oluşursa, doğru söz o olur.</p>
+    </div>
+    <details open>
+      <summary>Buradan bir deyim çıkarmak</summary>
+      <p class="warn">İskelet hazır. Deyim, bu iskeletin senin kendi
+      kelimenle giydirilmiş hali olur — burada en uzun kelimen
+      <b>“${kelime}”</b>. Giydirme işini dil modeli yapar; bu ekranda
+      yalnızca hangi iskeletin giydirileceğini gösteriyorum, uydurma
+      bir cümle üretmiyorum.</p>
+    </details>
+    <button class="again" onclick="location.reload()">Baştan anlat</button>
+  </section>`);
+  document.querySelectorAll('.pick button').forEach(b=>b.disabled=true);
+  document.querySelector('.again').scrollIntoView({behavior:'smooth',block:'center'});
+}
+</script>
