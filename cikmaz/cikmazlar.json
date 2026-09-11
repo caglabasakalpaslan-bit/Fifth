@@ -1,5 +1,5 @@
 {
- "surum": "0.1",
+ "surum": "0.2",
  "not": "Çıkmaz = iki yönün de kapalı olduğu durum. Atasözü tek yön gösterir; çıkmaz iki yönü birden tutar. 'durum' alanı açık ise henüz çıkışı adlandırılmamış demektir.",
  "alanlar": {
   "yonA / yonB": "iki kapalı yön ve her birinin maliyeti",
@@ -7,7 +7,8 @@
   "soru": "iki yön arasında karar verdiren ayırt edici soru",
   "cikis": "sorunun cevabı biliniyorsa çıkmazın karara dönüştüğü koşul; boşsa henüz çözülmemiş",
   "durum": "acik = çıkışı adlandırılmamış, cozulmus = çıkışı var",
-  "yollar": "bilinen çıkış yolları. kaynak='kutuphane' derlenmiştir, kaynak='donus' gerçek kullanıcı dönüşünden gelir. 'yetmez' alanı zorunludur: ne zaman işe yaramadığını söylemeyen yol, tavsiye olur ve değersizleşir."
+  "yollar": "bilinen çıkış yolları. kaynak='kutuphane' derlenmiştir, kaynak='donus' gerçek kullanıcı dönüşünden gelir. 'yetmez' alanı zorunludur: ne zaman işe yaramadığını söylemeyen yol, tavsiye olur ve değersizleşir.",
+  "kapsam": "kisi | iliski | duzen | kultur — çıkmazın kimi kapsadığı (docs/08_Kayit_Semasi.json)"
  },
  "kayitlar": [
   {
@@ -30,7 +31,8 @@
    "iskelet": "Seçmemenin kendisi bir seçimdir; korunma tam olduğunda kazanç da sıfırlanır.",
    "soru": "Hiçbirini seçmezsen bir yıl sonra nerede olursun?",
    "cikis": "Seçeneğin geri alınabilirliği yüksekse seç; düşükse bekleme maliyetini ölç.",
-   "durum": "cozulmus"
+   "durum": "cozulmus",
+   "kapsam": "kisi"
   },
   {
    "id": "C002",
@@ -53,7 +55,8 @@
    "durum": "cozulmus",
    "celisir": [
     "C001"
-   ]
+   ],
+   "kapsam": "kisi"
   },
   {
    "id": "C003",
@@ -105,7 +108,8 @@
     }
    ],
    "besinci": "Bunların hiçbiri değil — kendi yolumu yazacağım",
-   "donus_sorusu": "Ne yaptın, ne oldu?"
+   "donus_sorusu": "Ne yaptın, ne oldu?",
+   "kapsam": "iliski"
   },
   {
    "id": "C004",
@@ -127,7 +131,8 @@
    "iskelet": "Ayrılmanın maliyeti tek seferde, kalmanın maliyeti taksitle ödenir; bu yüzden kalmak hep ucuz görünür.",
    "soru": "Buradaki sorun senin gelişinden önce de var mıydı?",
    "cikis": "Sorun senden önce varsa yapısaldır, kalmak onu çözmez. Seninle başladıysa gitmek de taşınır.",
-   "durum": "cozulmus"
+   "durum": "cozulmus",
+   "kapsam": "kisi"
   },
   {
    "id": "C005",
@@ -147,7 +152,8 @@
    "iskelet": "Sonuç eylemden bağımsız hale geldiğinde, kişi eylemle sonuç arasındaki bağı kurmayı bırakır.",
    "soru": "Son üç denemende sonuç gerçekten aynı mıydı, yoksa aynı mı hissettirdi?",
    "cikis": "",
-   "durum": "acik"
+   "durum": "acik",
+   "kapsam": "kisi"
   },
   {
    "id": "C006",
@@ -168,7 +174,8 @@
    "iskelet": "Bazı büyüklüklerin hem alt hem üst eşiği vardır; iyi olan yön değil aralıktır.",
    "soru": "Bunun bir 'doğru miktarı' var mı, yoksa hep daha azı mı iyi?",
    "cikis": "Aralık varsa yön arama, sınır belirle.",
-   "durum": "cozulmus"
+   "durum": "cozulmus",
+   "kapsam": "kisi"
   },
   {
    "id": "C007",
@@ -188,7 +195,8 @@
    "iskelet": "Bilgi ancak riske girilerek elde edilebiliyorsa, bilmemek de bir maliyettir.",
    "soru": "Yanılırsan geri dönebilir misin?",
    "cikis": "Geri dönülebiliyorsa gir; dönülemiyorsa küçük bir kısmını dene.",
-   "durum": "cozulmus"
+   "durum": "cozulmus",
+   "kapsam": "kisi"
   },
   {
    "id": "C008",
@@ -208,7 +216,8 @@
    "iskelet": "Aynı ölçekte kıyaslanan iki kişide, ötekinin yükselmesi kendi konumunun düşmesi olarak okunur.",
    "soru": "Onun kazandığı şey, senin kaybettiğin bir şey mi?",
    "cikis": "Kaynak paylaşılmıyorsa kıyas yanlıştır; paylaşılıyorsa duygu doğrudur ve mesele duygu değil kaynaktır.",
-   "durum": "cozulmus"
+   "durum": "cozulmus",
+   "kapsam": "iliski"
   },
   {
    "id": "C009",
@@ -228,7 +237,8 @@
    "iskelet": "Hız ile nitelik aynı kaynaktan beslendiği için biri artarken diğeri azalır.",
    "soru": "Beklersen iş bozulur mu, yoksa iş elinden mi gider?",
    "cikis": "Bozuluyorsa yavaşla, gidiyorsa hızlan. İkisi birden ise kapsamı küçült.",
-   "durum": "cozulmus"
+   "durum": "cozulmus",
+   "kapsam": "kisi"
   },
   {
    "id": "C010",
@@ -248,7 +258,8 @@
    "iskelet": "Aynı kapasite hem dışarıya hem içeriye harcanamaz; bölüşüm kaçınılmazdır.",
    "soru": "Sen olmasan bu iş gerçekten durur mu?",
    "cikis": "",
-   "durum": "acik"
+   "durum": "acik",
+   "kapsam": "duzen"
   },
   {
    "id": "C011",
@@ -268,7 +279,8 @@
    "iskelet": "Güç dengesizse paylaşımın kuralını güçlü olan yazar; ortaklık eşitlik anlamına gelmez.",
    "soru": "Bu ortaklıktan çıkarsan elinde ne kalır?",
    "cikis": "Çıkınca elinde bir şey kalıyorsa ortak ol; kalmıyorsa ortaklık değil bağımlılıktır.",
-   "durum": "cozulmus"
+   "durum": "cozulmus",
+   "kapsam": "iliski"
   },
   {
    "id": "C012",
@@ -288,7 +300,8 @@
    "iskelet": "Bir yükümlülüğün maliyeti miktarında değil, ne zaman tahsil edileceğini kimin belirlediğindedir.",
    "soru": "Bunu geri isteme anını kim seçiyor?",
    "cikis": "Anı sen seçebiliyorsan al; karşı taraf seçiyorsa maliyeti hesaplayamazsın.",
-   "durum": "cozulmus"
+   "durum": "cozulmus",
+   "kapsam": "iliski"
   },
   {
    "id": "C013",
@@ -329,7 +342,386 @@
      "ne": "Soru ve karar iki kapı da kapalıysa, hangi masada olduğunu sorgula.",
      "yetmez": "Çıkış maliyeti yüksekken tek başına cevap değildir; süre ve şart koy."
     }
+   ],
+   "kapsam": "iliski"
+  },
+  {
+   "id": "C014",
+   "ad": "Görünmeyen kısayol",
+   "kapsam": "duzen",
+   "klasik": null,
+   "modern": [
+    "gizli otomasyon",
+    "sessiz verimlilik"
+   ],
+   "yonA": {
+    "hareket": "açıkla",
+    "maliyet": "iş yükün artar, küçülme listesi netleşir"
+   },
+   "yonB": {
+    "hareket": "sakla",
+    "maliyet": "zaman kazanırsın, öğrenilirse güven biter"
+   },
+   "iskelet": "Verimliliği paylaşmak kaynağı yeniden böldürür; saklamak sahibini yalnızlaştırır.",
+   "soru": "Bu kısayol seninle mi kalacak, sen de bir gün gidince onunla mı gidecek?",
+   "cikis": "Kısayol sensiz çalışabiliyorsa er geç görünür; erken açıklamak şartını koymanı sağlar.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C015",
+   "ad": "Sınır ya da prim",
+   "kapsam": "duzen",
+   "klasik": "Erken kalkan yol alır",
+   "modern": [
+    "quiet quitting",
+    "göz doldurma"
+   ],
+   "yonA": {
+    "hareket": "sınırını koru",
+    "maliyet": "terfi ve prim başkasına gider"
+   },
+   "yonB": {
+    "hareket": "mesai dışına çık",
+    "maliyet": "kişisel zaman gider, geri alınmaz"
+   },
+   "iskelet": "Ödül görünür fazla mesaiye bağlıysa sınır koyan kişi görünmez olur.",
+   "soru": "Prim bir yıl sonra da aynı bedeli isteyecek mi, yoksa bu geçici bir dönem mi?",
+   "cikis": "Bedel geçiciyse öde; kalıcıysa masayı değil işi sorgula.",
+   "durum": "cozulmus",
+   "celisir": [
+    "C009"
    ]
+  },
+  {
+   "id": "C016",
+   "ad": "Sahte tebrik",
+   "kapsam": "iliski",
+   "klasik": null,
+   "modern": [
+    "LinkedIn samimiyetsizliği"
+   ],
+   "yonA": {
+    "hareket": "gerçeği yaz",
+    "maliyet": "sektörde uyumsuz damgası, geri alınmaz"
+   },
+   "yonB": {
+    "hareket": "tebrik et ya da sus",
+    "maliyet": "kendine yalan söylemiş olursun"
+   },
+   "iskelet": "Kamusal övgüye katılmamak bile bir beyandır; tarafsız kalınamaz.",
+   "soru": "Yazacağın şey o kişiyi mi değiştirir, yoksa sadece seni rahatlatır mı?",
+   "cikis": "Değiştirmeyecekse yazma, sus; susmak tebrik değildir.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C017",
+   "ad": "Dijital mahremiyet",
+   "kapsam": "iliski",
+   "klasik": "Karı koca arasına girilmez",
+   "modern": [
+    "şifre paylaşımı",
+    "red flag"
+   ],
+   "yonA": {
+    "hareket": "şifreni ver",
+    "maliyet": "kendi alanın kalmaz, geri istemek suç gibi olur"
+   },
+   "yonB": {
+    "hareket": "verme",
+    "maliyet": "gizlediğin varsayılır, güven krizi sürer"
+   },
+   "iskelet": "Güvenin kanıt istemesi, kanıtın güven yerine geçmesiyle sonuçlanır.",
+   "soru": "Şifreyi verirsen şüphe biter mi, yoksa yeni bir şey mi ister?",
+   "cikis": "Şüphe kanıtla bitmiyorsa mesele şifre değil; vermek de vermemek de çözmez.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C018",
+   "ad": "Yavaş soğuma",
+   "kapsam": "iliski",
+   "klasik": "Gözden ırak olan gönülden de ırak olur",
+   "modern": [
+    "ghosting",
+    "slow fade"
+   ],
+   "yonA": {
+    "hareket": "sor",
+    "maliyet": "cevap netleşir, kapı kapanabilir"
+   },
+   "yonB": {
+    "hareket": "sen de çekil",
+    "maliyet": "belirsizlik kalır, kendin bitirmiş olursun"
+   },
+   "iskelet": "Karşı taraf bitirmeden çekilince, bitirme işi çekilen tarafa kalır.",
+   "soru": "Cevabı öğrenmek mi zor, yoksa cevabı bekleyen biri olmak mı?",
+   "cikis": "Bir kez sor; cevap gelmezse cevap odur.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C019",
+   "ad": "Birikim ya da fırsat",
+   "kapsam": "kisi",
+   "klasik": "Ak akçe kara gün içindir",
+   "modern": [
+    "FOMO",
+    "carpe diem"
+   ],
+   "yonA": {
+    "hareket": "parayı tut",
+    "maliyet": "fırsat geçer, geri gelmez"
+   },
+   "yonB": {
+    "hareket": "harca ve git",
+    "maliyet": "güvence sıfırlanır"
+   },
+   "iskelet": "Güvence harcanmadığı sürece görünmez; fırsat kaçtığında da görünmez. İkisi de yokluğuyla ölçülür.",
+   "soru": "Bu fırsat bir daha gelir mi; gelmezse, güvence ne kadar sürede yeniden birikir?",
+   "cikis": "Fırsat tekilse ve güvence bir yılda yeniden birikiyorsa git; ikisi de değilse kal.",
+   "durum": "cozulmus",
+   "celisir": [
+    "C002"
+   ]
+  },
+  {
+   "id": "C020",
+   "ad": "Sokakta tanık",
+   "kapsam": "duzen",
+   "klasik": "Bana dokunmayan yılan bin yaşasın",
+   "modern": [
+    "ifşa",
+    "linç"
+   ],
+   "yonA": {
+    "hareket": "kaydet ve paylaş",
+    "maliyet": "hikâyeyi bilmediğin birinin hayatı değişir, geri alınmaz"
+   },
+   "yonB": {
+    "hareket": "geç",
+    "maliyet": "yanlış devam eder, sen de görmüş olursun"
+   },
+   "iskelet": "Kamusal ceza orantıyı vermeyi kalabalığa bırakır; kalabalık orantı bilmez.",
+   "soru": "Amacın davranışı durdurmak mı, kişiyi cezalandırmak mı?",
+   "cikis": "Durdurmaksa o an müdahale et; cezalandırmaksa senin işin değil.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C021",
+   "ad": "Konforlu mutsuzluk",
+   "kapsam": "kisi",
+   "klasik": "Taşınan ağaç kurur; Kurt köyü değiştirir",
+   "modern": [
+    "comfort zone",
+    "hayatı değiştirme"
+   ],
+   "yonA": {
+    "hareket": "kal",
+    "maliyet": "potansiyel yaşanmamış kalır"
+   },
+   "yonB": {
+    "hareket": "git",
+    "maliyet": "yalnızlık ve maddi darlık, en az bir yıl"
+   },
+   "iskelet": "Bilinen mutsuzluk ölçülebilir, bilinmeyen mutluluk ölçülemez; karşılaştırma hep kalmayı seçer.",
+   "soru": "Bir yıl sonra da aynı yerdeysen bu senin kararın mı, ertelemen mi olur?",
+   "cikis": "Karar diyorsan kal ve mutsuzluğu da kabul et; erteleme diyorsan git.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C022",
+   "ad": "Kök aile ya da çekirdek aile",
+   "kapsam": "iliski",
+   "klasik": "Ana baba hakkı ödenmez",
+   "modern": [
+    "sınır çizme",
+    "hayırlı evlat"
+   ],
+   "yonA": {
+    "hareket": "kök aileye uy",
+    "maliyet": "kendi evinde otorite ve huzur gider"
+   },
+   "yonB": {
+    "hareket": "sınır çiz",
+    "maliyet": "anne babayla soğuma, hayırsızlık suçlaması"
+   },
+   "iskelet": "İki sadakat aynı anda tam ödenemez; birine ödenen diğerinden eksilir.",
+   "soru": "Kararı kim yaşayacak: sen ve partnerin mi, anne baban mı?",
+   "cikis": "Yaşayan karar verir; anne baban yaşamayacaksa sınır çiz, nazikçe.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C023",
+   "ad": "Kardeşin borcu",
+   "kapsam": "iliski",
+   "klasik": "Kardeş kardeşin ne öldüğünü ister ne onduğunu",
+   "modern": [
+    "aile parası",
+    "bencil evlat"
+   ],
+   "yonA": {
+    "hareket": "parayı ver",
+    "maliyet": "kendi geleceğin ertelenir, geri gelmeyebilir"
+   },
+   "yonB": {
+    "hareket": "verme",
+    "maliyet": "ailede bencil ilan edilirsin"
+   },
+   "iskelet": "Aile içinde para hiçbir zaman sadece para değildir; her ödeme bir konum satın alır ya da kaybeder.",
+   "soru": "Bu para giderse kaç yılını götürür, gitmezse ailede kaç yılın gider?",
+   "cikis": "Yıllar eşitse ver; kendi yılların fazlaysa verme ve bedelini bil.",
+   "durum": "cozulmus",
+   "celisir": [
+    "C012"
+   ]
+  },
+  {
+   "id": "C024",
+   "ad": "Yaşlı ebeveyn",
+   "kapsam": "iliski",
+   "klasik": "Yuvayı dişi kuş yapar",
+   "modern": [
+    "bakım yükü",
+    "huzurevi"
+   ],
+   "yonA": {
+    "hareket": "eve al",
+    "maliyet": "ilişkin zorlanır, ev düzeni bozulur"
+   },
+   "yonB": {
+    "hareket": "kuruma yerleştir",
+    "maliyet": "vicdan, ebeveynin kırgınlığı"
+   },
+   "iskelet": "Bakım tek kişinin kararı gibi görünür ama iki ilişkiyi aynı anda yeniden yazar.",
+   "soru": "Bu kararı partnerinle birlikte mi veriyorsun, yoksa ona rağmen mi?",
+   "cikis": "Birlikteyse hangisi olursa olsun taşınır; rağmen ise hiçbiri taşınmaz.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C025",
+   "ad": "Hatayı kimse görmedi",
+   "kapsam": "kisi",
+   "klasik": null,
+   "modern": [
+    "sessiz hata"
+   ],
+   "yonA": {
+    "hareket": "üstlen",
+    "maliyet": "güvenilirliğin sarsılır"
+   },
+   "yonB": {
+    "hareket": "sus",
+    "maliyet": "risk seninle kalır, büyürse senin olur"
+   },
+   "iskelet": "Fark edilmemiş hata küçükken ucuz, büyüyünce pahalıdır; fiyat zamanla değil keşifle belirlenir.",
+   "soru": "Bu hata kendiliğinden kapanır mı, yoksa bir gün başkası mı bulur?",
+   "cikis": "Kapanacaksa sus ve izle; bulunacaksa bugün söyle, yarın pahalı.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C026",
+   "ad": "Unvan ya da uyum",
+   "kapsam": "kisi",
+   "klasik": null,
+   "modern": [
+    "prestijli teklif",
+    "impostor"
+   ],
+   "yonA": {
+    "hareket": "kabul et",
+    "maliyet": "yeteneğine uymayan rolde her gün tükenirsin"
+   },
+   "yonB": {
+    "hareket": "reddet",
+    "maliyet": "prestij ve unvan başkasına gider"
+   },
+   "iskelet": "Dış takdir ile iç uyum aynı anda maksimize edilemez; biri diğerinin kılığına girer.",
+   "soru": "Bu rolde bir yıl sonra kim olacaksın: rolü öğrenmiş sen mi, rolü taşıyamayan sen mi?",
+   "cikis": "Öğrenilebilir bir açıksa kabul et; karakter farkıysa reddet.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C027",
+   "ad": "Yakın arkadaşın kuralı bozdu",
+   "kapsam": "duzen",
+   "klasik": null,
+   "modern": [
+    "sorumlu aranıyor"
+   ],
+   "yonA": {
+    "hareket": "onu koru",
+    "maliyet": "kendi sorumluluğunu ihlal edersin, öğrenilirse ikiniz de gidersiniz"
+   },
+   "yonB": {
+    "hareket": "kuralı uygula",
+    "maliyet": "arkadaşlık biter"
+   },
+   "iskelet": "Kural ile bağ çatıştığında hangisini seçersen diğerinin bedelini ilişki öder.",
+   "soru": "Arkadaşın senin yerinde olsa seni korur muydu, bunu biliyor musun?",
+   "cikis": "Biliyorsan ona göre; bilmiyorsan kuralı uygula, tahmin üstüne bağ kurulmaz.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C028",
+   "ad": "Hakemlik",
+   "kapsam": "iliski",
+   "klasik": null,
+   "modern": [
+    "iki arkadaş küs"
+   ],
+   "yonA": {
+    "hareket": "taraf tut",
+    "maliyet": "biri gücenir, hakemliğin biter"
+   },
+   "yonB": {
+    "hareket": "tarafsız kal",
+    "maliyet": "ikisi de seni kaçak sayar"
+   },
+   "iskelet": "Hakem olarak seçilen kişi karar verdiği an hakem olmaktan çıkar.",
+   "soru": "Senden karar mı istiyorlar, yoksa dinleyen biri mi?",
+   "cikis": "Dinleyen istiyorlarsa dinle; karar istiyorlarsa ikisine birden ver, ayrı ayrı değil.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C029",
+   "ad": "Emektar ya da verim",
+   "kapsam": "duzen",
+   "klasik": "Eski dost düşman olmaz",
+   "modern": [
+    "vefa",
+    "dönüşüm"
+   ],
+   "yonA": {
+    "hareket": "tut",
+    "maliyet": "ekip verimi düşer, gençler bunu görür"
+   },
+   "yonB": {
+    "hareket": "çıkar",
+    "maliyet": "vefa bozulur, herkes sıranın kendine geleceğini düşünür"
+   },
+   "iskelet": "Vefa görünür bir maliyetle ödendiğinde vefa olmaktan çıkar, politika olur.",
+   "soru": "Bu kişi rol değiştirebilir mi, yoksa tek seçenek tut/çıkar mı?",
+   "cikis": "Rol değişebiliyorsa üçüncü yol vardır; yoksa kararı geciktirmek ikisine de zarar.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C030",
+   "ad": "Eski hesap",
+   "kapsam": "kultur",
+   "klasik": null,
+   "modern": [
+    "geçmişin ifşası"
+   ],
+   "yonA": {
+    "hareket": "ifşa et",
+    "maliyet": "düzen bozulur, sen de o düzende yaşıyorsun"
+   },
+   "yonB": {
+    "hareket": "bırak",
+    "maliyet": "haksızlık kapanmış sayılır, sen de saymış olursun"
+   },
+   "iskelet": "Geçmişin hesabı bugün soruluyorsa bedel bugün ödenir; ödeyen çoğu zaman o gün orada olmayanlardır.",
+   "soru": "Bugün ifşa edersen kim ödeyecek: o günün sorumluları mı, bugünün insanları mı?",
+   "cikis": "Sorumlular hâlâ oradaysa sor; değilse bu hesap değil intikamdır.",
+   "durum": "cozulmus"
   }
  ]
 }

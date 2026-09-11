@@ -1,0 +1,294 @@
+{
+ "surum": "0.1",
+ "not": "Adlandırılmış girişler. Her kapı bir tanrının gündelik cümlesidir; kullanıcı buradan girer, sistem çıkmaza taşır. cikmaz null = kütüphanede karşılığı yok, aday. Hestia yeniden yazılacak; Google sürümü standarda uymuyor.",
+ "kayitlar": [
+  {
+   "id": "zeus_1",
+   "tanri": "zeus",
+   "bolge": "Gökyüzü, yıldırım ve son karar",
+   "cumle": "Herkes son kararı senden bekliyor; sen de danışacak kimsen olmadığını fark ediyorsun.",
+   "cikmaz": "C001",
+   "durum": "bagli"
+  },
+  {
+   "id": "zeus_2",
+   "tanri": "zeus",
+   "bolge": "Gökyüzü, yıldırım ve son karar",
+   "cumle": "Tatile nereye gidileceğine son kararı yine sen verdin. Herkes rahatladı; sen \"niye hep ben\" diye söylendin.",
+   "cikmaz": "C011",
+   "durum": "bagli"
+  },
+  {
+   "id": "zeus_3",
+   "tanri": "zeus",
+   "bolge": "Gökyüzü, yıldırım ve son karar",
+   "cumle": "Kurtarabilirdin. Kurtarmadın, çünkü o zaman herkes aynısını isterdi. Kimse ağladığını görmedi.",
+   "cikmaz": null,
+   "durum": "aday"
+  },
+  {
+   "id": "hera_1",
+   "tanri": "hera",
+   "bolge": "Evlilik, yemin ve uzun hafıza",
+   "cumle": "Haksızlığı yapan kişiye değil, ulaşabildiğin kişiye kızıyorsun; bunu sen de görüyorsun.",
+   "cikmaz": "C006",
+   "durum": "bagli"
+  },
+  {
+   "id": "hera_2",
+   "tanri": "hera",
+   "bolge": "Evlilik, yemin ve uzun hafıza",
+   "cumle": "Herkes \"olur canım\" dedi ve unuttu; sözü tutan tek kişi sen oldun. Kimse alkışlamadı, ama sen biliyorsun.",
+   "cikmaz": "C010",
+   "durum": "bagli"
+  },
+  {
+   "id": "hera_3",
+   "tanri": "hera",
+   "bolge": "Evlilik, yemin ve uzun hafıza",
+   "cumle": "Doğrudan söylesen olmayacağını biliyordun; dolambaçlı yolu seçtin ve işe yaradı. Şimdi biraz da utanıyorsun.",
+   "cikmaz": "C003",
+   "durum": "bagli"
+  },
+  {
+   "id": "poseidon_1",
+   "tanri": "poseidon",
+   "bolge": "Deniz, deprem, atlar ve eski hesaplar",
+   "cumle": "Bir yarışı kaybettin; kaybı kabul etmek ile kabul etmiş gibi görünmek arasında kaldın.",
+   "cikmaz": "C005",
+   "durum": "bagli"
+  },
+  {
+   "id": "poseidon_2",
+   "tanri": "poseidon",
+   "bolge": "Deniz, deprem, atlar ve eski hesaplar",
+   "cumle": "Oyunu kaybettin ve \"zaten sevmem bu oyunu\" dedin. Oysa üç saat oynadın.",
+   "cikmaz": "C005",
+   "durum": "bagli"
+  },
+  {
+   "id": "poseidon_3",
+   "tanri": "poseidon",
+   "bolge": "Deniz, deprem, atlar ve eski hesaplar",
+   "cumle": "Alanına biri kendi alanı gibi girdi; senin için mesele mülk değil, sorulmamış olmak.",
+   "cikmaz": "C013",
+   "durum": "bagli"
+  },
+  {
+   "id": "demeter_1",
+   "tanri": "demeter",
+   "bolge": "Buğday, hasat ve yarım geri dönüş",
+   "cumle": "Geri aldın, ama tamamını değil; bir kısmı artık başka bir hayatta yaşıyor.",
+   "cikmaz": "C022",
+   "durum": "bagli"
+  },
+  {
+   "id": "demeter_2",
+   "tanri": "demeter",
+   "bolge": "Buğday, hasat ve yarım geri dönüş",
+   "cumle": "Yıllar önce ektiğin bir şey bu yıl meyve verdi. Kimseye anlatmadın, ama bugün biraz daha yavaş yürüdün.",
+   "cikmaz": null,
+   "durum": "aday"
+  },
+  {
+   "id": "demeter_3",
+   "tanri": "demeter",
+   "bolge": "Buğday, hasat ve yarım geri dönüş",
+   "cumle": "Birinin çocuğuna iyilik yapıyordun; annesi kapıdan girdi ve gördüğü şey iyilik gibi görünmüyordu.",
+   "cikmaz": "C027",
+   "durum": "bagli"
+  },
+  {
+   "id": "athena_1",
+   "tanri": "athena",
+   "bolge": "Zeytin, baykuş ve kafadan doğan fikir",
+   "cumle": "Haklısın ve kazanabilirsin; ama kazanmanın karşındakine ne yapacağını görüyorsun.",
+   "cikmaz": "C003",
+   "durum": "bagli"
+  },
+  {
+   "id": "athena_2",
+   "tanri": "athena",
+   "bolge": "Zeytin, baykuş ve kafadan doğan fikir",
+   "cumle": "İki arkadaşın yıllardır küs; ikisi de seni hakem seçti. Ne desen biri gücenecek.",
+   "cikmaz": "C028",
+   "durum": "bagli"
+  },
+  {
+   "id": "athena_3",
+   "tanri": "athena",
+   "bolge": "Zeytin, baykuş ve kafadan doğan fikir",
+   "cumle": "Bir fikir kafanda o kadar hazır doğdu ki nereden geldiğini bilmiyorsun. Sadece işe yaradı.",
+   "cikmaz": null,
+   "durum": "aday"
+  },
+  {
+   "id": "apollon_1",
+   "tanri": "apollon",
+   "bolge": "Lir, ok ve çift anlamlı cevaplar",
+   "cumle": "Ne olacağını gördün, söyledin, kimse inanmadı. Olduğunda da kimse dönüp bakmadı.",
+   "cikmaz": "C010",
+   "durum": "bagli"
+  },
+  {
+   "id": "apollon_2",
+   "tanri": "apollon",
+   "bolge": "Lir, ok ve çift anlamlı cevaplar",
+   "cumle": "Tavsiye istediler; \"ikisi de olur\" dedin. Şimdi kötü giden şey senin yüzünden.",
+   "cikmaz": "C028",
+   "durum": "bagli"
+  },
+  {
+   "id": "apollon_3",
+   "tanri": "apollon",
+   "bolge": "Lir, ok ve çift anlamlı cevaplar",
+   "cumle": "Tartışmayı kazandın. Sonra bir cümle daha söyledin; o cümle fazlaydı, sen de biliyorsun.",
+   "cikmaz": "C006",
+   "durum": "bagli"
+  },
+  {
+   "id": "artemis_1",
+   "tanri": "artemis",
+   "bolge": "Orman, av ve kimsenin girmediği yer",
+   "cumle": "Bu hafta sonu kimseyle plan yapmadın ve harika geçti. Bunu birine açıklamak zorunda mısın?",
+   "cikmaz": "C017",
+   "durum": "bagli"
+  },
+  {
+   "id": "artemis_2",
+   "tanri": "artemis",
+   "bolge": "Orman, av ve kimsenin girmediği yer",
+   "cumle": "Sınırını aşan kişi bunu bilerek yapmadı; sen yine de bilerek yapmış gibi cevap verdin.",
+   "cikmaz": "C006",
+   "durum": "bagli"
+  },
+  {
+   "id": "artemis_3",
+   "tanri": "artemis",
+   "bolge": "Orman, av ve kimsenin girmediği yer",
+   "cumle": "Doğum gününü unuttular; bir yıl konuşmadın. Fazla mıydı? Belki. Ama unuttular.",
+   "cikmaz": "C006",
+   "durum": "bagli"
+  },
+  {
+   "id": "ares_1",
+   "tanri": "ares",
+   "bolge": "Savaş, ter ve ilk hamle",
+   "cumle": "Grup sohbetinde herkes \"bir şey yapsak\" yazıyor; rezervasyonu sen yaptın. Sonra \"niye sormadın\" dediler.",
+   "cikmaz": "C009",
+   "durum": "bagli"
+  },
+  {
+   "id": "ares_2",
+   "tanri": "ares",
+   "bolge": "Savaş, ter ve ilk hamle",
+   "cumle": "Yakınına yapılan bir şeye karşılık verdin; \"haklı mıydım\" sorusu \"orantılı mıydım\" sorusuna dönüştü.",
+   "cikmaz": "C020",
+   "durum": "bagli"
+  },
+  {
+   "id": "ares_3",
+   "tanri": "ares",
+   "bolge": "Savaş, ter ve ilk hamle",
+   "cumle": "Yakalandın; herkesin gülmesi, yaptığın şeyden daha çok acıttı.",
+   "cikmaz": "C025",
+   "durum": "bagli"
+  },
+  {
+   "id": "afrodit_1",
+   "tanri": "afrodit",
+   "bolge": "Arzu, güzellik ve bozulan planlar",
+   "cumle": "Odaya biri girdi; o akşam için yaptığın bütün plan bir anda gereksiz oldu.",
+   "cikmaz": "C002",
+   "durum": "bagli"
+  },
+  {
+   "id": "afrodit_2",
+   "tanri": "afrodit",
+   "bolge": "Arzu, güzellik ve bozulan planlar",
+   "cumle": "İlişkin açığa çıktı, herkes güldü; ilişkiden mi gülünmekten mi daha çok utandığını ayıramıyorsun.",
+   "cikmaz": "C008",
+   "durum": "bagli"
+  },
+  {
+   "id": "afrodit_3",
+   "tanri": "afrodit",
+   "bolge": "Arzu, güzellik ve bozulan planlar",
+   "cumle": "Hoşlandığın kişiyi yakınlarına söyleyemiyorsun. Utandığın o mu, sen mi?",
+   "cikmaz": "C003",
+   "durum": "bagli"
+  },
+  {
+   "id": "hephaistos_1",
+   "tanri": "hephaistos",
+   "bolge": "Ateş, demir ve kendi kendine çalışan aletler",
+   "cumle": "Evdeki her şeyi sen tamir ediyorsun. Kimse \"nasılsın\" demiyor, \"şu bozuldu\" diyor.",
+   "cikmaz": "C010",
+   "durum": "bagli"
+  },
+  {
+   "id": "hephaistos_2",
+   "tanri": "hephaistos",
+   "bolge": "Ateş, demir ve kendi kendine çalışan aletler",
+   "cumle": "Haklıydın, kanıtın da vardı; herkese gösterdin — ve en çok sen küçük düştün.",
+   "cikmaz": "C016",
+   "durum": "bagli"
+  },
+  {
+   "id": "hephaistos_3",
+   "tanri": "hephaistos",
+   "bolge": "Ateş, demir ve kendi kendine çalışan aletler",
+   "cumle": "Seni bir zamanlar kurtaran biri kapına geldi ve bir şey istedi; bütün gece çalıştın; hiç bu kadar mutlu olmamıştın.",
+   "cikmaz": null,
+   "durum": "aday"
+  },
+  {
+   "id": "hermes_1",
+   "tanri": "hermes",
+   "bolge": "Yollar, haberler ve küçük hırsızlıklar",
+   "cumle": "İki arkadaşın küs; ikisiyle de ayrı ayrı kahve içtin. İkisi de \"sen beni anlıyorsun\" dedi.",
+   "cikmaz": "C028",
+   "durum": "bagli"
+  },
+  {
+   "id": "hermes_2",
+   "tanri": "hermes",
+   "bolge": "Yollar, haberler ve küçük hırsızlıklar",
+   "cumle": "Sana verilen mesajı taşıyorsun; karşı taraf mesajı değil seni suçluyor.",
+   "cikmaz": "C013",
+   "durum": "bagli"
+  },
+  {
+   "id": "hermes_3",
+   "tanri": "hermes",
+   "bolge": "Yollar, haberler ve küçük hırsızlıklar",
+   "cumle": "Bir şeyi kaçırdın, sonra öyle iyi konuştun ki mesele kapandı. İçinde de kapandı mı, bilmiyorsun.",
+   "cikmaz": "C025",
+   "durum": "bagli"
+  },
+  {
+   "id": "dionysos_1",
+   "tanri": "dionysos",
+   "bolge": "Şarap, maske ve bırakılan kontrol",
+   "cumle": "Kimse dans etmiyordu; sen kalktın. On dakika sonra masa boştu.",
+   "cikmaz": "C009",
+   "durum": "bagli"
+  },
+  {
+   "id": "dionysos_2",
+   "tanri": "dionysos",
+   "bolge": "Şarap, maske ve bırakılan kontrol",
+   "cumle": "İstediğin şeyi tam olarak aldın; şimdi ondan kurtulmak istiyorsun.",
+   "cikmaz": "C026",
+   "durum": "bagli"
+  },
+  {
+   "id": "dionysos_3",
+   "tanri": "dionysos",
+   "bolge": "Şarap, maske ve bırakılan kontrol",
+   "cumle": "Bir şeyi kendine yasakladın; o şey seni hazırlıksız yakalayana kadar yokmuş gibi yaşadın.",
+   "cikmaz": "C019",
+   "durum": "bagli"
+  }
+ ]
+}
