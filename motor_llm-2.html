@@ -1,0 +1,1251 @@
+<!doctype html>
+<html lang="tr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fifthback — kapıdan çıkışa</title>
+<style>
+:root{--ink:#1b1714;--ink2:#241f1a;--ink3:#2e2822;--line:#3d352c;--paper:#e8dfd2;--dim:#a2968a;--faint:#6f655b;--gold:#c69a4e}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--ink);color:var(--paper);font:15px/1.6 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:36px 20px 90px}
+h1{font:400 26px/1.2 Georgia,serif;margin:0 0 6px}
+.sub{color:var(--paper);font-size:17px;margin:0 0 14px;max-width:56ch}
+textarea{width:100%;min-height:96px;background:var(--ink2);border:1px solid var(--line);border-radius:3px;color:var(--paper);padding:14px;font:inherit;resize:vertical}
+textarea:focus{outline:none;border-color:var(--gold)}
+.row{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+button{font:inherit;cursor:pointer}
+.go{background:var(--gold);border:none;color:var(--ink);font-weight:600;padding:10px 22px;border-radius:3px}
+.go:disabled{opacity:.4;cursor:default}
+.ghost{background:none;border:1px solid var(--line);color:var(--dim);padding:9px 16px;border-radius:3px}
+.ghost:hover{color:var(--paper);border-color:var(--faint)}
+button:focus-visible,textarea:focus-visible{outline:2px solid var(--paper);outline-offset:2px}
+section .k{font-size:14px;color:var(--dim);margin:0 0 8px}
+section{margin-top:28px;border-top:1px solid var(--line);padding-top:22px}
+.k{font-size:17px;color:var(--paper);margin:26px 0 12px}
+.heard{font:400 19px/1.45 Georgia,serif;margin:0 0 4px}
+.why{color:var(--dim);font-size:14px;margin:0}
+.q{background:var(--ink2);border-left:2px solid var(--gold);padding:18px 20px;margin-top:14px}
+.q h2{font:400 22px/1.4 Georgia,serif;margin:0 0 6px;color:#f3e9d8}
+.q p{margin:0;color:var(--dim);font-size:13px}
+.pick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.pick button{background:var(--ink3);border:1px solid var(--line);color:var(--paper);border-radius:3px;padding:13px 15px;text-align:left;line-height:1.4}
+.pick button small{display:block;color:var(--dim);font-size:12px;margin-top:4px}
+.pick button:hover{border-color:var(--gold)}
+.pick button.on{border-color:var(--gold);background:var(--ink2)}
+.yol{border:1px solid var(--line);border-radius:3px;padding:14px 16px;margin-top:10px}
+.yol h3{font:400 17px/1.3 Georgia,serif;margin:0 0 4px}
+.yol p{margin:0;font-size:14px}
+.yol .yetmez{color:var(--dim);margin-top:6px}
+.yol .yetmez::before{content:"Yetmediği yer: ";color:var(--gold)}
+.src{font-size:11px;color:var(--faint);margin-left:8px}
+.err{color:#e0a080;font-size:14px;margin-top:8px}
+.wait{color:var(--dim);font-size:14px}
+@media (max-width:480px){.pick{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){section{animation:in .25s ease-out}@keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}}
+</style></head><body><div class="wrap">
+<h1>FifthBack</h1>
+<div class="k" style="margin-top:6px">İçinde bulunduğun çıkmaz sokağı seç.</div>
+
+<div class="pick" id="kapilar" style="margin:0 0 18px"></div>
+<div class="k">Hangi çıkmaz sokakta olduğunu kendin tarif et.</div>
+<div class="pick" id="mod" style="margin:0 0 12px">
+ <button id="modYaz" class="on">✎ Yazacağım</button>
+ <button id="modSes" hidden>🎤 Sesli anlatacağım</button>
+</div>
+<textarea id="in" placeholder="Örnek: Vereceği cevabı bildiğim için yöneticime soru sorasım gelmiyor. Üstelik sorup o cevabı aldığımda daha da sinirleniyorum."></textarea>
+<div class="row"><button class="go" id="go">Başla</button><span class="wait" id="w1"></span></div>
+<div class="err" id="e1"></div>
+
+<section id="s2" hidden>
+ <div class="k">Şuna benziyor mu?</div>
+ <p class="heard" id="ad"></p>
+ <p class="why" id="why"></p>
+ <div class="pick" id="onay"></div>
+</section>
+
+<section id="s3" hidden>
+ <div class="k">Beşinci soru</div>
+ <div class="q"><h2 id="soru"></h2><p id="iskelet"></p></div>
+ <div class="pick" id="yon"></div>
+</section>
+
+<section id="s4" hidden>
+ <div class="k">Bilinen yollar</div>
+ <p class="why" id="cikis"></p>
+ <div id="yollar"></div>
+ <span class="wait" id="w4"></span>
+</section>
+
+<section id="s5" hidden>
+ <div class="k">Beşinci seçenek</div>
+ <p class="why">Benimki bunların hiçbiri değil. Kendi yolunu yaz; kütüphaneye eklenecek şey budur.</p>
+ <textarea id="kendi" placeholder="Ne yapacaksın?"></textarea>
+ <div class="row"><button class="go" id="kaydet">Kaydet</button><span class="wait" id="w5"></span></div>
+</section>
+
+<section id="s6" hidden>
+ <div class="k">Dönüş</div>
+ <p class="heard">Bir hafta sonra: ne yaptın, ne oldu?</p>
+ <p class="why">Ürünün kendisi bu adım. Bu prototipte kayıt tutulmuyor; gerçek sürümde buraya geri gelirsin ve seçtiğin yolun yanına "1 kişi denedi" yazılır.</p>
+ <div class="row"><button class="ghost" id="yeni">Yeni bir cümleyle başla</button></div>
+</section>
+</div>
+<script>
+const LIB = {
+ "surum": "0.2",
+ "not": "Çıkmaz = iki yönün de kapalı olduğu durum. Atasözü tek yön gösterir; çıkmaz iki yönü birden tutar. 'durum' alanı açık ise henüz çıkışı adlandırılmamış demektir.",
+ "alanlar": {
+  "yonA / yonB": "iki kapalı yön ve her birinin maliyeti",
+  "iskelet": "somut isim içermeyen hali",
+  "soru": "iki yön arasında karar verdiren ayırt edici soru",
+  "cikis": "sorunun cevabı biliniyorsa çıkmazın karara dönüştüğü koşul; boşsa henüz çözülmemiş",
+  "durum": "acik = çıkışı adlandırılmamış, cozulmus = çıkışı var",
+  "yollar": "bilinen çıkış yolları. kaynak='kutuphane' derlenmiştir, kaynak='donus' gerçek kullanıcı dönüşünden gelir. 'yetmez' alanı zorunludur: ne zaman işe yaramadığını söylemeyen yol, tavsiye olur ve değersizleşir.",
+  "kapsam": "kisi | iliski | duzen | kultur — çıkmazın kimi kapsadığı (docs/08_Kayit_Semasi.json)"
+ },
+ "kayitlar": [
+  {
+   "id": "C001",
+   "ad": "Karar edememe",
+   "klasik": "Korkak bezirgân ne kâr eder ne ziyan",
+   "modern": [
+    "FOBO",
+    "seçenekleri açık tutma",
+    "karar felci"
+   ],
+   "yonA": {
+    "hareket": "seç",
+    "maliyet": "seçilmeyenler kapanır"
+   },
+   "yonB": {
+    "hareket": "seçme",
+    "maliyet": "hiçbiri gerçekleşmez, süre boşa akar"
+   },
+   "iskelet": "Seçmemenin kendisi bir seçimdir; korunma tam olduğunda kazanç da sıfırlanır.",
+   "soru": "Hiçbirini seçmezsen bir yıl sonra nerede olursun?",
+   "cikis": "Seçeneğin geri alınabilirliği yüksekse seç; düşükse bekleme maliyetini ölç.",
+   "durum": "cozulmus",
+   "kapsam": "kisi"
+  },
+  {
+   "id": "C002",
+   "ad": "Kaçırma korkusu",
+   "klasik": "Sona kalan dona kalır",
+   "modern": [
+    "FOMO"
+   ],
+   "yonA": {
+    "hareket": "her şeye gir",
+    "maliyet": "hiçbirinde derinleşemezsin"
+   },
+   "yonB": {
+    "hareket": "seçici ol",
+    "maliyet": "kaçırdığın şeyin ne olduğunu asla bilemezsin"
+   },
+   "iskelet": "Kaçırılanın değeri ölçülemez olduğu için, kaçırma korkusu hiçbir veriyle yatışmaz.",
+   "soru": "Kaçırdığını sonradan öğrenebilecek misin, yoksa hiç bilemeyecek misin?",
+   "cikis": "Sonucu görülebilen şeylerde bekle; görülemeyenlerde kural koy, karar verme.",
+   "durum": "cozulmus",
+   "celisir": [
+    "C001"
+   ],
+   "kapsam": "kisi"
+  },
+  {
+   "id": "C003",
+   "ad": "Söylemek ya da susmak",
+   "klasik": null,
+   "modern": [
+    "ya konuşsam olmuyor, sussam gönlüm razı değil"
+   ],
+   "yonA": {
+    "hareket": "söyle",
+    "maliyet": "ilişki zarar görür, sonucu geri alamazsın"
+   },
+   "yonB": {
+    "hareket": "sus",
+    "maliyet": "içeride birikir, sen değişirsin"
+   },
+   "iskelet": "Bir bilginin taşınması da taşınmaması da taşıyanı değiştirir; nötr seçenek yoktur.",
+   "soru": "Söylemezsen bu, bir ay sonra hâlâ aynı yerde mi duruyor olacak?",
+   "cikis": "Zamanla küçülüyorsa sus; büyüyorsa söylemek zaten kaçınılmazdır, sadece geç olur.",
+   "durum": "cozulmus",
+   "yollar": [
+    {
+     "ad": "Doğrudan söyle",
+     "kaynak": "kutuphane",
+     "ne": "Muhatabına, aracısız, tek seferde söylersin.",
+     "yarar": "İlişkide daha önce zor bir konuşma yapılmış ve ilişki sağ çıkmışsa.",
+     "yetmez": "Güç dengesi eşit değilse. Üstün konumdaki kişiye söylemenin bedelini söyleyen öder."
+    },
+    {
+     "ad": "Zemin yokla",
+     "kaynak": "kutuphane",
+     "ne": "Bütününü değil küçük bir kısmını söyler, tepkiyi ölçersin.",
+     "yarar": "İlişkinin bunu taşıyıp taşımayacağını bilmiyorsan.",
+     "yetmez": "Mesele bölünemiyorsa. Yarısını söylemek bazen yalanın kendisidir."
+    },
+    {
+     "ad": "Üçüncü kişiye anlat",
+     "kaynak": "kutuphane",
+     "ne": "Muhatabına değil, güvendiğin başka birine anlatırsın.",
+     "yarar": "İhtiyacın anlaşılmaksa. Söylenmiş olmak çoğu zaman yükü indirir.",
+     "yetmez": "Karşı tarafın davranışının değişmesi gerekiyorsa. Hiçbir şey değişmez, sen sadece rahatlarsın."
+    },
+    {
+     "ad": "Bilerek sus",
+     "kaynak": "kutuphane",
+     "ne": "Susmayı ertelenmiş bir hal olmaktan çıkarıp bir karara dönüştürürsün.",
+     "yarar": "İlişki geçiciyse ya da maliyeti sınırlıysa. Her şey söylenmek zorunda değil.",
+     "yetmez": "Aynı şey tekrar ediyorsa. Tekrarlanan sessizlik birikir ve seni değiştirir."
+    }
+   ],
+   "besinci": "Bunların hiçbiri değil — kendi yolumu yazacağım",
+   "donus_sorusu": "Ne yaptın, ne oldu?",
+   "kapsam": "iliski"
+  },
+  {
+   "id": "C004",
+   "ad": "Gitmek ya da kalmak",
+   "klasik": "Sürüden ayrılanı kurt kapar",
+   "modern": [
+    "işten ayrılmak",
+    "şehir değiştirmek",
+    "ilişkiyi bitirmek"
+   ],
+   "yonA": {
+    "hareket": "git",
+    "maliyet": "biriktirdiğin bağ ve konum sıfırlanır"
+   },
+   "yonB": {
+    "hareket": "kal",
+    "maliyet": "değişmeyen şeye katlanma süresi uzar"
+   },
+   "iskelet": "Ayrılmanın maliyeti tek seferde, kalmanın maliyeti taksitle ödenir; bu yüzden kalmak hep ucuz görünür.",
+   "soru": "Buradaki sorun senin gelişinden önce de var mıydı?",
+   "cikis": "Sorun senden önce varsa yapısaldır, kalmak onu çözmez. Seninle başladıysa gitmek de taşınır.",
+   "durum": "cozulmus",
+   "kapsam": "kisi"
+  },
+  {
+   "id": "C005",
+   "ad": "Her ihtimalde kaybetme",
+   "klasik": "Bahtsızın bağına yağmur, ya taş yağar ya dolu",
+   "modern": [
+    "ne yapsam olmuyor"
+   ],
+   "yonA": {
+    "hareket": "dene",
+    "maliyet": "başarısız olur"
+   },
+   "yonB": {
+    "hareket": "deneme",
+    "maliyet": "yine kaybedersin"
+   },
+   "iskelet": "Sonuç eylemden bağımsız hale geldiğinde, kişi eylemle sonuç arasındaki bağı kurmayı bırakır.",
+   "soru": "Son üç denemende sonuç gerçekten aynı mıydı, yoksa aynı mı hissettirdi?",
+   "cikis": "",
+   "durum": "acik",
+   "kapsam": "kisi"
+  },
+  {
+   "id": "C006",
+   "ad": "Ölçüsüzlüğün iki ucu",
+   "klasik": "Fazla aş, ya karın ağrıtır ya baş",
+   "modern": [
+    "az uyku çok uyku",
+    "az iş çok iş"
+   ],
+   "yonA": {
+    "hareket": "artır",
+    "maliyet": "aşırı yük bozar"
+   },
+   "yonB": {
+    "hareket": "azalt",
+    "maliyet": "yetersizlik bozar"
+   },
+   "iskelet": "Bazı büyüklüklerin hem alt hem üst eşiği vardır; iyi olan yön değil aralıktır.",
+   "soru": "Bunun bir 'doğru miktarı' var mı, yoksa hep daha azı mı iyi?",
+   "cikis": "Aralık varsa yön arama, sınır belirle.",
+   "durum": "cozulmus",
+   "kapsam": "kisi"
+  },
+  {
+   "id": "C007",
+   "ad": "Sonucu belli olmayan risk",
+   "klasik": "Her deliğe elini sokma, ya yılan çıkar ya çıyan",
+   "modern": [
+    "bilinmeyene girmek"
+   ],
+   "yonA": {
+    "hareket": "gir",
+    "maliyet": "ne çıkacağını bilmiyorsun"
+   },
+   "yonB": {
+    "hareket": "girme",
+    "maliyet": "ne olduğunu hiç öğrenemezsin"
+   },
+   "iskelet": "Bilgi ancak riske girilerek elde edilebiliyorsa, bilmemek de bir maliyettir.",
+   "soru": "Yanılırsan geri dönebilir misin?",
+   "cikis": "Geri dönülebiliyorsa gir; dönülemiyorsa küçük bir kısmını dene.",
+   "durum": "cozulmus",
+   "kapsam": "kisi"
+  },
+  {
+   "id": "C008",
+   "ad": "Yakınlık kıskançlığı",
+   "klasik": "Kardeş kardeşin ne öldüğünü ister, ne onduğunu",
+   "modern": [
+    "arkadaşımın başarısına sevinemiyorum"
+   ],
+   "yonA": {
+    "hareket": "sevin",
+    "maliyet": "kendi geriliğini kabul etmiş olursun"
+   },
+   "yonB": {
+    "hareket": "sevinme",
+    "maliyet": "kendini kötü biri gibi hissedersin"
+   },
+   "iskelet": "Aynı ölçekte kıyaslanan iki kişide, ötekinin yükselmesi kendi konumunun düşmesi olarak okunur.",
+   "soru": "Onun kazandığı şey, senin kaybettiğin bir şey mi?",
+   "cikis": "Kaynak paylaşılmıyorsa kıyas yanlıştır; paylaşılıyorsa duygu doğrudur ve mesele duygu değil kaynaktır.",
+   "durum": "cozulmus",
+   "kapsam": "iliski"
+  },
+  {
+   "id": "C009",
+   "ad": "Aceleyle bekleme arasında",
+   "klasik": "Acele işe şeytan karışır / Sona kalan dona kalır",
+   "modern": [
+    "şimdi mi sonra mı"
+   ],
+   "yonA": {
+    "hareket": "hızlan",
+    "maliyet": "hata üretirsin"
+   },
+   "yonB": {
+    "hareket": "bekle",
+    "maliyet": "fırsatı kaçırırsın"
+   },
+   "iskelet": "Hız ile nitelik aynı kaynaktan beslendiği için biri artarken diğeri azalır.",
+   "soru": "Beklersen iş bozulur mu, yoksa iş elinden mi gider?",
+   "cikis": "Bozuluyorsa yavaşla, gidiyorsa hızlan. İkisi birden ise kapsamı küçült.",
+   "durum": "cozulmus",
+   "kapsam": "kisi"
+  },
+  {
+   "id": "C010",
+   "ad": "Görünmez emeğin bedeli",
+   "klasik": "Terzi kendi söküğünü dikemez",
+   "modern": [
+    "herkese yetişiyorum kendime yetişemiyorum"
+   ],
+   "yonA": {
+    "hareket": "başkalarına ver",
+    "maliyet": "kendine kalmaz"
+   },
+   "yonB": {
+    "hareket": "kendine ayır",
+    "maliyet": "bencil görünürsün ve bağ zayıflar"
+   },
+   "iskelet": "Aynı kapasite hem dışarıya hem içeriye harcanamaz; bölüşüm kaçınılmazdır.",
+   "soru": "Sen olmasan bu iş gerçekten durur mu?",
+   "cikis": "",
+   "durum": "acik",
+   "kapsam": "duzen"
+  },
+  {
+   "id": "C011",
+   "ad": "Ortak olduğun gücün payı",
+   "klasik": "Kurtla ortak olan tilkinin hissesi ya tırnaktır ya bağırsak",
+   "modern": [
+    "büyük oyuncuyla çalışmak"
+   ],
+   "yonA": {
+    "hareket": "ortak ol",
+    "maliyet": "payı o belirler"
+   },
+   "yonB": {
+    "hareket": "olma",
+    "maliyet": "ölçeğe hiç erişemezsin"
+   },
+   "iskelet": "Güç dengesizse paylaşımın kuralını güçlü olan yazar; ortaklık eşitlik anlamına gelmez.",
+   "soru": "Bu ortaklıktan çıkarsan elinde ne kalır?",
+   "cikis": "Çıkınca elinde bir şey kalıyorsa ortak ol; kalmıyorsa ortaklık değil bağımlılıktır.",
+   "durum": "cozulmus",
+   "kapsam": "iliski"
+  },
+  {
+   "id": "C012",
+   "ad": "Zamanlaması olmayan borç",
+   "klasik": "Dilenciye borçlu olma, ya düğünde ister ya bayramda",
+   "modern": [
+    "yanlış kişiye bağımlı olmak"
+   ],
+   "yonA": {
+    "hareket": "al",
+    "maliyet": "geri isteme anını sen seçemezsin"
+   },
+   "yonB": {
+    "hareket": "alma",
+    "maliyet": "şu anki ihtiyacın karşılanmaz"
+   },
+   "iskelet": "Bir yükümlülüğün maliyeti miktarında değil, ne zaman tahsil edileceğini kimin belirlediğindedir.",
+   "soru": "Bunu geri isteme anını kim seçiyor?",
+   "cikis": "Anı sen seçebiliyorsan al; karşı taraf seçiyorsa maliyeti hesaplayamazsın.",
+   "durum": "cozulmus",
+   "kapsam": "iliski"
+  },
+  {
+   "id": "C013",
+   "ad": "Sormayı erteleme",
+   "klasik": "Bilmemek ayıp değil, sormamak ayıp",
+   "modern": [
+    "cevabı biliyorum, duymak istemiyorum",
+    "size döneceğiz modu"
+   ],
+   "yonA": {
+    "hareket": "sor",
+    "maliyet": "cevap gelir, sonrasında bir hamle yapmak zorunda kalırsın"
+   },
+   "yonB": {
+    "hareket": "sorma",
+    "maliyet": "belirsizlik değil erteleme birikir; ilişki sessizce donar"
+   },
+   "iskelet": "Ertelenen şey cevap değil, cevaptan sonraki hamledir; sormamak hamleyi değil zamanı harcar.",
+   "soru": "Cevabı gerçekten bilmiyor musun, yoksa duyunca yapman gerekeni mi erteliyorsun?",
+   "cikis": "Bilmiyorsan sor. Biliyorsan soru gereksizdir; hamleyi sormadan planla.",
+   "durum": "cozulmus",
+   "yollar": [
+    {
+     "ad": "Karar olarak götür",
+     "kaynak": "kutuphane",
+     "ne": "Soru yerine 'şöyle yapacağım, itirazın var mı' de.",
+     "yetmez": "Karşı taraf karar hakkını hiç paylaşmıyorsa bu da kapanır; o zaman sorun iletişim değil masadır."
+    },
+    {
+     "ad": "Masaya götürmeden yap",
+     "kaynak": "kutuphane",
+     "ne": "Onay gerektirmeyen kısmı seç, sormadan yap, sonucu göster.",
+     "yetmez": "Yaptığın şey görünmüyorsa ya da cezalandırılıyorsa sürdürülemez."
+    },
+    {
+     "ad": "Masayı sorgula",
+     "kaynak": "kutuphane",
+     "ne": "Soru ve karar iki kapı da kapalıysa, hangi masada olduğunu sorgula.",
+     "yetmez": "Çıkış maliyeti yüksekken tek başına cevap değildir; süre ve şart koy."
+    }
+   ],
+   "kapsam": "iliski"
+  },
+  {
+   "id": "C014",
+   "ad": "Görünmeyen kısayol",
+   "kapsam": "duzen",
+   "klasik": null,
+   "modern": [
+    "gizli otomasyon",
+    "sessiz verimlilik"
+   ],
+   "yonA": {
+    "hareket": "açıkla",
+    "maliyet": "iş yükün artar, küçülme listesi netleşir"
+   },
+   "yonB": {
+    "hareket": "sakla",
+    "maliyet": "zaman kazanırsın, öğrenilirse güven biter"
+   },
+   "iskelet": "Verimliliği paylaşmak kaynağı yeniden böldürür; saklamak sahibini yalnızlaştırır.",
+   "soru": "Bu kısayol seninle mi kalacak, sen de bir gün gidince onunla mı gidecek?",
+   "cikis": "Kısayol sensiz çalışabiliyorsa er geç görünür; erken açıklamak şartını koymanı sağlar.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C015",
+   "ad": "Sınır ya da prim",
+   "kapsam": "duzen",
+   "klasik": "Erken kalkan yol alır",
+   "modern": [
+    "quiet quitting",
+    "göz doldurma"
+   ],
+   "yonA": {
+    "hareket": "sınırını koru",
+    "maliyet": "terfi ve prim başkasına gider"
+   },
+   "yonB": {
+    "hareket": "mesai dışına çık",
+    "maliyet": "kişisel zaman gider, geri alınmaz"
+   },
+   "iskelet": "Ödül görünür fazla mesaiye bağlıysa sınır koyan kişi görünmez olur.",
+   "soru": "Prim bir yıl sonra da aynı bedeli isteyecek mi, yoksa bu geçici bir dönem mi?",
+   "cikis": "Bedel geçiciyse öde; kalıcıysa masayı değil işi sorgula.",
+   "durum": "cozulmus",
+   "celisir": [
+    "C009"
+   ]
+  },
+  {
+   "id": "C016",
+   "ad": "Sahte tebrik",
+   "kapsam": "iliski",
+   "klasik": null,
+   "modern": [
+    "LinkedIn samimiyetsizliği"
+   ],
+   "yonA": {
+    "hareket": "gerçeği yaz",
+    "maliyet": "sektörde uyumsuz damgası, geri alınmaz"
+   },
+   "yonB": {
+    "hareket": "tebrik et ya da sus",
+    "maliyet": "kendine yalan söylemiş olursun"
+   },
+   "iskelet": "Kamusal övgüye katılmamak bile bir beyandır; tarafsız kalınamaz.",
+   "soru": "Yazacağın şey o kişiyi mi değiştirir, yoksa sadece seni rahatlatır mı?",
+   "cikis": "Değiştirmeyecekse yazma, sus; susmak tebrik değildir.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C017",
+   "ad": "Dijital mahremiyet",
+   "kapsam": "iliski",
+   "klasik": "Karı koca arasına girilmez",
+   "modern": [
+    "şifre paylaşımı",
+    "red flag"
+   ],
+   "yonA": {
+    "hareket": "şifreni ver",
+    "maliyet": "kendi alanın kalmaz, geri istemek suç gibi olur"
+   },
+   "yonB": {
+    "hareket": "verme",
+    "maliyet": "gizlediğin varsayılır, güven krizi sürer"
+   },
+   "iskelet": "Güvenin kanıt istemesi, kanıtın güven yerine geçmesiyle sonuçlanır.",
+   "soru": "Şifreyi verirsen şüphe biter mi, yoksa yeni bir şey mi ister?",
+   "cikis": "Şüphe kanıtla bitmiyorsa mesele şifre değil; vermek de vermemek de çözmez.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C018",
+   "ad": "Yavaş soğuma",
+   "kapsam": "iliski",
+   "klasik": "Gözden ırak olan gönülden de ırak olur",
+   "modern": [
+    "ghosting",
+    "slow fade"
+   ],
+   "yonA": {
+    "hareket": "sor",
+    "maliyet": "cevap netleşir, kapı kapanabilir"
+   },
+   "yonB": {
+    "hareket": "sen de çekil",
+    "maliyet": "belirsizlik kalır, kendin bitirmiş olursun"
+   },
+   "iskelet": "Karşı taraf bitirmeden çekilince, bitirme işi çekilen tarafa kalır.",
+   "soru": "Cevabı öğrenmek mi zor, yoksa cevabı bekleyen biri olmak mı?",
+   "cikis": "Bir kez sor; cevap gelmezse cevap odur.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C019",
+   "ad": "Birikim ya da fırsat",
+   "kapsam": "kisi",
+   "klasik": "Ak akçe kara gün içindir",
+   "modern": [
+    "FOMO",
+    "carpe diem"
+   ],
+   "yonA": {
+    "hareket": "parayı tut",
+    "maliyet": "fırsat geçer, geri gelmez"
+   },
+   "yonB": {
+    "hareket": "harca ve git",
+    "maliyet": "güvence sıfırlanır"
+   },
+   "iskelet": "Güvence harcanmadığı sürece görünmez; fırsat kaçtığında da görünmez. İkisi de yokluğuyla ölçülür.",
+   "soru": "Bu fırsat bir daha gelir mi; gelmezse, güvence ne kadar sürede yeniden birikir?",
+   "cikis": "Fırsat tekilse ve güvence bir yılda yeniden birikiyorsa git; ikisi de değilse kal.",
+   "durum": "cozulmus",
+   "celisir": [
+    "C002"
+   ]
+  },
+  {
+   "id": "C020",
+   "ad": "Sokakta tanık",
+   "kapsam": "duzen",
+   "klasik": "Bana dokunmayan yılan bin yaşasın",
+   "modern": [
+    "ifşa",
+    "linç"
+   ],
+   "yonA": {
+    "hareket": "kaydet ve paylaş",
+    "maliyet": "hikâyeyi bilmediğin birinin hayatı değişir, geri alınmaz"
+   },
+   "yonB": {
+    "hareket": "geç",
+    "maliyet": "yanlış devam eder, sen de görmüş olursun"
+   },
+   "iskelet": "Kamusal ceza orantıyı vermeyi kalabalığa bırakır; kalabalık orantı bilmez.",
+   "soru": "Amacın davranışı durdurmak mı, kişiyi cezalandırmak mı?",
+   "cikis": "Durdurmaksa o an müdahale et; cezalandırmaksa senin işin değil.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C021",
+   "ad": "Konforlu mutsuzluk",
+   "kapsam": "kisi",
+   "klasik": "Taşınan ağaç kurur; Kurt köyü değiştirir",
+   "modern": [
+    "comfort zone",
+    "hayatı değiştirme"
+   ],
+   "yonA": {
+    "hareket": "kal",
+    "maliyet": "potansiyel yaşanmamış kalır"
+   },
+   "yonB": {
+    "hareket": "git",
+    "maliyet": "yalnızlık ve maddi darlık, en az bir yıl"
+   },
+   "iskelet": "Bilinen mutsuzluk ölçülebilir, bilinmeyen mutluluk ölçülemez; karşılaştırma hep kalmayı seçer.",
+   "soru": "Bir yıl sonra da aynı yerdeysen bu senin kararın mı, ertelemen mi olur?",
+   "cikis": "Karar diyorsan kal ve mutsuzluğu da kabul et; erteleme diyorsan git.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C022",
+   "ad": "Kök aile ya da çekirdek aile",
+   "kapsam": "iliski",
+   "klasik": "Ana baba hakkı ödenmez",
+   "modern": [
+    "sınır çizme",
+    "hayırlı evlat"
+   ],
+   "yonA": {
+    "hareket": "kök aileye uy",
+    "maliyet": "kendi evinde otorite ve huzur gider"
+   },
+   "yonB": {
+    "hareket": "sınır çiz",
+    "maliyet": "anne babayla soğuma, hayırsızlık suçlaması"
+   },
+   "iskelet": "İki sadakat aynı anda tam ödenemez; birine ödenen diğerinden eksilir.",
+   "soru": "Kararı kim yaşayacak: sen ve partnerin mi, anne baban mı?",
+   "cikis": "Yaşayan karar verir; anne baban yaşamayacaksa sınır çiz, nazikçe.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C023",
+   "ad": "Kardeşin borcu",
+   "kapsam": "iliski",
+   "klasik": "Kardeş kardeşin ne öldüğünü ister ne onduğunu",
+   "modern": [
+    "aile parası",
+    "bencil evlat"
+   ],
+   "yonA": {
+    "hareket": "parayı ver",
+    "maliyet": "kendi geleceğin ertelenir, geri gelmeyebilir"
+   },
+   "yonB": {
+    "hareket": "verme",
+    "maliyet": "ailede bencil ilan edilirsin"
+   },
+   "iskelet": "Aile içinde para hiçbir zaman sadece para değildir; her ödeme bir konum satın alır ya da kaybeder.",
+   "soru": "Bu para giderse kaç yılını götürür, gitmezse ailede kaç yılın gider?",
+   "cikis": "Yıllar eşitse ver; kendi yılların fazlaysa verme ve bedelini bil.",
+   "durum": "cozulmus",
+   "celisir": [
+    "C012"
+   ]
+  },
+  {
+   "id": "C024",
+   "ad": "Yaşlı ebeveyn",
+   "kapsam": "iliski",
+   "klasik": "Yuvayı dişi kuş yapar",
+   "modern": [
+    "bakım yükü",
+    "huzurevi"
+   ],
+   "yonA": {
+    "hareket": "eve al",
+    "maliyet": "ilişkin zorlanır, ev düzeni bozulur"
+   },
+   "yonB": {
+    "hareket": "kuruma yerleştir",
+    "maliyet": "vicdan, ebeveynin kırgınlığı"
+   },
+   "iskelet": "Bakım tek kişinin kararı gibi görünür ama iki ilişkiyi aynı anda yeniden yazar.",
+   "soru": "Bu kararı partnerinle birlikte mi veriyorsun, yoksa ona rağmen mi?",
+   "cikis": "Birlikteyse hangisi olursa olsun taşınır; rağmen ise hiçbiri taşınmaz.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C025",
+   "ad": "Hatayı kimse görmedi",
+   "kapsam": "kisi",
+   "klasik": null,
+   "modern": [
+    "sessiz hata"
+   ],
+   "yonA": {
+    "hareket": "üstlen",
+    "maliyet": "güvenilirliğin sarsılır"
+   },
+   "yonB": {
+    "hareket": "sus",
+    "maliyet": "risk seninle kalır, büyürse senin olur"
+   },
+   "iskelet": "Fark edilmemiş hata küçükken ucuz, büyüyünce pahalıdır; fiyat zamanla değil keşifle belirlenir.",
+   "soru": "Bu hata kendiliğinden kapanır mı, yoksa bir gün başkası mı bulur?",
+   "cikis": "Kapanacaksa sus ve izle; bulunacaksa bugün söyle, yarın pahalı.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C026",
+   "ad": "Unvan ya da uyum",
+   "kapsam": "kisi",
+   "klasik": null,
+   "modern": [
+    "prestijli teklif",
+    "impostor"
+   ],
+   "yonA": {
+    "hareket": "kabul et",
+    "maliyet": "yeteneğine uymayan rolde her gün tükenirsin"
+   },
+   "yonB": {
+    "hareket": "reddet",
+    "maliyet": "prestij ve unvan başkasına gider"
+   },
+   "iskelet": "Dış takdir ile iç uyum aynı anda maksimize edilemez; biri diğerinin kılığına girer.",
+   "soru": "Bu rolde bir yıl sonra kim olacaksın: rolü öğrenmiş sen mi, rolü taşıyamayan sen mi?",
+   "cikis": "Öğrenilebilir bir açıksa kabul et; karakter farkıysa reddet.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C027",
+   "ad": "Yakın arkadaşın kuralı bozdu",
+   "kapsam": "duzen",
+   "klasik": null,
+   "modern": [
+    "sorumlu aranıyor"
+   ],
+   "yonA": {
+    "hareket": "onu koru",
+    "maliyet": "kendi sorumluluğunu ihlal edersin, öğrenilirse ikiniz de gidersiniz"
+   },
+   "yonB": {
+    "hareket": "kuralı uygula",
+    "maliyet": "arkadaşlık biter"
+   },
+   "iskelet": "Kural ile bağ çatıştığında hangisini seçersen diğerinin bedelini ilişki öder.",
+   "soru": "Arkadaşın senin yerinde olsa seni korur muydu, bunu biliyor musun?",
+   "cikis": "Biliyorsan ona göre; bilmiyorsan kuralı uygula, tahmin üstüne bağ kurulmaz.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C028",
+   "ad": "Hakemlik",
+   "kapsam": "iliski",
+   "klasik": null,
+   "modern": [
+    "iki arkadaş küs"
+   ],
+   "yonA": {
+    "hareket": "taraf tut",
+    "maliyet": "biri gücenir, hakemliğin biter"
+   },
+   "yonB": {
+    "hareket": "tarafsız kal",
+    "maliyet": "ikisi de seni kaçak sayar"
+   },
+   "iskelet": "Hakem olarak seçilen kişi karar verdiği an hakem olmaktan çıkar.",
+   "soru": "Senden karar mı istiyorlar, yoksa dinleyen biri mi?",
+   "cikis": "Dinleyen istiyorlarsa dinle; karar istiyorlarsa ikisine birden ver, ayrı ayrı değil.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C029",
+   "ad": "Emektar ya da verim",
+   "kapsam": "duzen",
+   "klasik": "Eski dost düşman olmaz",
+   "modern": [
+    "vefa",
+    "dönüşüm"
+   ],
+   "yonA": {
+    "hareket": "tut",
+    "maliyet": "ekip verimi düşer, gençler bunu görür"
+   },
+   "yonB": {
+    "hareket": "çıkar",
+    "maliyet": "vefa bozulur, herkes sıranın kendine geleceğini düşünür"
+   },
+   "iskelet": "Vefa görünür bir maliyetle ödendiğinde vefa olmaktan çıkar, politika olur.",
+   "soru": "Bu kişi rol değiştirebilir mi, yoksa tek seçenek tut/çıkar mı?",
+   "cikis": "Rol değişebiliyorsa üçüncü yol vardır; yoksa kararı geciktirmek ikisine de zarar.",
+   "durum": "cozulmus"
+  },
+  {
+   "id": "C030",
+   "ad": "Eski hesap",
+   "kapsam": "kultur",
+   "klasik": null,
+   "modern": [
+    "geçmişin ifşası"
+   ],
+   "yonA": {
+    "hareket": "ifşa et",
+    "maliyet": "düzen bozulur, sen de o düzende yaşıyorsun"
+   },
+   "yonB": {
+    "hareket": "bırak",
+    "maliyet": "haksızlık kapanmış sayılır, sen de saymış olursun"
+   },
+   "iskelet": "Geçmişin hesabı bugün soruluyorsa bedel bugün ödenir; ödeyen çoğu zaman o gün orada olmayanlardır.",
+   "soru": "Bugün ifşa edersen kim ödeyecek: o günün sorumluları mı, bugünün insanları mı?",
+   "cikis": "Sorumlular hâlâ oradaysa sor; değilse bu hesap değil intikamdır.",
+   "durum": "cozulmus"
+  }
+ ]
+};
+const KAPI = {
+ "surum": "0.1",
+ "not": "Adlandırılmış girişler. Her kapı bir tanrının gündelik cümlesidir; kullanıcı buradan girer, sistem çıkmaza taşır. cikmaz null = kütüphanede karşılığı yok, aday. Hestia yeniden yazılacak; Google sürümü standarda uymuyor.",
+ "kayitlar": [
+  {
+   "id": "zeus_1",
+   "tanri": "zeus",
+   "bolge": "Gökyüzü, yıldırım ve son karar",
+   "cumle": "Herkes son kararı senden bekliyor; sen de danışacak kimsen olmadığını fark ediyorsun.",
+   "cikmaz": "C001",
+   "durum": "bagli"
+  },
+  {
+   "id": "zeus_2",
+   "tanri": "zeus",
+   "bolge": "Gökyüzü, yıldırım ve son karar",
+   "cumle": "Tatile nereye gidileceğine son kararı yine sen verdin. Herkes rahatladı; sen \"niye hep ben\" diye söylendin.",
+   "cikmaz": "C011",
+   "durum": "bagli"
+  },
+  {
+   "id": "zeus_3",
+   "tanri": "zeus",
+   "bolge": "Gökyüzü, yıldırım ve son karar",
+   "cumle": "Kurtarabilirdin. Kurtarmadın, çünkü o zaman herkes aynısını isterdi. Kimse ağladığını görmedi.",
+   "cikmaz": null,
+   "durum": "aday"
+  },
+  {
+   "id": "hera_1",
+   "tanri": "hera",
+   "bolge": "Evlilik, yemin ve uzun hafıza",
+   "cumle": "Haksızlığı yapan kişiye değil, ulaşabildiğin kişiye kızıyorsun; bunu sen de görüyorsun.",
+   "cikmaz": "C006",
+   "durum": "bagli"
+  },
+  {
+   "id": "hera_2",
+   "tanri": "hera",
+   "bolge": "Evlilik, yemin ve uzun hafıza",
+   "cumle": "Herkes \"olur canım\" dedi ve unuttu; sözü tutan tek kişi sen oldun. Kimse alkışlamadı, ama sen biliyorsun.",
+   "cikmaz": "C010",
+   "durum": "bagli"
+  },
+  {
+   "id": "hera_3",
+   "tanri": "hera",
+   "bolge": "Evlilik, yemin ve uzun hafıza",
+   "cumle": "Doğrudan söylesen olmayacağını biliyordun; dolambaçlı yolu seçtin ve işe yaradı. Şimdi biraz da utanıyorsun.",
+   "cikmaz": "C003",
+   "durum": "bagli"
+  },
+  {
+   "id": "poseidon_1",
+   "tanri": "poseidon",
+   "bolge": "Deniz, deprem, atlar ve eski hesaplar",
+   "cumle": "Bir yarışı kaybettin; kaybı kabul etmek ile kabul etmiş gibi görünmek arasında kaldın.",
+   "cikmaz": "C005",
+   "durum": "bagli"
+  },
+  {
+   "id": "poseidon_2",
+   "tanri": "poseidon",
+   "bolge": "Deniz, deprem, atlar ve eski hesaplar",
+   "cumle": "Oyunu kaybettin ve \"zaten sevmem bu oyunu\" dedin. Oysa üç saat oynadın.",
+   "cikmaz": "C005",
+   "durum": "bagli"
+  },
+  {
+   "id": "poseidon_3",
+   "tanri": "poseidon",
+   "bolge": "Deniz, deprem, atlar ve eski hesaplar",
+   "cumle": "Alanına biri kendi alanı gibi girdi; senin için mesele mülk değil, sorulmamış olmak.",
+   "cikmaz": "C013",
+   "durum": "bagli"
+  },
+  {
+   "id": "demeter_1",
+   "tanri": "demeter",
+   "bolge": "Buğday, hasat ve yarım geri dönüş",
+   "cumle": "Geri aldın, ama tamamını değil; bir kısmı artık başka bir hayatta yaşıyor.",
+   "cikmaz": "C022",
+   "durum": "bagli"
+  },
+  {
+   "id": "demeter_2",
+   "tanri": "demeter",
+   "bolge": "Buğday, hasat ve yarım geri dönüş",
+   "cumle": "Yıllar önce ektiğin bir şey bu yıl meyve verdi. Kimseye anlatmadın, ama bugün biraz daha yavaş yürüdün.",
+   "cikmaz": null,
+   "durum": "aday"
+  },
+  {
+   "id": "demeter_3",
+   "tanri": "demeter",
+   "bolge": "Buğday, hasat ve yarım geri dönüş",
+   "cumle": "Birinin çocuğuna iyilik yapıyordun; annesi kapıdan girdi ve gördüğü şey iyilik gibi görünmüyordu.",
+   "cikmaz": "C027",
+   "durum": "bagli"
+  },
+  {
+   "id": "athena_1",
+   "tanri": "athena",
+   "bolge": "Zeytin, baykuş ve kafadan doğan fikir",
+   "cumle": "Haklısın ve kazanabilirsin; ama kazanmanın karşındakine ne yapacağını görüyorsun.",
+   "cikmaz": "C003",
+   "durum": "bagli"
+  },
+  {
+   "id": "athena_2",
+   "tanri": "athena",
+   "bolge": "Zeytin, baykuş ve kafadan doğan fikir",
+   "cumle": "İki arkadaşın yıllardır küs; ikisi de seni hakem seçti. Ne desen biri gücenecek.",
+   "cikmaz": "C028",
+   "durum": "bagli"
+  },
+  {
+   "id": "athena_3",
+   "tanri": "athena",
+   "bolge": "Zeytin, baykuş ve kafadan doğan fikir",
+   "cumle": "Bir fikir kafanda o kadar hazır doğdu ki nereden geldiğini bilmiyorsun. Sadece işe yaradı.",
+   "cikmaz": null,
+   "durum": "aday"
+  },
+  {
+   "id": "apollon_1",
+   "tanri": "apollon",
+   "bolge": "Lir, ok ve çift anlamlı cevaplar",
+   "cumle": "Ne olacağını gördün, söyledin, kimse inanmadı. Olduğunda da kimse dönüp bakmadı.",
+   "cikmaz": "C010",
+   "durum": "bagli"
+  },
+  {
+   "id": "apollon_2",
+   "tanri": "apollon",
+   "bolge": "Lir, ok ve çift anlamlı cevaplar",
+   "cumle": "Tavsiye istediler; \"ikisi de olur\" dedin. Şimdi kötü giden şey senin yüzünden.",
+   "cikmaz": "C028",
+   "durum": "bagli"
+  },
+  {
+   "id": "apollon_3",
+   "tanri": "apollon",
+   "bolge": "Lir, ok ve çift anlamlı cevaplar",
+   "cumle": "Tartışmayı kazandın. Sonra bir cümle daha söyledin; o cümle fazlaydı, sen de biliyorsun.",
+   "cikmaz": "C006",
+   "durum": "bagli"
+  },
+  {
+   "id": "artemis_1",
+   "tanri": "artemis",
+   "bolge": "Orman, av ve kimsenin girmediği yer",
+   "cumle": "Bu hafta sonu kimseyle plan yapmadın ve harika geçti. Bunu birine açıklamak zorunda mısın?",
+   "cikmaz": "C017",
+   "durum": "bagli"
+  },
+  {
+   "id": "artemis_2",
+   "tanri": "artemis",
+   "bolge": "Orman, av ve kimsenin girmediği yer",
+   "cumle": "Sınırını aşan kişi bunu bilerek yapmadı; sen yine de bilerek yapmış gibi cevap verdin.",
+   "cikmaz": "C006",
+   "durum": "bagli"
+  },
+  {
+   "id": "artemis_3",
+   "tanri": "artemis",
+   "bolge": "Orman, av ve kimsenin girmediği yer",
+   "cumle": "Doğum gününü unuttular; bir yıl konuşmadın. Fazla mıydı? Belki. Ama unuttular.",
+   "cikmaz": "C006",
+   "durum": "bagli"
+  },
+  {
+   "id": "ares_1",
+   "tanri": "ares",
+   "bolge": "Savaş, ter ve ilk hamle",
+   "cumle": "Grup sohbetinde herkes \"bir şey yapsak\" yazıyor; rezervasyonu sen yaptın. Sonra \"niye sormadın\" dediler.",
+   "cikmaz": "C009",
+   "durum": "bagli"
+  },
+  {
+   "id": "ares_2",
+   "tanri": "ares",
+   "bolge": "Savaş, ter ve ilk hamle",
+   "cumle": "Yakınına yapılan bir şeye karşılık verdin; \"haklı mıydım\" sorusu \"orantılı mıydım\" sorusuna dönüştü.",
+   "cikmaz": "C020",
+   "durum": "bagli"
+  },
+  {
+   "id": "ares_3",
+   "tanri": "ares",
+   "bolge": "Savaş, ter ve ilk hamle",
+   "cumle": "Yakalandın; herkesin gülmesi, yaptığın şeyden daha çok acıttı.",
+   "cikmaz": "C025",
+   "durum": "bagli"
+  },
+  {
+   "id": "afrodit_1",
+   "tanri": "afrodit",
+   "bolge": "Arzu, güzellik ve bozulan planlar",
+   "cumle": "Odaya biri girdi; o akşam için yaptığın bütün plan bir anda gereksiz oldu.",
+   "cikmaz": "C002",
+   "durum": "bagli"
+  },
+  {
+   "id": "afrodit_2",
+   "tanri": "afrodit",
+   "bolge": "Arzu, güzellik ve bozulan planlar",
+   "cumle": "İlişkin açığa çıktı, herkes güldü; ilişkiden mi gülünmekten mi daha çok utandığını ayıramıyorsun.",
+   "cikmaz": "C008",
+   "durum": "bagli"
+  },
+  {
+   "id": "afrodit_3",
+   "tanri": "afrodit",
+   "bolge": "Arzu, güzellik ve bozulan planlar",
+   "cumle": "Hoşlandığın kişiyi yakınlarına söyleyemiyorsun. Utandığın o mu, sen mi?",
+   "cikmaz": "C003",
+   "durum": "bagli"
+  },
+  {
+   "id": "hephaistos_1",
+   "tanri": "hephaistos",
+   "bolge": "Ateş, demir ve kendi kendine çalışan aletler",
+   "cumle": "Evdeki her şeyi sen tamir ediyorsun. Kimse \"nasılsın\" demiyor, \"şu bozuldu\" diyor.",
+   "cikmaz": "C010",
+   "durum": "bagli"
+  },
+  {
+   "id": "hephaistos_2",
+   "tanri": "hephaistos",
+   "bolge": "Ateş, demir ve kendi kendine çalışan aletler",
+   "cumle": "Haklıydın, kanıtın da vardı; herkese gösterdin — ve en çok sen küçük düştün.",
+   "cikmaz": "C016",
+   "durum": "bagli"
+  },
+  {
+   "id": "hephaistos_3",
+   "tanri": "hephaistos",
+   "bolge": "Ateş, demir ve kendi kendine çalışan aletler",
+   "cumle": "Seni bir zamanlar kurtaran biri kapına geldi ve bir şey istedi; bütün gece çalıştın; hiç bu kadar mutlu olmamıştın.",
+   "cikmaz": null,
+   "durum": "aday"
+  },
+  {
+   "id": "hermes_1",
+   "tanri": "hermes",
+   "bolge": "Yollar, haberler ve küçük hırsızlıklar",
+   "cumle": "İki arkadaşın küs; ikisiyle de ayrı ayrı kahve içtin. İkisi de \"sen beni anlıyorsun\" dedi.",
+   "cikmaz": "C028",
+   "durum": "bagli"
+  },
+  {
+   "id": "hermes_2",
+   "tanri": "hermes",
+   "bolge": "Yollar, haberler ve küçük hırsızlıklar",
+   "cumle": "Sana verilen mesajı taşıyorsun; karşı taraf mesajı değil seni suçluyor.",
+   "cikmaz": "C013",
+   "durum": "bagli"
+  },
+  {
+   "id": "hermes_3",
+   "tanri": "hermes",
+   "bolge": "Yollar, haberler ve küçük hırsızlıklar",
+   "cumle": "Bir şeyi kaçırdın, sonra öyle iyi konuştun ki mesele kapandı. İçinde de kapandı mı, bilmiyorsun.",
+   "cikmaz": "C025",
+   "durum": "bagli"
+  },
+  {
+   "id": "dionysos_1",
+   "tanri": "dionysos",
+   "bolge": "Şarap, maske ve bırakılan kontrol",
+   "cumle": "Kimse dans etmiyordu; sen kalktın. On dakika sonra masa boştu.",
+   "cikmaz": "C009",
+   "durum": "bagli"
+  },
+  {
+   "id": "dionysos_2",
+   "tanri": "dionysos",
+   "bolge": "Şarap, maske ve bırakılan kontrol",
+   "cumle": "İstediğin şeyi tam olarak aldın; şimdi ondan kurtulmak istiyorsun.",
+   "cikmaz": "C026",
+   "durum": "bagli"
+  },
+  {
+   "id": "dionysos_3",
+   "tanri": "dionysos",
+   "bolge": "Şarap, maske ve bırakılan kontrol",
+   "cumle": "Bir şeyi kendine yasakladın; o şey seni hazırlıksız yakalayana kadar yokmuş gibi yaşadın.",
+   "cikmaz": "C019",
+   "durum": "bagli"
+  }
+ ]
+};
+const K = LIB.kayitlar;
+const $ = id => document.getElementById(id);
+let state = {};
+
+function libText(){
+  return K.map(r => `${r.id} | ${r.ad} | modern: ${(r.modern||[]).join(", ")} | A: ${r.yonA.hareket} (${r.yonA.maliyet}) | B: ${r.yonB.hareket} (${r.yonB.maliyet}) | iskelet: ${r.iskelet} | soru: ${r.soru}`).join("\n");
+}
+
+async function ask(system, user){
+  const r = await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1000,system,messages:[{role:"user",content:user}]})});
+  const d = await r.json();
+  const t = (d.content||[]).filter(c=>c.type==="text").map(c=>c.text).join("");
+  return JSON.parse(t.replace(/```json|```/g,"").trim());
+}
+
+const SYS1 = `Sen Fifthback'in yerleştirme katmanısın. Görevin bir kişinin sıkışma cümlesini aşağıdaki çıkmaz kütüphanesine bağlamak. Kişiye kim olduğunu söylemezsin; sadece hangi çıkmaza benzediğini ve neden benzediğini bir cümleyle söylersin. Teşhis koymazsın, öğüt vermezsin.
+Kural: en fazla iki aday ver. İlk aday en yakın olan. Uyum puanı 0-1. İki adayın da puanı 0.4'ün altındaysa "yok" alanına true yaz ve "neden" alanında kütüphanede karşılığı olmadığını söyle.
+Çıktı yalnızca JSON: {"adaylar":[{"id":"C0xx","puan":0.0,"neden":"kişinin kendi kelimeleriyle, tek cümle"}],"yok":false}
+Önsöz yok, markdown yok.
+
+Kütüphane:
+` + libText();
+
+const SYS2 = `Sen Fifthback'in yol katmanısın. Sana bir çıkmaz kaydı, kişinin cümlesi ve kişinin beşinci soruya verdiği cevap (hangi yönde olduğu) verilecek. Kütüphanede bu çıkmaz için yollar varsa onları OLDUĞU GİBİ döndür, uydurma. Yoksa 3 taslak yol yaz; her yolun "yetmez" alanı zorunlu: ne zaman işe yaramadığını söylemeyen yol tavsiyeye dönüşür ve değersizleşir. Taslakları kaynak:"taslak" olarak işaretle.
+Yollar kişinin cümlesindeki somut duruma uyarlanmış, ikinci tekil şahısla, kısa. "Sen şusun" deme. Kişi krizde görünüyorsa (kendine zarar, umutsuzluk) yol yazma; "kriz":true döndür ve "not" alanına bir insanla ya da 182 gibi bir hatla konuşmasını öner.
+Çıktı yalnızca JSON: {"cikis":"bu yön için çıkış koşulu, tek cümle","yollar":[{"ad":"","kaynak":"kutuphane|taslak","ne":"","yetmez":""}],"kriz":false,"not":""}`;
+
+function kapiGoster(){
+  const el=$("kapilar"); el.innerHTML="";
+  const bagli=KAPI.kayitlar.filter(k=>k.cikmaz);
+  bagli.sort(()=>Math.random()-0.5).slice(0,3).forEach(k=>{
+    const b=document.createElement("button");
+    b.innerHTML=esc(k.cumle);
+    b.onclick=()=>{ state={cumle:k.cumle, adaylar:[{id:k.cikmaz, neden:"Bu kapıdan girdin: "+k.tanri.charAt(0).toUpperCase()+k.tanri.slice(1)+"."}], kapi:k.id}; $("in").value=""; $("e1").textContent=""; showOnay(0); };
+    el.append(b);
+  });
+  const y=document.createElement("button"); y.innerHTML="Başka sokaklar<small>üç yeni cümle</small>"; y.onclick=kapiGoster; el.append(y);
+}
+kapiGoster();
+(function(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const y=$("modYaz"), s=$("modSes"); let r=null, on=false;
+  y.onclick=()=>{ if(on) r.stop(); y.classList.add("on"); s.classList.remove("on"); $("in").focus(); };
+  if (!SR) return;
+  s.hidden=false;
+  s.onclick=()=>{
+    s.classList.add("on"); y.classList.remove("on");
+    if (on) { r.stop(); return; }
+    r=new SR(); r.lang="tr-TR"; r.interimResults=true; r.continuous=false;
+    let base=$("in").value.trim(); if (base) base+=" ";
+    r.onresult=e=>{ let t=""; for (const x of e.results) t+=x[0].transcript; $("in").value=base+t; };
+    r.onstart=()=>{ on=true; s.textContent="■ Dinliyor, bitirmek için dokun"; };
+    r.onend=()=>{ on=false; s.textContent="🎤 Sesli anlatacağım"; };
+    r.onerror=()=>{ on=false; s.textContent="🎤 Sesli anlatacağım"; $("e1").textContent="Ses alınamadı; mikrofon iznini kontrol et ya da yaz."; };
+    r.start();
+  };
+})();
+$("go").onclick = async () => {
+  const t = $("in").value.trim();
+  $("e1").textContent = "";
+  if (t.length < 8) { $("e1").textContent = "Bir cümle yaz; tek kelime yerleşmez."; return; }
+  ["s2","s3","s4","s5","s6"].forEach(i=>$(i).hidden=true);
+  $("go").disabled = true; $("w1").textContent = "Kütüphaneye bakılıyor…";
+  try {
+    const r = await ask(SYS1, "Cümle: " + t);
+    state = {cumle:t, adaylar:r.adaylar||[]};
+    if (r.yok || !state.adaylar.length) {
+      $("e1").textContent = "Kütüphanede buna benzeyen bir çıkmaz yok. Bu bir hata değil; C014 adayı olabilir. Cümleni başka bir açıdan yazmayı dene ya da olduğu gibi bırak.";
+      return;
+    }
+    showOnay(0);
+  } catch(e) { $("e1").textContent = "Bağlantı kurulamadı. Tekrar dene."; }
+  finally { $("go").disabled = false; $("w1").textContent = ""; }
+};
+
+function showOnay(i){
+  const a = state.adaylar[i]; const r = K.find(x=>x.id===a.id);
+  if (!r) { $("e1").textContent="Model kütüphanede olmayan bir id verdi."; return; }
+  state.i = i; state.rec = r;
+  $("ad").textContent = r.ad + (r.klasik ? " — " + r.klasik : "");
+  $("why").textContent = a.neden;
+  const o = $("onay"); o.innerHTML = "";
+  const y = document.createElement("button"); y.innerHTML = "Evet, buna benziyor";
+  y.onclick = () => showSoru();
+  const n = document.createElement("button");
+  const alt = state.adaylar[i+1];
+  n.innerHTML = alt ? "Hayır<small>başka bir adayı göster</small>" : "Hayır<small>kütüphanede ikinci aday yok</small>";
+  n.onclick = () => { if (alt) showOnay(i+1); else { $("e1").textContent = "İki aday da uymadı. Cümleni olduğu gibi bırak; bu kütüphanenin boşluğu, senin değil."; $("s2").hidden=true; } };
+  o.append(y,n);
+  $("s2").hidden = false; $("s2").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function showSoru(){
+  const r = state.rec;
+  $("soru").textContent = r.soru;
+  $("iskelet").textContent = r.iskelet;
+  const y = $("yon"); y.innerHTML = "";
+  [["A",r.yonA],["B",r.yonB]].forEach(([k,d]) => {
+    const b = document.createElement("button");
+    b.innerHTML = d.hareket.charAt(0).toUpperCase()+d.hareket.slice(1) + "<small>bedeli: " + d.maliyet + "</small>";
+    b.onclick = () => { [...y.children].forEach(c=>c.classList.remove("on")); b.classList.add("on"); showYollar(k, d); };
+    y.append(b);
+  });
+  $("s3").hidden = false; $("s3").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+async function showYollar(k, d){
+  const r = state.rec;
+  $("s4").hidden = false; $("yollar").innerHTML = ""; $("cikis").textContent = "";
+  $("w4").textContent = "Yollar hazırlanıyor…";
+  $("s4").scrollIntoView({behavior:"smooth",block:"start"});
+  try {
+    const u = `Çıkmaz: ${JSON.stringify({id:r.id,ad:r.ad,iskelet:r.iskelet,soru:r.soru,cikis:r.cikis,yollar:r.yollar||[]})}
+Kişinin cümlesi: ${state.cumle}
+Kişi beşinci soruya şu yönde cevap verdi: ${d.hareket} (bedeli: ${d.maliyet})`;
+    const out = await ask(SYS2, u);
+    if (out.kriz) { $("cikis").textContent = out.not || "Bu noktada bir insanla konuşmak aynadan daha iyi."; return; }
+    $("cikis").textContent = out.cikis || r.cikis || "";
+    (out.yollar||[]).forEach(y => {
+      const el = document.createElement("div"); el.className = "yol";
+      el.innerHTML = `<h3>${esc(y.ad)}<span class="src">${y.kaynak==="taslak"?"taslak, kütüphanede değil":"kütüphane"}</span></h3><p>${esc(y.ne)}</p><p class="yetmez">${esc(y.yetmez)}</p>`;
+      $("yollar").append(el);
+    });
+    $("s5").hidden = false;
+  } catch(e) { $("cikis").textContent = "Yollar alınamadı. Tekrar dene."; }
+  finally { $("w4").textContent = ""; }
+}
+
+$("kaydet").onclick = () => {
+  const t = $("kendi").value.trim();
+  if (t.length < 4) { $("w5").textContent = "Önce bir yol yaz."; return; }
+  state.kendi = t; $("w5").textContent = "Kaydedildi (bu prototipte yalnızca bu oturumda).";
+  $("s6").hidden = false; $("s6").scrollIntoView({behavior:"smooth",block:"start"});
+};
+$("yeni").onclick = () => { kapiGoster(); $("in").value=""; ["s2","s3","s4","s5","s6"].forEach(i=>$(i).hidden=true); window.scrollTo({top:0,behavior:"smooth"}); $("in").focus(); };
+function esc(s){ return String(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+</script></body></html>
