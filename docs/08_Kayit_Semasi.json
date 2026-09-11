@@ -1,0 +1,168 @@
+{
+ "surum": "0.1",
+ "not": "Tek kayıt şeması. Üç depo (Fifth, The-Fifth, Fifhtback) bu dosyayı konuşur. Karar kaynağı: The-Fifth/00_Source_of_Truth.md. Derinlik ve kapsam ayrı eksenlerdir; seviye, kilit, yüzde, skor yoktur.",
+ "eksenler": {
+  "derinlik": {
+   "aciklama": "Kaydın ne kadar bilindiği. Kaynağına göre otomatik atanır, kullanıcıya gösterilmez. Arayüzde duyu dili kullanılabilir.",
+   "10": {
+    "ad": "sinyal",
+    "duyu": "görmek",
+    "kaynak": "kişinin kendi cümlesi, ham hikâye"
+   },
+   "20": {
+    "ad": "baglam",
+    "duyu": "duymak",
+    "kaynak": "başkasının sözü, iskelet + kutup + mekanizma + polarite; motor korur, kişi görmez"
+   },
+   "30": {
+    "ad": "cikarim",
+    "duyu": "koklamak",
+    "kaynak": "kütüphane eşleşmesi: çıkmaz + beşinci soru + yollar"
+   },
+   "40": {
+    "ad": "sonuc",
+    "duyu": "tatmak",
+    "kaynak": "dönüş: ne yaptı, ne oldu"
+   },
+   "50": {
+    "ad": "esik",
+    "duyu": "hissetmek",
+    "kaynak": "üretilmez; çıkmazın cozulmus ya da kapanmış hâle geçtiği yer. Uygulama 50'yi göstermez."
+   }
+  },
+  "kapsam": {
+   "aciklama": "Çıkmazın kimi kapsadığı. Bronfenbrenner'a yakın; derinlikten bağımsız.",
+   "kisi": "kendin: düşünce, duygu, davranış",
+   "iliski": "ikili: sen + bir kişi",
+   "duzen": "içinde olmadığın sistem: şirket, piyasa, mahalle",
+   "kultur": "kolektif hafıza ve zaman: atasözü, mit, gündem"
+  },
+  "bes_aci": {
+   "aciklama": "Yalnızca derinlik 30 kayıtlarında, her yol için doldurulur. Sayı değil cümle; skor üretmez.",
+   "kisi_arti": "kişiye ne kazandırır",
+   "kisi_eksi": "kişiden ne götürür",
+   "toplum_arti": "içinde olduğu düzene faydası",
+   "toplum_eksi": "düzende yarattığı tepki ya da bedel",
+   "hafiza": "kültürel hafıza bunu nasıl etiketlemiş: atasözü çifti, mit kapısı, Ekşi/Reddit cümlesi. Beşinci soru buradan çıkar."
+  }
+ },
+ "kayit_alanlari": {
+  "id": "K + sha1 ilk 8; tekrar eklenmez",
+  "derinlik": "10 | 20 | 30 | 40",
+  "kapsam": "kisi | iliski | duzen | kultur",
+  "cikmaz": "C0xx ya da null; null bir bulgudur (kütüphanenin boşluğu)",
+  "kapi": "adlandırılmış giriş: tanrı_kapi_no (örn. poseidon_2) ya da null (serbest anlatı)",
+  "ham": "yalnızca derinlik 10; kişiye ait, hiçbir zaman toplu raporda görünmez",
+  "iskelet": "derinlik 20+; somut isim içermez",
+  "k": "kutuplar, en fazla iki",
+  "m": "mekanizma, 17'lik liste",
+  "p": "polarite −1..+1",
+  "soru": "derinlik 30; kütüphaneden gelir, uydurulmaz",
+  "yollar": "derinlik 30; her yol: {ad, kaynak: kutuphane|taslak|donus, ne, yetmez, bes_aci}",
+  "secilen_yol": "derinlik 40; kişinin seçtiği ya da yazdığı yol",
+  "sonuc": "derinlik 40: acik | cikti | kotu",
+  "oturum": "aynı kişinin kayıtlarını bağlar; kişi kimliği değil",
+  "kaynak": "kullanici | eksi | reddit | kutuphane | donus",
+  "zaman": "ISO tarih"
+ },
+ "kurumsal_kural": {
+  "not": "Fifthback (kurumsal kabuk) için. Source of Truth: işverene bireysel skor yok.",
+  "sirkete_giden": [
+   "ekip düzeyinde çıkmaz sayımı (örn. C013 x4, 3 ay)",
+   "kapsam dağılımı",
+   "acik/cozulmus oranı"
+  ],
+  "sirkete_gitmeyen": [
+   "ham",
+   "oturum",
+   "iskelet",
+   "secilen_yol",
+   "herhangi bir bireysel kayıt"
+  ],
+  "esik": "bir ekipte aynı çıkmaz 3'ten az kişide görülüyorsa raporlanmaz (tekil kişi tanınabilir)"
+ },
+ "ornek_oturum": [
+  {
+   "id": "K3f9a12c0",
+   "derinlik": 10,
+   "kapsam": "iliski",
+   "cikmaz": null,
+   "kapi": "poseidon_3",
+   "ham": "Direktörüme ne sorsam soruyla cevap veriyor. Karar götürsem 'kararı ben veririm' diyor. Artık sormuyorum.",
+   "oturum": "o-7a1",
+   "kaynak": "kullanici",
+   "zaman": "2026-09-11"
+  },
+  {
+   "id": "K3f9a12c0-20",
+   "derinlik": 20,
+   "kapsam": "iliski",
+   "cikmaz": "C013",
+   "kapi": "poseidon_3",
+   "iskelet": "Karar hakkı istenen taraf her isteği soruya çevirerek taahhütten kaçınır; isteyen taraf zamanla sormayı bırakır.",
+   "k": [
+    "IS",
+    "ILISKI"
+   ],
+   "m": "karar-tikanmasi",
+   "p": -0.5,
+   "oturum": "o-7a1",
+   "kaynak": "kullanici",
+   "zaman": "2026-09-11"
+  },
+  {
+   "id": "K3f9a12c0-30",
+   "derinlik": 30,
+   "kapsam": "iliski",
+   "cikmaz": "C013",
+   "kapi": "poseidon_3",
+   "soru": "Cevabı gerçekten bilmiyor musun, yoksa duyunca yapman gerekeni mi erteliyorsun?",
+   "yollar": [
+    {
+     "ad": "Karar olarak götür",
+     "kaynak": "kutuphane",
+     "ne": "Soru yerine 'şöyle yapacağım, itirazın var mı' de.",
+     "yetmez": "Karşı taraf karar hakkını hiç paylaşmıyorsa bu da kapanır.",
+     "bes_aci": {
+      "kisi_arti": "tahmin etmekten kurtulursun",
+      "kisi_eksi": "ret açık ve kayıtlı olur",
+      "toplum_arti": "ekip kararın kimde olduğunu görür",
+      "toplum_eksi": "hiyerarşiyi zorladığın okunabilir",
+      "hafiza": "Bilmemek ayıp değil, sormamak ayıp | Poseidon 3: mesele mülk değil, sorulmamış olmak"
+     }
+    }
+   ],
+   "oturum": "o-7a1",
+   "kaynak": "kutuphane",
+   "zaman": "2026-09-11"
+  },
+  {
+   "id": "K3f9a12c0-40",
+   "derinlik": 40,
+   "kapsam": "iliski",
+   "cikmaz": "C013",
+   "kapi": "poseidon_3",
+   "secilen_yol": "Karar olarak götür",
+   "sonuc": "acik",
+   "oturum": "o-7a1",
+   "kaynak": "donus",
+   "zaman": null
+  }
+ ],
+ "adlandirma": {
+  "aciklama": "Çıkmaz, 'klasik' ve 'modern' alanları ikisi de boşsa adsızdır. Eski atasözleri eski çıkmazları sıkıştırdı; yeni çıkmazlar için kelime yoksa Fifth topluluğu üretir. Ghosting örneği: dört olay tek isme iner.",
+  "akis": [
+   "adsız çıkmaz kişiye 'buna bir ad var mı?' diye sorulur",
+   "öneriler kaydedilir: {oneren: oturum, ad, tarih}",
+   "topluluk oylar; oy sayısı gösterilir, yüzde ve sıralama gösterilmez",
+   "kabul edilen ad 'modern' alanına girer, 'ad_kaynak': 'topluluk', 'oneren' kaydı kalır"
+  ],
+  "alanlar": {
+   "ad_kaynak": "klasik | modern | topluluk",
+   "oneren": "oturum id; kişi kimliği değil",
+   "oy": "tam sayı",
+   "durum": "aday | kabul | ret"
+  },
+  "telif_notu": "Kabul edilen ada telif/ödeme bağlanacaksa oneren'in oturumdan gerçek kimliğe çözülmesi gerekir; bu, gizlilik kuralından ayrı bir rıza adımıdır ve şimdilik tasarlanmamıştır."
+ }
+}
